@@ -28,9 +28,9 @@ const ForgotPass: React.FC = () => {
               placeholder="neoisneo07@gmail.com"
             />
             <button className="w-full py-3 bg-black text-white rounded-lg font-semibold text-lg shadow-md hover:bg-gray-900 transition mb-2">
-<Link
-              href="/auth/forgotpassmail"
-              
+              <Link
+                href="/auth/forgotpassmail"
+                className="w-full py-3 bg-black text-white rounded-lg font-semibold text-lg shadow-md hover:bg-gray-900 transition mb-2"
             >
               Илгээх!!
             </Link>
