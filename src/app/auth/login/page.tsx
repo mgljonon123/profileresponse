@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Login: React.FC = () => {
@@ -10,9 +11,9 @@ const Login: React.FC = () => {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Form */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-8">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0">
         <div className="flex flex-col items-center w-full max-w-md">
-          <div className="bg-gray-200 rounded-xl w-12 h-12 flex items-center justify-center mb-6 text-2xl font-bold text-gray-700">
+          <div className="bg-gray-200 rounded-xl w-12 h-12 flex items-center justify-center mb-6 text-2xl font-bold text-gray-700 relative top-4 left-4">
             N
           </div>
           <h2 className="text-3xl font-bold mb-2 text-center">Өөрийн бүртгэл рүү нэвтрэх</h2>
@@ -30,7 +31,7 @@ const Login: React.FC = () => {
             />
             <div className="flex justify-between items-center mb-1">
               <label className="text-sm font-medium">Нууц үг</label>
-              <a href="#" className="text-sm font-medium text-black">Нууц үгээ мартсан уу?</a>
+              <Link href="/auth/forgotpass" className="text-sm font-medium text-black">Нууц үгээ мартсан уу?</Link>
             </div>
             <input
               type="password"
@@ -58,7 +59,7 @@ const Login: React.FC = () => {
           </form>
           <div className="text-center text-gray-500 mt-2">
             Одоо болтол бүртгэлгүй юу?{" "}
-            <a href="#" className="text-black font-semibold">бүртгүүлээрэй, үнэгүй</a>
+            <Link href="/auth/register" className="text-black font-semibold">бүртгүүлээрэй, үнэгүй</Link>
           </div>
         </div>
       </div>
