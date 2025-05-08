@@ -21,7 +21,7 @@ const icons = [
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-[#F7F7FA] min-h-screen">
+    <div className="bg-[#F7F7FA] min-h-screen flex">
       {/* Sidebar */}
       <aside className="fixed top-0 left-0 h-screen w-20 bg-white border-r flex flex-col items-center py-8 gap-8 shadow-sm z-20">
         {icons.map((item, idx) => (
@@ -30,7 +30,13 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
           </Link>
         ))}
       </aside>
-      <main className="flex-1 px-12 py-8 ml-20">{children}</main>
+      
+      {/* Main Content */}
+      <main className="flex-1 ml-20 min-h-screen">
+        <div className="max-w-7xl mx-auto px-8 py-8">
+          {children}
+        </div>
+      </main>
     </div>
   );
 } 

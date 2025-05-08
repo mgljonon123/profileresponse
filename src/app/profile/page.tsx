@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 // Sidebar icon SVG-үүд
 const icons = [
@@ -40,6 +41,7 @@ export default function Profile() {
     language: "",
     timeZone: "",
   });
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -50,51 +52,63 @@ export default function Profile() {
   };
 
   return (
-    <>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-10">
         <div>
-          <h1 className="text-2xl font-bold text-[#232360]">Сайн Байна уу? <span className="text-blue-600">Neo</span></h1>
-          <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
+          <h1 className="text-3xl font-bold text-[#232360]">Сайн Байна уу? <span className="text-blue-600">Neo</span></h1>
+          <p className="text-gray-400 text-base mt-2">Mon, 25 May 2025</p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
-            <Image src="/profile.jpg" alt="profile" width={48} height={48} />
+        <div className="flex items-center gap-6">
+          <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+            <Image src="/193484-2.jpg" alt="profile" width={56} height={56} className="object-cover" />
           </div>
-          <button className="bg-white p-2 rounded-full shadow hover:bg-blue-50 transition">
-            <span role="img" aria-label="notif">🔔</span>
+          <button 
+            onClick={() => router.push('/')} 
+            className="bg-white p-3.5 rounded-full shadow-md hover:shadow-lg hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              strokeWidth={2} 
+              stroke="currentColor" 
+              className="w-6 h-6 text-gray-600 group-hover:text-[#E94A1F] transition-colors duration-300"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
           </button>
         </div>
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-8 shadow-sm" />
+      <div className="w-full h-32 rounded-2xl mb-12 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-10 shadow-md" />
 
       <div className="flex gap-12 items-start">
         {/* Main Section: Test results */}
         <div className="flex-1">
-          <h2 className="text-3xl font-bold mb-2 text-[#232360]">Сайн Байна уу? <span className="text-black">Neo</span></h2>
-          <p className="mb-8 text-lg text-[#232360]">Таний <b>test</b> хариунд тохирох <b>3 мэргэжил</b></p>
-          <div className="flex flex-col gap-6">
+          <h2 className="text-4xl font-bold mb-3 text-[#232360]">Сайн Байна уу? <span className="text-black">Neo</span></h2>
+          <p className="mb-10 text-xl text-[#232360]">Таний <b>test</b> хариунд тохирох <b>3 мэргэжил</b></p>
+          <div className="flex flex-col gap-8">
             {[1, 2, 3].map((_, i) => (
-              <div key={i} className="flex items-center bg-white rounded-2xl shadow p-6 border border-[#E6E6F2] gap-6 hover:shadow-lg transition">
+              <div key={i} className="flex items-center bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-8 border border-[#E6E6F2] gap-8">
                 <div className="flex flex-col items-center">
-                  <Image src="/cert.png" alt="cert" width={140} height={100} className="rounded-lg" />
+                  <Image src="/193484-2.jpg" alt="cert" width={160} height={120} className="rounded-xl shadow-sm" />
                 </div>
                 <div className="ml-4 flex-1 flex flex-col justify-center">
-                  <div className="font-semibold text-lg text-[#232360] mb-1">Мэргэжил</div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-32 bg-gray-200 rounded-full h-8 relative flex items-center">
-                      <div className="bg-blue-500 h-8 rounded-full" style={{ width: '70%' }}></div>
+                  <div className="font-semibold text-xl text-[#232360] mb-2">Мэргэжил</div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-40 bg-gray-200 rounded-full h-10 relative flex items-center">
+                      <div className="bg-blue-500 h-10 rounded-full" style={{ width: '70%' }}></div>
                       <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-base text-black font-bold">70%</span>
                     </div>
-                    <button className="ml-2 p-2 rounded hover:bg-gray-100 border border-gray-200">
-                      <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6.071-6.071a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.94l-3.535 1.178 1.178-3.535a4 4 0 01.94-1.414z"/></svg>
+                    <button className="ml-2 p-2.5 rounded-lg hover:bg-gray-100 border border-gray-200 transition-colors duration-300">
+                      <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6.071-6.071a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.94l-3.535 1.178 1.178-3.535a4 4 0 01.94-1.414z"/></svg>
                     </button>
                   </div>
                 </div>
-                <div className="ml-4 text-gray-500 font-medium text-right min-w-[80px]">
-                  <div className="text-base">1 mois</div>
+                <div className="ml-4 text-gray-500 font-medium text-right min-w-[100px]">
+                  <div className="text-lg">1 mois</div>
                 </div>
               </div>
             ))}
@@ -102,22 +116,22 @@ export default function Profile() {
         </div>
 
         {/* Profile Info: Right side */}
-        <aside className="w-[370px] flex flex-col items-center">
-          <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-gray-200 mb-6 shadow">
-            <Image src="/profile.jpg" alt="profile" width={176} height={176} />
+        <aside className="w-[400px] flex flex-col items-center">
+          <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-gray-200 mb-8 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Image src="/193484-2.jpg" alt="profile" width={192} height={192} className="object-cover" />
           </div>
-          <div className="w-full bg-white rounded-2xl border border-[#E6E6F2] p-8 shadow flex flex-col gap-2">
-            <h2 className="font-bold mb-2 text-lg text-[#232360]">Information summary</h2>
-            <div className="mb-1 text-base flex justify-between"><span>Phone</span> <b className="text-[#232360]">+97699839573</b></div>
-            <div className="mb-1 text-base flex justify-between"><span>Email</span> <b className="text-[#232360]">neoisneo07@gmail.com</b></div>
-            <div className="mb-1 text-base flex justify-between"><span>Adress</span> <b className="text-[#232360]">Ulaanbaatar</b></div>
-            <button className="mt-4 w-full bg-black text-white py-3 rounded-lg flex items-center justify-center gap-2 text-base font-semibold hover:bg-[#232360] transition">
+          <div className="w-full bg-white rounded-2xl border border-[#E6E6F2] p-10 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col gap-4">
+            <h2 className="font-bold mb-4 text-xl text-[#232360]">Information summary</h2>
+            <div className="mb-2 text-lg flex justify-between"><span className="text-gray-600">Phone</span> <b className="text-[#232360]">+97699839573</b></div>
+            <div className="mb-2 text-lg flex justify-between"><span className="text-gray-600">Email</span> <b className="text-[#232360]">neoisneo07@gmail.com</b></div>
+            <div className="mb-2 text-lg flex justify-between"><span className="text-gray-600">Adress</span> <b className="text-[#232360]">Ulaanbaatar</b></div>
+            <button className="mt-6 w-full bg-black text-white py-4 rounded-xl flex items-center justify-center gap-3 text-lg font-semibold hover:bg-[#232360] transition-all duration-300 shadow-md hover:shadow-lg">
               Etiter les informations
-              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6.071-6.071a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.94l-3.535 1.178 1.178-3.535a4 4 0 01.94-1.414z"/></svg>
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6.071-6.071a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.94l-3.535 1.178 1.178-3.535a4 4 0 01.94-1.414z"/></svg>
             </button>
           </div>
         </aside>
       </div>
-    </>
+    </div>
   );
 } 

@@ -1,7 +1,10 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function DentalPage() {
+  const router = useRouter();
+  
   return (
     <div className="max-w-4xl mx-auto mt-8">
       {/* Header */}
@@ -11,11 +14,29 @@ export default function DentalPage() {
           <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
-            <Image src="/profile.jpg" alt="profile" width={48} height={48} />
+          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm bg-gray-100">
+            <Image 
+              src="/images/default-avatar.png" 
+              alt="profile" 
+              width={48} 
+              height={48}
+              className="object-cover"
+            />
           </div>
-          <button className="bg-white p-2 rounded-full shadow hover:bg-blue-50 transition">
-            <span role="img" aria-label="notif">🔔</span>
+          <button 
+            onClick={() => router.push('/')} 
+            className="bg-white p-3 rounded-full shadow hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              strokeWidth={2} 
+              stroke="currentColor" 
+              className="w-6 h-6 text-gray-600 group-hover:text-[#E94A1F] transition-colors duration-300"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
           </button>
         </div>
       </div>
