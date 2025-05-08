@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Footer from '../components/footer';
 import {
   FaInstagram,
   FaFacebookF,
@@ -109,42 +110,7 @@ const WorkPage: React.FC = () => {
           SCROLL
         </div>
       </section>
-      <section className="h-[70vh] flex flex-col justify-between px-10 py-10 bg-gray-900 text-white">
-        <div className="flex justify-between items-start">
-          <div className="w-10 h-10 border-2 border-red-400 rounded-full flex items-center justify-center text-2xl font-semibold ml-[190px] mt-[90px] text-red-400">Λ</div>
-          <div className="text-right mr-[350px] mt-[80px]">
-            <h2 className="text-[30px] font-bold mb-1 mr-[49px]">Холбоо барих</h2>
-            <p className="text-[24px] mb-">neohub009@gmail.com</p>
-            <p className="text-[24px] mb-2 mr-[70px]">(976) 9999-9999</p>
-          </div>
-        </div>
-        <div className="flex-grow flex items-end">
-          <h3 className="text-[30px] font-bold leading-snug ml-[200px] mb-[50px]">
-            Making great things<br />in Silicon Valley.
-          </h3>
-        </div>
-        <div className="flex justify-between items-end ml-[200px]">
-               <div className="flex gap-6 pt-4">
-                 <FaInstagram size={24} />
-                 <FaFacebookF size={24} />
-                 <FaLinkedinIn size={24} />
-                 <FaDiscord size={24} />
-               </div>
-          <div className="text-right">
-            <h2 className="text-[30px] font-bold mb-2 mr-[500px]">Explore</h2>
-            <div className="flex space-x-6 text-[16px] mb-2">
-              <Link href="#" className="hover:underline">Work</Link>
-              <Link href="#" className="hover:underline">Map</Link>
-              <Link href="#" className="hover:underline">Search</Link>
-              <Link href="#" className="hover:underline">Profile</Link>
-              <Link href="#" className="hover:underline">Contact</Link>
-            </div>
-            <p className="text-xs text-gray-400 mr-[220px]">
-              Интернетийн будаг, 4-р хороо, Баянзүрхийн төлбөрийн зүйл хоолд.
-            </p>
-          </div>
-        </div>
-      </section>
+          <Footer/>
     </div>
   );
 };
