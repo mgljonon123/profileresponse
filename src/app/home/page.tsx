@@ -51,9 +51,11 @@ export default function Home() {
         >
           Λ
         </div>
+
         <button className="absolute top-10 right-10 w-10 h-10 flex items-center justify-center text-black">
           <FaBars size={24} />
         </button>
+        
         <h4 className="text-sm tracking-widest font-medium text-gray-500">ЯМАР МЭРГЭЖИЛ</h4>
         <h2 className="text-7xl md:text-9xl font-extrabold text-gray-200 absolute -z-10 opacity-20 select-none">
           МЭРГЭЖИЛ
@@ -67,7 +69,7 @@ export default function Home() {
           Та ямар мэргэжил, карьерын зам сонгох ёстойгоо шийдэхэд бэрхшээлтэй байна уу?
         </p>
         <button className="mt-6 px-6 py-2 border border-black rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center">
-          ХАРУУЛЖ ӨГӨХ
+        Хариултаа олох
           <span className="ml-2">+</span>
         </button>
         <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
