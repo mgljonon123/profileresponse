@@ -1,13 +1,32 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import Menu from '../components/Menu';
+import Footer from '../components/footer';
+import Link from 'next/link';
 
 export default function RoadmapPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#181818] text-white">
       {/* Header */}
       <header className="flex items-center justify-between px-8 py-4 border-b border-gray-700">
-        <div className="text-2xl font-bold">NEOHUB</div>
+        <Link href="/" className="text-2xl font-bold focus:outline-none">
+          NEOHUB
+        </Link>
+
         <div className="flex items-center gap-4">
-          <button className="text-2xl bg-white text-black rounded-full w-8 h-8 flex items-center justify-center">☰</button>
+          <button
+            onClick={toggleMenu}
+            className="w-7 h-7 bg-gray-200 text-black rounded-full flex items-center justify-center text-xs focus:outline-none hover:bg-gray-300 transition-colors duration-300 z-50"
+          >
+            {isMenuOpen ? '✕' : '☰'}
+          </button>
         </div>
       </header>
 
@@ -29,32 +48,8 @@ export default function RoadmapPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-[#181818] border-t border-gray-700 p-8 flex flex-col md:flex-row justify-between text-gray-300 text-sm">
-        <div className="mb-4 md:mb-0">
-          <div className="mb-2">Making great things in Silicon Valley.</div>
-          <div className="flex gap-4 mt-2">
-            <a href="#" aria-label="Instagram">📷</a>
-            <a href="#" aria-label="Facebook">📘</a>
-            <a href="#" aria-label="LinkedIn">💼</a>
-            <a href="#" aria-label="GitHub">🐱</a>
-          </div>
-        </div>
-        <div>
-          <div className="font-semibold mb-2">Холбоо барих</div>
-          <div className="flex items-center gap-2"><span>✉️</span> neohub009@gmail.com</div>
-          <div className="flex items-center gap-2"><span>📞</span> (976) 9999-9999</div>
-        </div>
-        <div>
-          <div className="font-semibold mb-2">EXPLORE</div>
-          <div className="flex flex-col gap-1">
-            <a href="#" className="hover:underline">Work</a>
-            <a href="#" className="hover:underline">Map</a>
-            <a href="#" className="hover:underline">Search</a>
-            <a href="#" className="hover:underline">Profile</a>
-            <a href="#" className="hover:underline">Contact</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
+      <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
     </div>
   );
 } 

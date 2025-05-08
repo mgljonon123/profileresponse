@@ -1,4 +1,10 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import Menu from '../components/Menu';
+import Footer from '../components/footer';
 
 const professions = [
   {
@@ -14,11 +20,24 @@ const professions = [
 ];
 
 export default function SearchPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleProfessionClick = (title: string) => {
+    router.push(`/careerdetail?title=${encodeURIComponent(title)}`);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#181818] text-white">
       {/* Header */}
       <header className="flex items-center justify-between px-8 py-4 border-b border-gray-700">
-        <div className="text-2xl font-bold">NEOHUB</div>
+        <Link href="/" className="text-2xl font-bold focus:outline-none">
+          NEOHUB
+        </Link>
         <div className="flex items-center gap-4">
           <input
             type="text"
@@ -26,7 +45,12 @@ export default function SearchPage() {
             className="px-3 py-1 rounded border border-gray-400 text-black"
             style={{ width: 200 }}
           />
-          <button className="text-2xl">☰</button>
+          <button
+            onClick={toggleMenu}
+            className="w-7 h-7 bg-gray-200 text-black rounded-full flex items-center justify-center text-xs focus:outline-none hover:bg-gray-300 transition-colors duration-300 z-50"
+          >
+            {isMenuOpen ? '✕' : '☰'}
+          </button>
         </div>
       </header>
 
@@ -47,21 +71,32 @@ export default function SearchPage() {
         <main className="flex-1 p-8 bg-white text-black">
           <div className="mb-4 text-sm text-gray-600">2 илэрц</div>
           <h3 className="text-lg font-semibold mb-6">Таны тохирлууд</h3>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {professions.map((prof, idx) => (
               <div
                 key={idx}
-                className="flex items-center bg-gray-100 rounded p-4 shadow border border-gray-200"
+                className="flex items-center bg-white rounded-lg p-6 shadow-lg border border-gray-200"
               >
-                <span className="text-3xl mr-4">{prof.icon}</span>
-                <div>
-                  <div className="font-medium text-sm text-gray-700">{prof.title}</div>
-                  <div className="flex items-center mt-1">
-                    {Array.from({ length: prof.rating }).map((_, i) => (
-                      <span key={i} className="text-red-500 text-xs">★</span>
-                    ))}
+                <button
+                  onClick={() => handleProfessionClick(prof.title)}
+                  className="flex-1 flex items-center transition-opacity active:transform-none active:scale-100"
+                >
+                  <span className="text-4xl mr-6">{prof.icon}</span>
+                  <div className="flex-1">
+                    <div className="font-semibold text-lg text-gray-800 mb-2">{prof.title}</div>
+                    <div className="flex items-center">
+                      {Array.from({ length: prof.rating }).map((_, i) => (
+                        <span key={i} className="text-[#E94A1F] text-lg">★</span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </button>
+                <button
+                  onClick={() => handleProfessionClick(prof.title)}
+                  className="ml-4 p-2 text-[#E94A1F] hover:bg-[#E94A1F] hover:text-white rounded-full transition-colors duration-300 active:transform-none active:scale-100"
+                >
+                  <span className="text-2xl">→</span>
+                </button>
               </div>
             ))}
           </div>
@@ -69,32 +104,8 @@ export default function SearchPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-[#181818] border-t border-gray-700 p-8 flex flex-col md:flex-row justify-between text-gray-300 text-sm">
-        <div className="mb-4 md:mb-0">
-          <div className="mb-2">Making great things in Silicon Valley.</div>
-          <div className="flex gap-4 mt-2">
-            <a href="#" aria-label="Instagram">📷</a>
-            <a href="#" aria-label="Facebook">📘</a>
-            <a href="#" aria-label="LinkedIn">💼</a>
-            <a href="#" aria-label="GitHub">🐱</a>
-          </div>
-        </div>
-        <div>
-          <div className="font-semibold mb-2">Холбоо барих</div>
-          <div className="flex items-center gap-2"><span>✉️</span> neohub009@gmail.com</div>
-          <div className="flex items-center gap-2"><span>📞</span> (976) 9999-9999</div>
-        </div>
-        <div>
-          <div className="font-semibold mb-2">EXPLORE</div>
-          <div className="flex flex-col gap-1">
-            <a href="#" className="hover:underline">Work</a>
-            <a href="#" className="hover:underline">Map</a>
-            <a href="#" className="hover:underline">Search</a>
-            <a href="#" className="hover:underline">Profile</a>
-            <a href="#" className="hover:underline">Contact</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
+      <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
     </div>
   );
 } 

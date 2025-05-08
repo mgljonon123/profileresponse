@@ -1,131 +1,207 @@
-import React from 'react';
+'use client';
+    
+import React, { useEffect, useState } from 'react';
+import Menu from './components/Menu';
+import { FaBars } from 'react-icons/fa';
+import Footer from './components/footer';
 
-export default function HomePage() {
+export default function Home() {
+  const [showScroll, setShowScroll] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowScroll(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="w-full flex flex-col">
-      {/* Section 1: Hero */}
-      <section className="w-full min-h-screen bg-[#181818] flex flex-col justify-start px-16 py-10 relative overflow-hidden">
-        <div className="text-3xl font-bold text-white mb-16">NEOHUB</div>
-        <div className="mt-8">
-          <div className="text-[#FF5C39] text-sm mb-4">БИД БОЛ УРАМ ЗОРИГИЙН ГАЛ</div>
-          <div className="text-white text-4xl font-semibold mb-6 leading-snug">Ирээдүйд хүрэх таны<br />зам эндээс эхэлнэ.</div>
-          <div className="text-gray-300 text-lg">Карьерынхаа хаалгыг өнөөдөр нээгээрэй – таны боломж хязгааргүй.</div>
+    <>
+      <main className="relative overflow-x-hidden">
+        <div className="fixed top-0 left-0 w-full z-50 bg-[#1A1A1A] text-white p-4 flex justify-between items-center">
         </div>
-        <button className="absolute top-8 right-8 bg-white text-black rounded-full w-10 h-10 flex items-center justify-center text-2xl">☰</button>
-        {/* Decorative background text or shapes can be added here if needed */}
-      </section>
+        <section id="section1" className="h-screen bg-[#191919] text-white flex flex-col justify-center items-start px-10 md:px-32 relative">
 
-      {/* Section 2: Career Choice */}
-      <section className="w-full min-h-screen bg-white flex flex-row items-center justify-between px-16 py-10 relative">
-        <div className="absolute top-8 left-8 text-2xl text-black border border-black rounded-full w-10 h-10 flex items-center justify-center">∧</div>
-        <div className="flex-1 flex flex-col justify-center">
-          <div className="text-black text-lg mb-2">ЯМАР МЭРГЭЖИЛ</div>
-          <div className="text-[120px] text-[#ededed] font-bold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none" style={{zIndex:0}}>МЭРГЭЖИЛ</div>
-        </div>
-        <div className="flex-1 flex flex-col items-center justify-center z-10">
-          <div className="w-[340px] h-[340px] bg-[#e6e9ee] rotate-12 flex items-center justify-center shadow-lg overflow-hidden">
-            <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&w=400" alt="Career" className="w-full h-full object-cover -rotate-12" />
-          </div>
-        </div>
-        <div className="flex-1 flex flex-col justify-center items-end z-10">
-          <div className="text-black text-base mb-4">Та ямар мэргэжил, карьерын замыг сонгохыг хүсэж байна вэ?</div>
-          <button className="bg-white border border-gray-300 rounded-full px-6 py-2 flex items-center gap-2 shadow">Хариултаа олох <span className="text-xl">+</span></button>
-        </div>
-        <div className="absolute right-8 bottom-1/2 text-black text-xs tracking-widest rotate-90 origin-bottom-right" style={{letterSpacing:'0.2em'}}>SCROLL</div>
-        <button className="absolute top-8 right-8 bg-black text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl">☰</button>
-      </section>
 
-      {/* Section 3: Success Key */}
-      <section className="w-full min-h-screen bg-[#6b655a] flex flex-col justify-center px-16 py-10 relative">
-        <div className="absolute top-8 left-8 text-2xl text-white border border-white rounded-full w-10 h-10 flex items-center justify-center">∧</div>
-        <div className="max-w-2xl ml-24 mt-24">
-          <div className="text-white text-lg mb-4">Амжилтын түлхүүр</div>
-          <div className="text-white text-2xl font-bold leading-relaxed">
-            Мэргэжил гэдэг бол хүний хүсэл мөрөөдөл, авьяас чадвар, үнэт зүйлийн уулзвар цэг бөгөөд зөв сонголт нь таныг зөвхөн ажилтай бус, зорилготой, үнэ цэнтэй амьдралтай болгоно .
-          </div>
-        </div>
-        <button className="absolute top-8 right-8 bg-white text-black rounded-full w-10 h-10 flex items-center justify-center text-2xl">☰</button>
-        <div className="absolute right-8 bottom-1/2 text-white text-xs tracking-widest rotate-90 origin-bottom-right" style={{letterSpacing:'0.2em'}}>SCROLL</div>
-      </section>
 
-      {/* Section 4: Pricing */}
-      <section className="w-full min-h-screen bg-white flex flex-col justify-center items-center px-16 py-10 relative">
-        <div className="absolute top-8 left-8 text-2xl text-black border border-black rounded-full w-10 h-10 flex items-center justify-center">∧</div>
-        <div className="flex flex-row gap-12 mt-24">
-          {/* Free */}
-          <div className="bg-black text-white rounded-2xl p-8 w-64 flex flex-col items-center shadow-lg">
-            <div className="text-lg font-semibold mb-2">Үнэгүй</div>
-            <div className="text-3xl font-bold mb-1">$0</div>
-            <div className="text-sm mb-4">/cap</div>
-            <ul className="text-sm mb-6 space-y-2">
-              <li>✔ Хязгаартай тест</li>
-              <li>✔ MBTI , BigFive , Holland Code тест</li>
-              <li>✔ Карьер зөвлөмж</li>
-            </ul>
-            <button className="bg-[#6b655a] text-white rounded-full px-8 py-2 font-semibold">GET STARTED</button>
-          </div>
-          {/* Medium */}
-          <div className="bg-black text-white rounded-2xl p-8 w-64 flex flex-col items-center shadow-lg">
-            <div className="text-lg font-semibold mb-2">Дундаж</div>
-            <div className="text-3xl font-bold mb-1">$5</div>
-            <div className="text-sm mb-4">/cap</div>
-            <ul className="text-sm mb-6 space-y-2">
-              <li>✔ Карьерын зорилго , Авьяас чадвар , Priorities</li>
-              <li>✔ 10 тест</li>
-              <li>✔ Бүтээмжийн зөвлөмж</li>
-            </ul>
-            <button className="bg-[#b49a6a] text-white rounded-full px-8 py-2 font-semibold">GET STARTED</button>
-          </div>
-          {/* Premium */}
-          <div className="bg-black text-white rounded-2xl p-8 w-64 flex flex-col items-center shadow-lg">
-            <div className="text-lg font-semibold mb-2">Янзын</div>
-            <div className="text-3xl font-bold mb-1">$10</div>
-            <div className="text-sm mb-4">/mo</div>
-            <ul className="text-sm mb-6 space-y-2">
-              <li>✔ Хязгааргүй тест</li>
-              <li>✔ Roadmap зам</li>
-              <li>✔ Voice messages anywhere</li>
-            </ul>
-            <button className="bg-[#b49a6a] text-white rounded-full px-8 py-2 font-semibold">GET STARTED</button>
-          </div>
-        </div>
-        <button className="absolute top-8 right-8 bg-black text-white rounded-full w-10 h-10 flex items-center justify-center text-2xl">☰</button>
-        <div className="absolute right-8 bottom-1/2 text-black text-xs tracking-widest rotate-90 origin-bottom-right" style={{letterSpacing:'0.2em'}}>SCROLL</div>
-      </section>
+          <button 
+            className="absolute top-10 right-10 w-10 h-10 flex items-center justify-center text-white hover:text-[#E94A1F] transition-colors duration-300" 
+            onClick={toggleMenu}
+          >
+            <FaBars size={24} />
+          </button>
 
-      {/* Section 5: Footer */}
-      <footer className="w-full bg-[#232121] text-white flex flex-row justify-between items-start px-24 py-16 mt-0">
-        <div>
-          <div className="mb-6 flex items-center gap-4">
-            <span className="border border-white rounded-full w-10 h-10 flex items-center justify-center text-2xl">∧</span>
+
+
+          
+          <h3 className="text-[#E94A1F] text-sm md:text-base tracking-widest font-semibold">БАЙРШЛЫН ТОДОРХОЙЛОЛТ</h3>
+          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight pt-4">
+            Ирээдүйд хүрэх таны <br /> зам эндээс эхлэнэ.
+          </h1>
+          <p className="pt-6 text-lg text-gray-300 max-w-md">
+            Карьерийн зөвлөгөө өгч, өөрийгөө илүү сайн таньж, ирээдүйгээ төлөвлө.
+          </p>
+          <div className="absolute bottom-10 left-10 md:left-32 flex space-x-2">
+            <div className="w-3 h-3 bg-[#E94A1F] rounded-full"></div>
+            <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
           </div>
-          <div className="mb-4 font-semibold text-lg">Making great things in<br />Silicon Valley.</div>
-          <div className="flex gap-6 mt-4 text-2xl">
-            <a href="#" aria-label="Instagram"> <span className="text-white">&#x1F4F7;</span> </a>
-            <a href="#" aria-label="Facebook"> <span className="text-white">&#x1F4F1;</span> </a>
-            <a href="#" aria-label="LinkedIn"> <span className="text-white">&#x1F4BB;</span> </a>
-            <a href="#" aria-label="Discord"> <span className="text-white">&#x1F47E;</span> </a>
+          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-300">
+            <div className="w-px h-10 bg-gray-300"></div>
+            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
           </div>
-        </div>
-        <div className="flex flex-col gap-6">
-          <div>
-            <div className="font-bold mb-2">Холбоо барих</div>
-            <div className="flex items-center gap-2 mb-1"><span className="text-[#FF5C39]">&#9993;</span> <span className="underline">neohub009@gmail.com</span></div>
-            <div className="flex items-center gap-2"><span className="text-[#FF5C39]">&#128222;</span> <span className="underline">(976) 9999-9999</span></div>
+        </section>
+
+
+
+
+        <section id="section2" className="h-screen bg-white flex flex-col justify-center items-center px-4 md:px-32 text-black text-center relative">
+          <div
+            className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition"
+            onClick={scrollToTop}
+          >
+            Λ
           </div>
-          <div>
-            <div className="font-bold mb-2">EXPLORE</div>
-            <div className="flex gap-6">
-              <a href="#" className="hover:underline">Work</a>
-              <a href="#" className="hover:underline">Map</a>
-              <a href="#" className="hover:underline">Search</a>
-              <a href="#" className="hover:underline">Profile</a>
-              <a href="#" className="hover:underline">Contact</a>
+         
+          <h4 className="text-sm tracking-widest font-medium text-gray-500">ЯМАР МЭРГЭЖИЛ</h4>
+          <h2 className="text-7xl md:text-9xl font-extrabold text-gray-200 absolute -z-10 opacity-20 select-none">
+            МЭРГЭЖИЛ
+          </h2>
+          <img
+            src="/career-card.png" 
+            alt="career card"
+            className="w-72 md:w-[400px] rounded-xl my-10 shadow-lg transform rotate-3"
+          />
+          <p className="max-w-lg text-sm text-gray-600 leading-relaxed">
+            Та ямар мэргэжил, карьерын зам сонгох ёстойгоо шийдэхэд бэрхшээлтэй байна уу?
+          </p>
+          <button className="mt-6 px-6 py-2 border border-black rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center">
+          Хариултаа олох
+            <span className="ml-2">+</span>
+          </button>
+          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
+            <div className="w-px h-10 bg-gray-600"></div>
+            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
+          </div>
+        </section>
+        <section id="section3" className="h-screen bg-[#4A403A] text-white flex items-center justify-center px-10 md:px-32 text-center relative">
+          <div
+            className="absolute top-10 left-10 w-10 h-10 border-2 border-white rounded-full flex items-center justify-center text-2xl font-semibold text-white cursor-pointer hover:bg-white hover:text-[#4A403A] transition"
+            onClick={scrollToTop}
+          >
+            Λ
+          </div>
+          
+          <div className="max-w-2xl">
+            <h3 className="flex flex-start text-[25px] tracking-widest font-semibold">АМЖИЛТЫН ТҮЛХҮҮР</h3>
+            <p className="mt-6 text-xl md:text-2xl leading-relaxed font-light">
+              Мэргэжил гэдэг бол хүний хүсэл мөрөөдөл, авьяас чадвар, үнэт зүйлсийн уулзвар цэг. 
+              Бид танд сонголт нь зөвхөн ашигтай бус, зорилготой, үнэ цэнтэй амьдралтай байхад тусална.
+            </p>
+          </div>
+          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-300">
+            <div className="w-px h-10 bg-gray-300"></div>
+            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
+          </div>
+        </section>
+        <section id="section4" className="h-screen bg-white flex flex-col items-center justify-center px-6 md:px-32 relative">
+          <div
+            className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition"
+            onClick={scrollToTop}
+          >
+            Λ
+          </div>
+          
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-12">Багцын Үнийн Санал</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl">
+            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm">
+              <h3 className="text-2xl font-bold tracking-wide">Үнэгүй</h3>
+              <p className="text-4xl font-semibold mt-4">$0/mo</p>
+              <ul className="text-base mt-8 space-y-4 text-gray-300">
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  Хязгаарлагдмал тест
+                </li>
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  MBTI, BigFive, Holland Code тест
+                </li>
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  Карьерын зөвлөмж
+                </li>
+              </ul>
+              <button className="mt-[160px] bg-[#4A403A] text-white px-6 py-1 rounded-full font-medium uppercase tracking-wider hover:bg-[#3a322d] transition">
+                GET STARTED
+              </button>
+            </div>
+
+            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm">
+              <h3 className="text-2xl font-bold tracking-wide">Дунддаг</h3>
+              <p className="text-4xl font-semibold mt-4">$5/mo</p>
+              <ul className="text-base mt-8 space-y-4 text-gray-300">
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  Карьерын зөвлөгөө
+                </li>
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  Авьяас даалбар, Priorities
+                </li>
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  10 тест
+                </li>
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  Бүтээмжин зөвлөмж
+                </li>
+              </ul>
+              <button className="mt-[120px] bg-[#FFD700] text-black px-6 py-1 rounded-full font-medium uppercase tracking-wider hover:bg-[#e6c200] transition">
+                GET STARTED
+              </button>
+            </div>
+
+            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm">
+              <h3 className="text-2xl font-bold tracking-wide">Гүнзгий</h3>
+              <p className="text-4xl font-semibold mt-4">$10/mo</p>
+              <ul className="text-base mt-8 space-y-4 text-gray-300">
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  Хязгааргүй тест
+                </li>
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  Roadmap зам
+                </li>
+                <li className="flex items-center">
+                  <span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>
+                  Voice messages anywhere
+                </li>
+              </ul>
+              <button className="mt-[160px] bg-[#FFD700] text-black px-6 py-1 rounded-full font-medium uppercase tracking-wider hover:bg-[#e6c200] transition">
+                GET STARTED
+              </button>
             </div>
           </div>
-          <div className="text-xs text-gray-400 mt-4">Чингэлтэй дүүрэг . 4-р хороо. Барилгачдын талбай зүүн хойд.</div>
-        </div>
-      </footer>
-    </div>
+          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
+            <div className="w-px h-10 bg-gray-600"></div>
+            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
+          </div>
+        </section>
+      </main>
+      <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      <Footer />
+    </>
   );
 }
