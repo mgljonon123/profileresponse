@@ -30,7 +30,7 @@ const ForgotPassMail: React.FC = () => {
       <div className="hidden md:flex w-1/2 bg-black items-center justify-center relative">
         <img
           src="/4e659b59aabaf3fae230a92f49aede08 2.svg"
-          alt="NeoHub Visual"
+          alt="START UP Visual"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>

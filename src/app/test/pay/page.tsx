@@ -9,7 +9,7 @@ export default function PayPage() {
     <div className="min-h-screen bg-[#232323] flex flex-col">
       {/* Header */}
       <header className="w-full flex items-center justify-start px-8 pt-2">
-        <span className="text-white text-4xl font-extrabold tracking-tight" style={{letterSpacing: '-2px'}}>NEOHUB</span>
+        <span className="text-white text-4xl font-extrabold tracking-tight" style={{letterSpacing: '-2px'}}>START UP</span>
       </header>
       {/* Main Content */}
       <main className="flex-1 flex flex-row justify-center items-start gap-8 px-8 py-8">

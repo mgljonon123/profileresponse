@@ -30,7 +30,7 @@ export default function Home() {
     <>
       <main className="relative overflow-x-hidden">
         <div  className="text-[40px] font-extrabold focus:outline-none px-10 pt-8 block bg-[#191919]">
-          NEOHUB
+        START UP
         </div>
         <section id="section1" className="h-screen bg-[#191919] text-white flex flex-col justify-center items-start px-10 md:px-32 relative">
 

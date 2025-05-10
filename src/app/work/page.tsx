@@ -25,7 +25,7 @@ const WorkPage: React.FC = () => {
       <section className="h-screen flex flex-col justify-between px-14 py-10 bg-white text-black relative">
         <header className="flex justify-between items-center relative z-20">
           <Link href="/" className="text-[40px] font-extrabold focus:outline-none">
-            NEOHUB
+            START UP
           </Link>
           <div className="flex items-center space-x-2">
             <span className="text-[16px] font-medium">хөөрөлдье</span>

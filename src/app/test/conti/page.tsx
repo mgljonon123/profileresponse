@@ -4,9 +4,9 @@ export default function ContiPage() {
   return (
     <div className="min-h-screen bg-[#232323] flex flex-col">
       <div className="flex flex-row w-full">
-        {/* NEOHUB logo at top left */}
+        {/* START UP logo at top left */}
         <div className="flex items-start w-full max-w-[300px] px-14 pt-0 pb-0">
-          <span className="text-white text-4xl font-extrabold tracking-tight mt-4" style={{letterSpacing: '-2px'}}>NEOHUB</span>
+          <span className="text-white text-4xl font-extrabold tracking-tight mt-4" style={{letterSpacing: '-2px'}}>START UP</span>
         </div>
         {/* Right Black background with buttons at top */}
         <div className="relative flex flex-col items-end min-w-[370px] h-screen">

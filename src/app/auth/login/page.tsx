@@ -18,7 +18,7 @@ const Login: React.FC = () => {
           </div>
           <h2 className="text-3xl font-bold mb-2 text-center">Өөрийн бүртгэл рүү нэвтрэх</h2>
           <p className="text-gray-500 mb-6 text-center">
-            NeoHub.com сайтаар үнэгүй суралцаад, урагш байхаасаа мөрөөдсөн мэргэжлээ эхлүүлээрэй!
+          START UP.com сайтаар үнэгүй суралцаад, урагш байхаасаа мөрөөдсөн мэргэжлээ эхлүүлээрэй!
           </p>
           <form className="w-full">
             <label className="block text-sm font-medium mb-1">Email</label>
@@ -67,11 +67,11 @@ const Login: React.FC = () => {
       <div className="hidden md:flex w-1/2 bg-black items-center justify-center relative">
         <img
           src="/4e659b59aabaf3fae230a92f49aede08 2.svg"
-          alt="NeoHub Visual"
+          alt="START UP Visual"
           className="absolute inset-0 w-full h-full object-cover opacity-80"
         />
         <div className="relative z-10 text-white p-10">
-          <div className="text-xs mb-2 tracking-widest">NEOHUB.COM</div>
+          <div className="text-xs mb-2 tracking-widest">START UP.COM</div>
           <div className="text-xl font-semibold mb-2">
             "Дата багатай байлаа ч, мэдлэгийн үүд нээлттэй хэвээр!"
           </div>
