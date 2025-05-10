@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Menu from './components/Menu';
 import { FaBars } from 'react-icons/fa';
 import Footer from './components/footer';
+import Link from 'next/link';
 
 export default function Home() {
   const [showScroll, setShowScroll] = useState(false);
@@ -28,14 +29,15 @@ export default function Home() {
   return (
     <>
       <main className="relative overflow-x-hidden">
-        <div className="fixed top-0 left-0 w-full z-50 bg-[#1A1A1A] text-white p-4 flex justify-between items-center">
+        <div  className="text-[40px] font-extrabold focus:outline-none px-10 pt-8 block bg-[#191919]">
+          NEOHUB
         </div>
         <section id="section1" className="h-screen bg-[#191919] text-white flex flex-col justify-center items-start px-10 md:px-32 relative">
 
 
 
           <button 
-            className="absolute top-10 right-10 w-10 h-10 flex items-center justify-center text-white hover:text-[#E94A1F] transition-colors duration-300" 
+            className="fixed top-10 right-10 z-50 w-10 h-10 flex items-center justify-center text-white hover:text-[#E94A1F] transition-colors duration-300" 
             onClick={toggleMenu}
           >
             <FaBars size={24} />
@@ -122,7 +124,7 @@ export default function Home() {
             Λ
           </div>
           
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-12">Багцын Үнийн Санал</h2>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-black mb-12">Багцын Үнийн Санал</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl">
             <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm">
               <h3 className="text-2xl font-bold tracking-wide">Үнэгүй</h3>

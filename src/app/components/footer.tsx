@@ -8,7 +8,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1E1E20] text-white py-16 px-10 md:px-32">
+    <footer className="bg-[#1E1E20] text-white py-16 px-6 md:px-24">
       <div className="flex flex-col md:flex-row justify-between gap-12">
 
         <div className="flex flex-col items-center md:items-start space-y-6">
@@ -25,18 +25,20 @@ export default function Footer() {
             <FaDiscord size={24} />
           </div>
         </div>
-        <div className="flex flex-col items-center md:items-start w-full md:w-2/3">
+
+        
+        <div className="flex flex-col items-center md:items-start w-full md:w-2/5 ml-[180px]">
           <div className="space-y-6 mb-10">
-            <h3 className="text-2xl font-bold ml-[180px]">Холбоо барих</h3>
-            <div className="text-[#FF4B2B] text-lg font-semibold underline text-center md:text-left ml-[180px]">
+            <h3 className="text-2xl font-bold">Холбоо барих</h3>
+            <div className="text-[#FF4B2B] text-lg font-semibold underline text-center md:text-left">
               <p>neophub009@gmial.com</p>
               <p className="pt-4">(976) 9999-9999</p>
             </div>
           </div>
 
           <div className="space-y-6 mb-10">
-            <h3 className="text-2xl font-bold text-center md:text-left ml-[180px]">EXPLORE</h3>
-            <div className="flex space-x-6 text-lg font-medium text-center md:text-left ml-[180px]">
+            <h3 className="text-2xl font-bold text-center md:text-left">EXPLORE</h3>
+            <div className="flex space-x-6 text-lg font-medium text-center md:text-left">
               <p>Work</p>
               <p>Map</p>
               <p>Search</p>
@@ -45,7 +47,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="text-gray-400 text-sm font-medium text-center md:text-left ml-[180px]">
+          <div className="text-gray-400 text-sm font-medium text-center md:text-left">
             Чингэлтэй дүүрэг, 4-р хороо, Барилгачдын талбайн зүүн хойд.
           </div>
         </div>
