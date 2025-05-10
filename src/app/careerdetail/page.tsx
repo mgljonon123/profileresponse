@@ -96,9 +96,9 @@ export default function CareerDetailPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#6b655a] text-white">
+    <div className="min-h-screen flex flex-col bg-white text-white">
       {/* Header */}
-      <header className="flex items-center justify-between px-8 py-4 bg-[#181818] border-b border-gray-700">
+      <header className="flex items-center justify-between px-16 py-4 bg-[#181818] border-b border-[#bdbdbd]">
         <Link href="/" className="text-2xl font-bold focus:outline-none">
         START UP
         </Link>
@@ -116,20 +116,20 @@ export default function CareerDetailPage() {
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
       {/* Title */}
-      <div className="text-center mt-8 text-xl font-medium">{details.title}</div>
+      <div className="text-center mt-8 text-xl font-medium text-black">{details.title}</div>
 
       {/* Main Card */}
-      <div className="flex justify-center mt-8">
-        <div className="bg-white text-black rounded-xl shadow-lg w-full max-w-xl">
+      <div className="flex justify-start mt-8 pl-80">
+        <div className="bg-white text-black rounded-xl shadow-lg w-full max-w-xl border border-[#bdbdbd]">
           {/* Black Top Section */}
-          <div className="bg-black text-white rounded-t-xl p-6 text-center">
+          <div className="bg-[#181818] text-white rounded-t-xl p-6 text-center">
             <div className="flex justify-center mb-2">
               {Array.from({ length: 5 }).map((_, i) => (
-                <span key={i} className="text-yellow-400 text-lg">★</span>
+                <span key={i} className="text-[#ffcc47] text-lg">★</span>
               ))}
             </div>
-            <div className="font-semibold mb-1">You are a 5.0 star moviem!</div>
-            <div className="text-xs text-gray-300">
+            <div className="font-semibold mb-1">You are a 5.0 star match!</div>
+            <div className="text-xs text-[#bdbdbd]">
               {details.description}
             </div>
           </div>
@@ -137,8 +137,8 @@ export default function CareerDetailPage() {
           <div className="p-6 space-y-6">
             {/* Үндсэн үүрэг */}
             <div>
-              <div className="font-semibold mb-2">Үндсэн үүрэг:</div>
-              <ul className="list-decimal list-inside text-sm space-y-1">
+              <div className="font-semibold mb-2 text-black">Үндсэн үүрэг:</div>
+              <ul className="list-decimal list-inside text-sm space-y-1 text-black">
                 {details.mainDuties.map((duty, index) => (
                   <li key={index}>{duty}</li>
                 ))}
@@ -149,35 +149,49 @@ export default function CareerDetailPage() {
             </div>
             {/* Анхаарах зүйлс */}
             <div>
-              <div className="font-semibold mb-2">Анхаарах зүйлс</div>
-              <ul className="list-disc list-inside text-sm space-y-1">
+              <div className="font-semibold mb-2 text-black">Анхаарах зүйлс</div>
+              <ul className="list-disc list-inside text-sm space-y-1 text-black">
                 {details.attentionPoints.map((point, index) => (
                   <li key={index}>{point}</li>
                 ))}
               </ul>
-              <div className="border-b border-gray-300 mt-2" />
+              <div className="border-b border-[#bdbdbd] mt-2" />
             </div>
             {/* Шаардлагатай чадварууд */}
             <div>
-              <div className="font-semibold mb-2">Шаардлагатай чадварууд</div>
-              <ul className="list-disc list-inside text-sm space-y-1">
+              <div className="font-semibold mb-2 text-black">Шаардлагатай чадварууд</div>
+              <ul className="list-disc list-inside text-sm space-y-1 text-black">
                 {details.requiredSkills.map((skill, index) => (
                   <li key={index}>{skill}</li>
                 ))}
               </ul>
-              <div className="border-b border-gray-300 mt-2" />
+              <div className="border-b border-[#bdbdbd] mt-2" />
             </div>
             {/* Суралцах зүйлс */}
             <div>
-              <div className="font-semibold mb-2">Суралцах зүйлс:</div>
-              <ul className="list-disc list-inside text-sm space-y-1">
+              <div className="font-semibold mb-2 text-black">Суралцах зүйлс:</div>
+              <ul className="list-disc list-inside text-sm space-y-1 text-black">
                 {details.learningPoints.map((point, index) => (
                   <li key={index}>{point}</li>
                 ))}
               </ul>
-              <div className="border-b border-gray-300 mt-2" />
+              <div className="border-b border-[#bdbdbd] mt-2" />
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Жижиг Card - баруун дээд буланд */}
+      <div className="fixed top-36 right-80 z-50">
+        <div className="bg-white rounded-xl shadow-lg border border-[#bdbdbd] w-64 h-56 flex flex-col items-center p-4">
+          <img src="https://cdn-icons-png.flaticon.com/512/2922/2922017.png" alt="camera" className="w-14 h-14 mb-2" />
+          <div className="font-bold text-black text-lg mb-1">Cinematographer</div>
+          <div className="flex mb-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span key={i} className="text-[#ffcc47] text-base">★</span>
+            ))}
+          </div>
+          <div className="w-40 h-4 bg-[#6b655a] rounded-full mt-2" />
         </div>
       </div>
 
