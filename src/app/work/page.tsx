@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Menu from '../components/Menu';
 import Link from 'next/link';
+import Footer from '../components/footer';
 
 import {
   FaInstagram,
