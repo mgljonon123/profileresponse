@@ -1,77 +1,119 @@
-import React from "react";
+"use client";
 
-export default function QuestionPage() {
+import React, { useState } from "react";
+import { FaCheck } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+
+const steps = [
+  "Эхлэх",
+  "MBTI",
+  "Holland Code",
+  "Big Five",
+  "EQ test",
+  "Төгсгөл",
+];
+
+const questions = [
+  {
+    text: "Таны зан чанарын хэв маягийг тодорхойлох",
+    options: ["Hate it", "Dislike it", "Neutral", "Like it"],
+  },
+  {
+    text: "Та багийн ажилд хэр идэвхтэй вэ?",
+    options: ["Идэвхгүй", "Дунд", "Идэвхтэй", "Маш идэвхтэй"],
+  },
+  {
+    text: "Та шинэ зүйлд хэр хурдан дасдаг вэ?",
+    options: ["Огт дасдаггүй", "Удаан", "Дунд", "Түргэн"],
+  },
+];
+
+const QuestionPage = () => {
+  const [current, setCurrent] = useState(0);
+  const router = useRouter();
+  const currentQuestion = questions[current];
+
+  const handleNext = () => {
+    if (current < questions.length - 1) {
+      setCurrent(current + 1);
+    } else {
+      router.push("/test/result");
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#232323] flex flex-col">
-      <div className="flex flex-row w-full">
-        {/* Main content */}
-        <div className="flex-1 flex flex-col items-center justify-center">
-          {/* Question Title */}
-          <div className="mt-24 mb-12 flex flex-col items-center">
-            <span className="text-white text-2xl font-bold mb-2">Таны зан чанарын хэв маягийг тодорхойлох</span>
-            <span className="text-white text-2xl ml-2">✔</span>
+    <div className="min-h-screen bg-[#232221] flex flex-col md:flex-row">
+      {/* Centered Question and Options */}
+      <div className="flex-1 flex flex-col items-center justify-center py-12">
+        <div className="w-full max-w-md mx-auto flex flex-col items-center">
+          <div className="flex items-center justify-center mb-8">
+            <span className="text-white text-xl md:text-2xl font-semibold mr-2 text-center">
+              {currentQuestion.text}
+            </span>
           </div>
-          {/* Answer Options */}
-          <div className="flex flex-col gap-4 w-full max-w-xl">
-            <button className="flex items-center w-full border border-white rounded-xl px-6 py-4 text-white text-xl font-medium hover:bg-white/10 transition">
-              <span className="w-10 h-10 flex items-center justify-center border border-white rounded-lg mr-6 text-lg font-bold">1</span>
-              Hate it
-            </button>
-            <button className="flex items-center w-full border border-white rounded-xl px-6 py-4 text-white text-xl font-medium hover:bg-white/10 transition">
-              <span className="w-10 h-10 flex items-center justify-center border border-white rounded-lg mr-6 text-lg font-bold">2</span>
-              Dislike it
-            </button>
-            <button className="flex items-center w-full border border-white rounded-xl px-6 py-4 text-white text-xl font-medium hover:bg-white/10 transition">
-              <span className="w-10 h-10 flex items-center justify-center border border-white rounded-lg mr-6 text-lg font-bold">3</span>
-              Neutral
-            </button>
-            <button className="flex items-center w-full border border-white rounded-xl px-6 py-4 text-white text-xl font-medium hover:bg-white/10 transition">
-              <span className="w-10 h-10 flex items-center justify-center border border-white rounded-lg mr-6 text-lg font-bold">4</span>
-              Like it
-            </button>
+          <div className="w-full flex flex-col gap-4 mb-6">
+            {currentQuestion.options.map((option, idx) => (
+              <button
+                key={option}
+                className="flex items-center w-full border border-gray-400 rounded-lg px-4 py-3 text-white text-lg font-medium hover:bg-gray-800 transition focus:outline-none"
+                onClick={handleNext}
+              >
+                <span className="w-8 h-8 flex items-center justify-center border border-gray-400 rounded mr-4 text-base font-bold">
+                  {idx + 1}
+                </span>
+                {option}
+              </button>
+            ))}
           </div>
-          {/* Skip Question */}
-          <div className="mt-10">
-            <button className="text-white text-lg font-bold underline underline-offset-4">skip question</button>
-          </div>
+          <button
+            className="text-gray-400 hover:underline text-base mt-2"
+            onClick={handleNext}
+          >
+            skip question
+          </button>
         </div>
-        {/* Right Stepper */}
-        <div className="relative flex flex-col items-end min-w-[570px] h-screen">
-          {/* Black background full height */}
-          <div className="absolute inset-0 bg-black z-0 rounded-none" />
-          {/* Top right buttons */}
-          <div className="flex flex-row  justify-end items-center w-full pt-[40px] pr-8 gap-4 z-10">
-            <button className="bg-[#dddddd] text-black font-semibold px-6 py-2 rounded-xl">Тест эхлэх</button>
-            <div className="w-10 h-10 bg-[#dddddd] rounded-full"></div>
-          </div>
-          {/* Stepper */}
-          <div className="flex flex-col w-[300px] items-end relative flex-1 w-full justify-center z-10">
-            {/* Stepper line */}
-            <div className="absolute left-8 top-0 bottom-0 w-1 bg-white/10 z-0" style={{marginLeft: '6px'}}></div>
-            {/* Steps */}
-            <div className="relative  z-10 flex h-[800px] flex-col gap-24 pt-16 pb-16 items-end">
-              <div className="flex items-center gap-4 w-60 justify-end">
-                <div className="w-8 h-8 bg-white rounded-full border-4 border-black"></div>
-                <span className="text-white text-xl font-bold text-right w-48">Эхлэх</span>
-              </div>
-              <div className="flex items-center gap-4 w-60 justify-end">
-                <div className="w-8 h-8 bg-white rounded-full border-4 border-black flex items-center justify-center">
-                  <span className="text-black text-2xl font-bold">✔</span>
+      </div>
+      {/* Right: Timeline */}
+      <div className="w-full md:w-1/3 bg-[#181818] flex flex-col items-center justify-center py-12 relative">
+        <div className="flex flex-col items-center w-full max-w-xs">
+          <div className="relative w-full">
+            <div className="absolute left-5 top-0 bottom-0 w-2 bg-gradient-to-b from-gray-700 via-gray-500 to-gray-700 rounded-full z-0"></div>
+            {steps.map((step, idx) => (
+              <div
+                key={idx}
+                className="relative z-10 flex items-center mb-16 last:mb-0"
+              >
+                <div
+                  className={`w-12 h-12 rounded-full flex-shrink-0 mr-4 flex items-center justify-center shadow-xl transition-all duration-300
+                  ${
+                    idx === 0
+                      ? "bg-gradient-to-br from-yellow-300 via-pink-400 to-green-300 border-[5px] border-black cartoon-bubble"
+                      : "bg-white border-4 border-gray-700"
+                  }
+                `}
+                >
+                  {idx === 0 && (
+                    <span className="absolute w-4 h-2 bg-white bg-opacity-70 rounded-full left-3 top-2 rotate-[-20deg] pointer-events-none"></span>
+                  )}
                 </div>
-                <span className="text-white text-xl font-bold text-right w-48">Таны зан чанарын хэв маягийг тодорхойлох</span>
+                <div
+                  className={`text-xl drop-shadow-[0_2px_0_rgba(0,0,0,0.8)] transition-all duration-300
+                  ${
+                    idx === 0
+                      ? "text-yellow-400 cartoon-text"
+                      : "text-white text-lg"
+                  }
+                `}
+                >
+                  {step}
+                </div>
               </div>
-              <div className="flex items-center gap-4 w-60 justify-end">
-                <div className="w-8 h-8 bg-white rounded-full border-4 border-black"></div>
-                <span className="text-white text-xl font-bold text-right w-48">Танд тохирох ажил мэргэжлийн санал</span>
-              </div>
-              <div className="flex items-center gap-4 w-60 justify-end">
-                <div className="w-8 h-8 bg-white rounded-full border-4 border-black"></div>
-                <span className="text-white text-xl font-bold text-right w-48">Хобби</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default QuestionPage;
