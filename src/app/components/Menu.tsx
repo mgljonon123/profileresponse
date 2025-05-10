@@ -38,9 +38,9 @@ const Menu: React.FC<MenuProps> = ({ isMenuOpen, toggleMenu }) => {
         isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full pointer-events-none'
       }`}
     >
-      {/* Upper part (2/3) with white background */}
+
       <div className="h-[66.66vh] bg-white flex flex-col items-center justify-start pt-10 relative">
-        {/* Close button */}
+ 
         <button
           onClick={toggleMenu}
           className="absolute top-4 right-4 w-10 h-10 bg-gray-200 text-black rounded-full flex items-center justify-center text-lg focus:outline-none hover:bg-gray-300 transition-colors duration-300"
