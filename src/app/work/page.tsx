@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import Menu from '../components/Menu';
+
 import Link from 'next/link';
 import Footer from '../components/footer';
+import Menu from '../components/Menu';
 
 import {
   FaInstagram,
@@ -21,6 +22,7 @@ const WorkPage: React.FC = () => {
 
   return (
     <div className="font-sans scroll-smooth relative">
+      <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       {/* Section 1 - Intro */}
       <section className="h-screen flex flex-col justify-between px-14 py-10 bg-white text-black relative">
         <header className="flex justify-between items-center relative z-20">
