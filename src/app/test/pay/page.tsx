@@ -1,92 +1,146 @@
-'use client'
-
+"use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
+const plans = [
+  {
+    title: "Үнэгүй",
+    price: "$0",
+    period: "/cap",
+    features: [
+      "Хязгаартай тест",
+      "MBTI, BigFive, Holland Code тест",
+      "Карьeр зөвлөмж",
+    ],
+    button: {
+      text: "GET STARTED",
+      color: "bg-gray-400 text-black hover:bg-gray-500",
+    },
+  },
+  {
+    title: "Дундаж",
+    price: "$5",
+    period: "/cap",
+    features: [
+      "Карьeрын зорилго, Авьяас чадвар, Priorities",
+      "10 тест",
+      "Бүтээмжийн зөвлөмж",
+    ],
+    button: {
+      text: "GET STARTED",
+      color: "bg-red-700 text-white hover:bg-red-800",
+    },
+  },
+  {
+    title: "Янзын",
+    price: "$10",
+    period: "/mo",
+    features: ["Хязгааргүй тест", "Roadmap зам", "Voice messages anywhere"],
+    button: {
+      text: "GET STARTED",
+      color: "bg-yellow-200 text-black hover:bg-yellow-300",
+    },
+  },
+];
 
-export default function PayPage() {
+const steps = [
+  "Эхлэх",
+  "Таны зан чанарын хэв маягийг тодорхойлох",
+  "Танд тохирох ажил мэргэжлийн санал",
+  "Хобби",
+];
+
+const PayPage = () => {
+  const router = useRouter();
   return (
-    <div className="min-h-screen bg-[#232323] flex flex-col">
-      {/* Header */}
-      <header className="w-full flex items-center justify-start px-8 pt-2">
-        <span className="text-white text-4xl font-extrabold tracking-tight" style={{letterSpacing: '-2px'}}>START UP</span>
-      </header>
-      {/* Main Content */}
-      <main className="flex-1 flex flex-row justify-center items-start gap-8 px-8 py-8">
-        {/* Pricing Cards */}
-        <div className="flex flex-row gap-8 flex-1 max-w-5xl justify-center">
-          {/* Card 1 */}
-          <div className="bg-black rounded-3xl p-8 flex flex-col w-80 min-h-[420px] shadow-lg">
-            <span className="text-white text-2xl font-bold mb-2">Үнэгүй</span>
-            <div className="flex items-end mb-2">
-              <span className="text-white text-4xl font-extrabold">$0</span>
-              <span className="text-white text-xl font-normal mb-1">/cap</span>
+    <div className="min-h-screen bg-[#232221] flex flex-col md:flex-row relative">
+      {/* Top Right: Test Start Button */}
+      <div className="absolute top-6 right-8 z-20">
+        <button
+          className="bg-white text-black px-4 py-1 rounded-full text-sm font-semibold shadow"
+          onClick={() => router.push("/test/question")}
+        >
+          Тест эхлэх
+        </button>
+      </div>
+      {/* Left: Pricing Cards */}
+      <div className="flex-1 flex flex-col items-center justify-center py-12">
+        <div className="flex flex-col md:flex-row gap-8 w-full max-w-4xl justify-center">
+          {plans.map((plan, idx) => (
+            <div
+              key={plan.title}
+              className="bg-black rounded-2xl shadow-lg flex flex-col items-center px-8 py-10 w-full md:w-80 min-h-[350px]"
+            >
+              <div className="text-white text-2xl font-semibold mb-2">
+                {plan.title}
+              </div>
+              <div className="text-white text-4xl font-bold mb-1">
+                {plan.price}
+              </div>
+              <div className="text-gray-400 text-lg mb-6">{plan.period}</div>
+              <ul className="text-white text-base mb-8 space-y-2 w-full">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span
+                      className="inline-block w-4 h-4 rounded-full bg-white mr-2"
+                      style={{ minWidth: "16px" }}
+                    ></span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                className={`mt-auto w-full py-3 rounded-lg font-semibold text-lg transition ${plan.button.color}`}
+                onClick={() => router.push("/test/question")}
+              >
+                {plan.button.text}
+              </button>
             </div>
-            <ul className="text-white text-base font-light space-y-3 mb-8 mt-4">
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> Хязгаартай тест</li>
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> MBTI , BigFive , Holland Code тест</li>
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> Карьер зөвлөмж</li>
-            </ul>
-            <button className="mt-auto bg-[#A39A89] text-white font-bold py-2 rounded-full">GET STARTED</button>
-          </div>
-          {/* Card 2 */}
-          <div className="bg-black rounded-3xl p-8 flex flex-col w-80 min-h-[420px] shadow-lg">
-            <span className="text-white text-2xl font-bold mb-2">Дундаж</span>
-            <div className="flex items-end mb-2">
-              <span className="text-white text-4xl font-extrabold">$5</span>
-              <span className="text-white text-xl font-normal mb-1">/cap</span>
-            </div>
-            <ul className="text-white text-base font-light space-y-3 mb-8 mt-4">
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> Карьерын зорилго ,<br/>Авьяас чадвар ,<br/>Priorities</li>
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> 10  тест</li>
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> Бүтээмжийн зөвлөмж</li>
-            </ul>
-            <button className="mt-auto bg-[#B94B34] text-white font-bold py-2 rounded-full">GET STARTED</button>
-          </div>
-          {/* Card 3 */}
-          <div className="bg-black rounded-3xl p-8 flex flex-col w-80 min-h-[420px] shadow-lg">
-            <span className="text-white text-2xl font-bold mb-2">Янзын</span>
-            <div className="flex items-end mb-2">
-              <span className="text-white text-4xl font-extrabold">$10</span>
-              <span className="text-white text-xl font-normal mb-1">/mo</span>
-            </div>
-            <ul className="text-white text-base font-light space-y-3 mb-8 mt-4">
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> Хязгааргүй тест</li>
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> Roadmap зам</li>
-              <li className="flex items-center gap-2"><span className="text-green-400">✔</span> Voice messages anywhere</li>
-            </ul>
-            <button className="mt-auto bg-[#E9DAB2] text-black font-bold py-2 rounded-full">GET STARTED</button>
-          </div>
+          ))}
         </div>
-        {/* Vertical Stepper */}
-        <div className="hidden lg:flex flex-col items-center min-w-[340px] h-full ml-auto">
-          <div className="bg-black rounded-3xl p-8 flex flex-col w-full h-full justify-center">
-            <div className="flex flex-col items-start relative h-full">
-              {/* Stepper line */}
-              <div className="absolute left-4 top-6 bottom-6 w-1 bg-white/10 z-0" style={{marginLeft: '6px'}}></div>
-              {/* Steps */}
-              <div className="relative z-10 flex flex-col gap-16">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-white rounded-full border-4 border-black"></div>
-                  <span className="text-white text-xl font-bold">Эхлэх</span>
+      </div>
+      {/* Right: Timeline */}
+      <div className="w-full md:w-1/3 bg-[#181818] flex flex-col items-center justify-center py-12 relative">
+        <div className="flex flex-col items-center w-full max-w-xs">
+          <div className="relative w-full">
+            <div className="absolute left-5 top-0 bottom-0 w-2 bg-gradient-to-b from-gray-700 via-gray-500 to-gray-700 rounded-full z-0"></div>
+            {steps.map((step, idx) => (
+              <div
+                key={idx}
+                className="relative z-10 flex items-center mb-16 last:mb-0"
+              >
+                <div
+                  className={`w-12 h-12 rounded-full flex-shrink-0 mr-4 flex items-center justify-center shadow-xl transition-all duration-300
+                    ${
+                      idx === 0
+                        ? "bg-gradient-to-br from-yellow-300 via-pink-400 to-green-300 border-[5px] border-black cartoon-bubble"
+                        : "bg-white border-4 border-gray-700"
+                    }
+                  `}
+                >
+                  {idx === 0 && (
+                    <span className="absolute w-4 h-2 bg-white bg-opacity-70 rounded-full left-3 top-2 rotate-[-20deg] pointer-events-none"></span>
+                  )}
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-white rounded-full border-4 border-black"></div>
-                  <span className="text-white text-xl font-bold">Таны зан чанарын хэв маягийг тодорхойлох</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-white rounded-full border-4 border-black"></div>
-                  <span className="text-white text-xl font-bold">Танд тохирох ажил мэргэжлийн санал</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-white rounded-full border-4 border-black"></div>
-                  <span className="text-white text-xl font-bold">Хобби</span>
+                <div
+                  className={`text-xl drop-shadow-[0_2px_0_rgba(0,0,0,0.8)] transition-all duration-300
+                    ${
+                      idx === 0
+                        ? "text-yellow-400 cartoon-text"
+                        : "text-white text-lg"
+                    }
+                  `}
+                >
+                  {step}
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
-}
+};
+
+export default PayPage;
