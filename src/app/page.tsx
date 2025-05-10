@@ -5,11 +5,17 @@ import Menu from "./components/Menu";
 import { FaBars } from "react-icons/fa";
 import Footer from "./components/footer";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   const [showScroll, setShowScroll] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
+  const [textIndex, setTextIndex] = useState(0);
+  const texts = [
+    "ЯМАР МЭРГЭЖИЛ",
+    "Та ямар мэргэжил, карьерын зам сонгох ёстойгоо шийдэхэд бэрхшээлтэй байна уу?"
+  ];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -23,6 +29,14 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -34,6 +48,12 @@ export default function Home() {
           id="section1"
           className="h-screen bg-[#191919] text-white flex flex-col justify-center items-start px-10 md:px-32 relative"
         >
+          <div className="absolute top-5 left-10 md:left-22">
+            <Link href="/" className="text-[40px] font-extrabold focus:outline-none text-white">
+              START UP
+            </Link>
+          </div>
+
           <button
             className="absolute top-10 right-10 w-10 h-10 flex items-center justify-center text-white hover:text-[#E94A1F] transition-colors duration-300"
             onClick={toggleMenu}
@@ -66,44 +86,49 @@ export default function Home() {
 
         <section
           id="section2"
-          className="h-screen bg-white flex flex-col justify-center items-center px-4 md:px-32 text-black text-center relative"
+          className="relative h-screen bg-white flex items-center justify-center px-4 md:px-32"
         >
-          <div
-            className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition"
-            onClick={scrollToTop}
-          >
-            Λ
-          </div>
-
-          <h4 className="text-sm tracking-widest font-medium text-gray-500">
-            ЯМАР МЭРГЭЖИЛ
-          </h4>
-          <h2 className="text-7xl md:text-9xl font-extrabold text-gray-200 absolute -z-10 opacity-20 select-none">
+          <h2 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[60px] md:text-[200px] font-extrabold text-gray-350 opity-20 select-none animate-letter-spacing z-0 pointer-events-none whitespace-nowrap">
             МЭРГЭЖИЛ
           </h2>
-          <img
-            src="/career-card.png"
-            alt="career card"
-            className="w-72 md:w-[400px] rounded-xl my-10 shadow-lg transform rotate-3"
-          />
-          <p className="max-w-lg text-sm text-gray-600 leading-relaxed">
-            Та ямар мэргэжил, карьерын зам сонгох ёстойгоо шийдэхэд бэрхшээлтэй
-            байна уу?
-          </p>
-          <button
-            onClick={() => router.push("/auth/login")}
-            className="mt-6 px-6 py-2 border border-black rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center"
-          >
-            Хариултаа олох
-            <span className="ml-2">+</span>
-          </button>
+
+          <div className="absolute   top-70 left-10 md:left-75 z-10">
+            <h4 className="text-base md:text-lg font-medium  md:text-[30px] text-gray-600">
+              ЯМАР МЭРГЭЖИЛ
+            </h4>
+          </div>
+
+          <div className="flex flex-row items-center  w-full z-10">
+            <div className="flex-1 flex justify-center">
+              <img
+                src="/career-card.png"
+                alt="career card"
+                className="w-72 md:w-[400px] rounded-xl shadow-lg transform rotate-3"
+              />
+            </div>
+            
+            <div className=" absolute   top-115 left-310 flex-1 flex flex-col items-center  ml-0 md:ml-10">
+              <p className=" md:text-[20px] max-w-lg text-sm text-gray-900 leading-relaxed mb-8 text-center mt-32">
+                Та ямар мэргэжил, карьерын<br />
+                замыг сонгохыг хүсэж байна вэ?
+              </p>
+              
+
+              <button
+                onClick={() => router.push("/auth/login")}
+                className="px-8 py-3 border border-black rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center ml-4"
+              >
+                Хариултаа олох
+                <span className="ml-2">+</span>
+              </button>
+            </div>
+          </div>
           <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
             <div className="w-px h-10 bg-gray-600"></div>
-            <span className="mt-2 text-xs tracking-widest transform rotate-90">
-              SCROLL
-            </span>
+            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
           </div>
         </section>
+
         <section
           id="section3"
           className="h-screen bg-[#4A403A] text-white flex items-center justify-center px-10 md:px-32 text-center relative"
