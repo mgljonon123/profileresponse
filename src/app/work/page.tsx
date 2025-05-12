@@ -75,8 +75,11 @@ const WorkPage: React.FC = () => {
 
   return (
     <div className="font-sans scroll-smooth relative">
+<<<<<<< HEAD
+=======
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       {/* Section 1 - Intro */}
+>>>>>>> 98cbf59fa9792905d4a683089b063f75fa4f5d02
       <section className="h-screen flex flex-col justify-between px-14 py-10 bg-white text-black relative">
         <header className="flex justify-between items-center relative z-20">
           <Link
