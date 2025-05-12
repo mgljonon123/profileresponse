@@ -1,0 +1,130 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum SubscriptionTier {
+  FREE
+  MEDIUM
+  PRO
+}
+
+model User {
+  id                         String               @id @default(auto()) @map("_id") @db.ObjectId
+  fullname                   String
+  nickname                   String?
+  email                      String               @unique
+  passwordHash               String
+  profilePicture             String?
+  createdAt                  DateTime             @default(now())
+  updatedAt                  DateTime             @updatedAt
+
+  // Relations
+  testResults                TestResult[]
+  chatHistory                ChatHistory[]
+  roadmaps                   Roadmap[]
+  recommendations            CareerRecommendation[] @relation("UserRecommendations")
+  subscriptions              Subscription[]
+  payments                   Payment[]
+}
+
+model TestResult {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String    @db.ObjectId
+  testType      String    // 'MBTI', 'Holland', 'BigFive', etc.
+  resultData    Json      // stores detailed result
+  xValue        Float     // graph X-axis
+  yValue        Float     // graph Y-axis (score)
+  takenAt       DateTime  @default(now())
+
+  // Relations
+  user          User      @relation(fields: [userId], references: [id])
+  recommendations CareerRecommendation[]
+  chatHistory   ChatHistory[]
+}
+
+model ChatHistory {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String      @db.ObjectId
+  message      String
+  isUser       Boolean     // true for user message, false for bot
+  createdAt    DateTime    @default(now())
+  testResultId String?     @db.ObjectId
+
+  // Relations
+  user         User        @relation(fields: [userId], references: [id])
+  testResult   TestResult? @relation(fields: [testResultId], references: [id])
+}
+
+model Roadmap {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  careerId    String   @db.ObjectId
+  roadmapData Json
+  createdAt   DateTime @default(now())
+
+  // Relations
+  user        User     @relation(fields: [userId], references: [id])
+  career      Career   @relation(fields: [careerId], references: [id])
+}
+
+model CareerRecommendation {
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String      @db.ObjectId
+  recommendedCareerId String     @db.ObjectId
+  testResultId      String?     @db.ObjectId
+  confidenceScore   Float       // e.g., 0.85
+  recommendedAt     DateTime    @default(now())
+
+  // Relations
+  user              User        @relation("UserRecommendations", fields: [userId], references: [id])
+  career            Career      @relation(fields: [recommendedCareerId], references: [id])
+  testResult        TestResult? @relation(fields: [testResultId], references: [id])
+}
+
+model Career {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  isTop10     Boolean  @default(false) // true if part of top 10 list
+  createdAt   DateTime @default(now())
+
+  // Relations
+  roadmaps    Roadmap[]
+  recommendations CareerRecommendation[]
+}
+
+model Subscription {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  tier      SubscriptionTier @default(FREE)
+  planName  String
+  startDate DateTime
+  endDate   DateTime
+  isActive  Boolean  @default(true)
+  features  Json     // Store specific features for each tier
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id])
+  payments  Payment[]
+}
+
+model Payment {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String   @db.ObjectId
+  subscriptionId String   @db.ObjectId
+  amount         Float
+  paymentMethod  String
+  paymentDate    DateTime @default(now())
+  status         String   // e.g., 'completed', 'pending', 'failed'
+
+  // Relations
+  user           User     @relation(fields: [userId], references: [id])
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id])
+}

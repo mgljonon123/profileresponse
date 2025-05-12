@@ -17,7 +17,7 @@ export default function RoadmapPage() {
       {/* Header */}
       <header className="flex items-center justify-between px-8 py-4 border-b border-gray-700">
         <Link href="/" className="text-2xl font-bold focus:outline-none">
-          NEOHUB
+        START UP
         </Link>
 
         <div className="flex items-center gap-4">

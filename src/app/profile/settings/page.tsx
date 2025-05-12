@@ -72,18 +72,35 @@ export default function SettingsPage() {
         </div>
 
         {/* Form Section */}
-        <form className="flex-1 grid grid-cols-2 gap-8 bg-[#f7f7fa] rounded-2xl p-8 shadow-sm border border-[#f0f0f5]">
+        <form className="flex-1 grid grid-cols-2 gap-8 bg-white rounded-2xl p-8 shadow-lg border border-[#f0f0f5]">
           <div>
-            <label className="block mb-2 font-semibold text-[#232360]">Full Name</label>
-            <input name="fullName" value={form.fullName} onChange={handleChange} className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition" placeholder="Your First Name" />
+            <label className="block mb-2 font-semibold text-[#1a1a2e]">Full Name</label>
+            <input 
+              name="fullName" 
+              value={form.fullName} 
+              onChange={handleChange} 
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition" 
+              placeholder="Your First Name" 
+            />
           </div>
           <div>
-            <label className="block mb-2 font-semibold text-[#232360]">Nick Name</label>
-            <input name="nickName" value={form.nickName} onChange={handleChange} className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition" placeholder="Your First Name" />
+            <label className="block mb-2 font-semibold text-[#1a1a2e]">Nick Name</label>
+            <input 
+              name="nickName" 
+              value={form.nickName} 
+              onChange={handleChange} 
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition" 
+              placeholder="Your First Name" 
+            />
           </div>
           <div>
-            <label className="block mb-2 font-semibold text-[#232360]">Gender</label>
-            <select name="gender" value={form.gender} onChange={handleChange} className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition">
+            <label className="block mb-2 font-semibold text-[#1a1a2e]">Gender</label>
+            <select 
+              name="gender" 
+              value={form.gender} 
+              onChange={handleChange} 
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition"
+            >
               <option value="">Select Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -91,8 +108,13 @@ export default function SettingsPage() {
             </select>
           </div>
           <div>
-            <label className="block mb-2 font-semibold text-[#232360]">Country</label>
-            <select name="country" value={form.country} onChange={handleChange} className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition">
+            <label className="block mb-2 font-semibold text-[#1a1a2e]">Country</label>
+            <select 
+              name="country" 
+              value={form.country} 
+              onChange={handleChange} 
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition"
+            >
               <option value="">Select Country</option>
               <option value="mn">Mongolia</option>
               <option value="fr">France</option>
@@ -100,8 +122,13 @@ export default function SettingsPage() {
             </select>
           </div>
           <div>
-            <label className="block mb-2 font-semibold text-[#232360]">Language</label>
-            <select name="language" value={form.language} onChange={handleChange} className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition">
+            <label className="block mb-2 font-semibold text-[#1a1a2e]">Language</label>
+            <select 
+              name="language" 
+              value={form.language} 
+              onChange={handleChange} 
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition"
+            >
               <option value="">Select Language</option>
               <option value="mn">Mongolian</option>
               <option value="en">English</option>
@@ -109,8 +136,13 @@ export default function SettingsPage() {
             </select>
           </div>
           <div>
-            <label className="block mb-2 font-semibold text-[#232360]">Time Zone</label>
-            <select name="timeZone" value={form.timeZone} onChange={handleChange} className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition">
+            <label className="block mb-2 font-semibold text-[#1a1a2e]">Time Zone</label>
+            <select 
+              name="timeZone" 
+              value={form.timeZone} 
+              onChange={handleChange} 
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition"
+            >
               <option value="">Select Time Zone</option>
               <option value="UTC+8">UTC+8 (Ulaanbaatar)</option>
               <option value="UTC+7">UTC+7</option>
