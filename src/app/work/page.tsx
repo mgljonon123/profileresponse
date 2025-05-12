@@ -20,7 +20,6 @@ const WorkPage: React.FC = () => {
 
   return (
     <div className="font-sans scroll-smooth relative">
-      {/* Section 1 - Intro */}
       <section className="h-screen flex flex-col justify-between px-14 py-10 bg-white text-black relative">
         <header className="flex justify-between items-center relative z-20">
           <Link href="/" className="text-[40px] font-extrabold focus:outline-none">
