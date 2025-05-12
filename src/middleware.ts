@@ -2,10 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-// Define public paths that don't require authentication
-const publicPaths = ["/saerch"];
+const publicPaths = ["/saerch","/"];
 
-// Define paths that should be accessible without authentication
 const staticPaths = ["/_next", "/favicon.ico", "/images", "/api/public"];
 
 export async function middleware(request: NextRequest) {
