@@ -1,29 +1,24 @@
 import { NextResponse } from "next/server";
+import { getOpenRouterResponse } from "../../../lib/openrouter";
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    const body = await req.json();
+    const { messages } = await request.json();
 
-    const response = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          "HTTP-Referer": "http://localhost:3000",
-          "X-Title": "Career Guidance Chat",
-        },
-        body: JSON.stringify(body),
-      }
-    );
+    if (!messages || !Array.isArray(messages)) {
+      return NextResponse.json(
+        { error: "Invalid messages format" },
+        { status: 400 }
+      );
+    }
 
-    const data = await response.json();
-    return NextResponse.json(data);
+    const response = await getOpenRouterResponse(messages);
+
+    return NextResponse.json({ message: response });
   } catch (error) {
     console.error("API Error:", error);
     return NextResponse.json(
-      { error: "Failed to process request" },
+      { error: "Internal server error" },
       { status: 500 }
     );
   }

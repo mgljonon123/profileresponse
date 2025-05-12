@@ -1,19 +1,20 @@
-import React from 'react';
+import React from "react";
 import {
   FaInstagram,
   FaFacebookF,
   FaLinkedinIn,
   FaDiscord,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 
 export default function Footer() {
   return (
     <footer className="bg-[#1E1E20] text-white py-16 px-6 md:px-24">
       <div className="flex flex-col md:flex-row justify-between gap-12">
-
         <div className="flex flex-col items-center md:items-start space-y-6">
           <div className="text-4xl font-bold">
-          <div className="w-10 h-10 border-2 border-red-400 rounded-full flex items-center justify-center text-2xl font-semibold ml-[190px] mt-[40px] text-red-400">Λ</div>
+            <div className="w-10 h-10 border-2 border-red-400 rounded-full flex items-center justify-center text-2xl font-semibold ml-[190px] mt-[40px] text-red-400">
+              Λ
+            </div>
           </div>
           <p className="text-xl font-semibold leading-relaxed text-center md:text-left ml-[190px]">
             Making great things in <br /> Silicon Valley.
@@ -26,7 +27,6 @@ export default function Footer() {
           </div>
         </div>
 
-        
         <div className="flex flex-col items-center md:items-start w-full md:w-2/5 ml-[180px]">
           <div className="space-y-6 mb-10">
             <h3 className="text-2xl font-bold">Холбоо барих</h3>
@@ -37,7 +37,9 @@ export default function Footer() {
           </div>
 
           <div className="space-y-6 mb-10">
-            <h3 className="text-2xl font-bold text-center md:text-left">EXPLORE</h3>
+            <h3 className="text-2xl font-bold text-center md:text-left">
+              EXPLORE
+            </h3>
             <div className="flex space-x-6 text-lg font-medium text-center md:text-left">
               <p>Work</p>
               <p>Map</p>

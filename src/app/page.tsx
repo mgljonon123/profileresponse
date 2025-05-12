@@ -14,7 +14,7 @@ export default function Home() {
   const [textIndex, setTextIndex] = useState(0);
   const texts = [
     "ЯМАР МЭРГЭЖИЛ",
-    "Та ямар мэргэжил, карьерын зам сонгох ёстойгоо шийдэхэд бэрхшээлтэй байна уу?"
+    "Та ямар мэргэжил, карьерын зам сонгох ёстойгоо шийдэхэд бэрхшээлтэй байна уу?",
   ];
 
   const toggleMenu = () => {
@@ -49,7 +49,10 @@ export default function Home() {
           className="h-screen bg-[#191919] text-white flex flex-col justify-center items-start px-10 md:px-32 relative"
         >
           <div className="absolute top-5 left-10 md:left-22">
-            <Link href="/" className="text-[40px] font-extrabold focus:outline-none text-white">
+            <Link
+              href="/"
+              className="text-[40px] font-extrabold focus:outline-none text-white"
+            >
               START UP
             </Link>
           </div>
@@ -106,13 +109,13 @@ export default function Home() {
                 className="w-72 md:w-[400px] rounded-xl shadow-lg transform rotate-3"
               />
             </div>
-            
+
             <div className=" absolute   top-115 left-310 flex-1 flex flex-col items-center  ml-0 md:ml-10">
               <p className=" md:text-[20px] max-w-lg text-sm text-gray-900 leading-relaxed mb-8 text-center mt-32">
-                Та ямар мэргэжил, карьерын<br />
+                Та ямар мэргэжил, карьерын
+                <br />
                 замыг сонгохыг хүсэж байна вэ?
               </p>
-              
 
               <button
                 onClick={() => router.push("/auth/login")}
@@ -125,7 +128,9 @@ export default function Home() {
           </div>
           <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
             <div className="w-px h-10 bg-gray-600"></div>
-            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
+            <span className="mt-2 text-xs tracking-widest transform rotate-90">
+              SCROLL
+            </span>
           </div>
         </section>
 
