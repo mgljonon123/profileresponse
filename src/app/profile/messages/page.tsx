@@ -10,20 +10,20 @@ interface Message {
 
 const faqTopics = [
   {
-    title: "Career Guidance",
-    desc: "Get advice on career paths, job search, and professional development.",
+    title: "Ажлын Хаалт",
+    desc: "Ажлын замнал, ажил хайлт, мэргэжлийн хөгжлийн талаар зөвлөгөө аваарай.",
   },
   {
-    title: "Test Results",
-    desc: "Understand your personality test results and what they mean for your career.",
+    title: "Тестийн Үр Дүн",
+    desc: "Хувь хүний тестийн үр дүнгээ ойлгож, ажлын замналдаа хэрхэн ашиглахыг мэдээрэй.",
   },
   {
-    title: "Skill Development",
-    desc: "Learn about skills needed for your target career and how to develop them.",
+    title: "Ур Чадварын Хөгжил",
+    desc: "Зорилтот ажлын байрандаа шаардлагатай ур чадваруудыг хэрхэн хөгжүүлэх талаар сур.",
   },
   {
-    title: "General Support",
-    desc: "Need help with something else? Ask away, and we'll guide you.",
+    title: "Ерөнхий Дэмжлэг",
+    desc: "Өөр асуудал байна уу? Асуугаарай, бид танд чиглүүлнэ.",
   },
 ];
 
@@ -35,12 +35,17 @@ export default function MessagesPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current && messages) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+
+    if (typeof window !== "undefined") {
+      scrollToBottom();
+    }
+  }, [messages]); 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,12 +63,12 @@ export default function MessagesPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "mistralai/mistral-7b-instruct",
+          model: "openai/gpt-4.1", // GPT-4.1 загварыг ашиглах
           messages: [
             {
               role: "system",
               content:
-                "You are a helpful career guidance assistant. Provide clear, concise, and professional responses about career development, personality tests, and professional growth.",
+                "Та бол ажлын чиглүүлэгч туслах юм. Ажлын хөгжил, хувь хүний тест, мэргэжлийн өсөлтийн талаар тодорхой, товч, мэргэжлийн хариулт өгнө үү.",
             },
             ...messages,
             { role: "user", content: userMessage },
@@ -74,20 +79,16 @@ export default function MessagesPage() {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const data = await response.json();
 
-      if (data.error) {
-        throw new Error(data.error);
+      if (!response.ok) {
+        throw new Error(data.error || `HTTP алдаа: ${response.status}`);
       }
 
       const assistantMessage = data.choices?.[0]?.message?.content;
 
       if (!assistantMessage) {
-        throw new Error("No response from AI");
+        throw new Error("AI-ийн хариуны агуулга алга");
       }
 
       setMessages((prev) => [
@@ -95,15 +96,15 @@ export default function MessagesPage() {
         { role: "assistant", content: assistantMessage },
       ]);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Алдаа:", error);
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
           content:
             error instanceof Error
-              ? error.message
-              : "I apologize, but I'm having trouble connecting right now. Please try again later.",
+              ? `Алдаа: ${error.message}`
+              : "Холболтын асуудал гарлаа. Дараа дахин оролдоно уу.",
         },
       ]);
     } finally {
@@ -117,13 +118,13 @@ export default function MessagesPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Career Assistant
+            Ажлын Туслах
           </h1>
-          <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
+          <p className="text-gray-400 text-sm mt-1">2025 оны 5-р сарын 25, Даваа</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
-            <Image src="/193484-2.jpg" alt="profile" width={48} height={48} />
+            <Image src="/193484-2.jpg" alt="профайл" width={48} height={48} />
           </div>
           <button
             onClick={() => router.push("/")}
@@ -153,12 +154,10 @@ export default function MessagesPage() {
       {/* Welcome Section */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-4">
-          How can we <span className="text-purple-500">assist</span> you today?
+          Бид өнөөдөр танд <span className="text-purple-500">яаж</span> туслах вэ?
         </h1>
         <p className="text-gray-500 max-w-xl mx-auto text-lg">
-          Get expert guidance on your career path, test results, and
-          professional development. Choose a topic or ask your question
-          directly.
+          Ажлын замнал, тестийн үр дүн, мэргэжлийн хөгжлийн талаар мэргэжлийн зөвлөгөө аваарай. Сэдвээ сонго, эсвэл асуултаа шууд асуу.
         </p>
       </div>
 
@@ -255,7 +254,7 @@ export default function MessagesPage() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your question here..."
+              placeholder="Асуултаа энд бичнэ үү..."
               className="flex-1 bg-gray-50 rounded-xl px-4 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
             <button
@@ -263,7 +262,7 @@ export default function MessagesPage() {
               disabled={isLoading}
               className="bg-purple-500 text-white rounded-xl px-6 py-3 hover:bg-purple-600 transition disabled:opacity-50"
             >
-              Send
+              Илгээх
             </button>
           </div>
         </form>
