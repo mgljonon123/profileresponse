@@ -146,17 +146,17 @@ export default function Profile() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="w-full max-w-none mx-auto px-0 py-8">
       {/* Header */}
-      <div className="flex justify-between items-center mb-10">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-blue-600">Neo</span>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#232360]">
+            Сайн Байна уу? <span className="text-yellow-500">Neo</span>
           </h1>
           <p className="text-gray-400 text-base mt-2">Mon, 25 May 2025</p>
         </div>
-        <div className="flex items-center gap-6">
-          <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+        <div className="flex items-center gap-4 sm:gap-6">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
             <Image
               src="/193484-2.jpg"
               alt="profile"
@@ -167,7 +167,7 @@ export default function Profile() {
           </div>
           <button
             onClick={() => router.push("/")}
-            className="bg-white p-3.5 rounded-full shadow-md hover:shadow-lg hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
+            className="bg-white p-3 sm:p-3.5 rounded-full shadow-md hover:shadow-lg hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +175,7 @@ export default function Profile() {
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="w-6 h-6 text-gray-600 group-hover:text-[#E94A1F] transition-colors duration-300"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 group-hover:text-[#E94A1F] transition-colors duration-300"
             >
               <path
                 strokeLinecap="round"
@@ -188,52 +188,49 @@ export default function Profile() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-32 rounded-2xl mb-12 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-10 shadow-md" />
+      <div className="w-full h-24 sm:h-32 rounded-2xl mb-8 sm:mb-12 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-6 sm:px-10 shadow-md" />
 
-      <div className="flex gap-12 items-start">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch w-full">
         {/* Main Section: Test results */}
-        <div className="flex-1">
-          <h2 className="text-4xl font-bold mb-3 text-[#232360]">
-            Сайн Байна уу? <span className="text-black">Neo</span>
-          </h2>
-          <p className="mb-10 text-xl text-[#232360]">
+        <div className="w-full lg:flex-1 flex-grow basis-0">
+          <p className="mb-5 text-lg sm:text-xl text-[#232360]">
             Таний <b>test</b> хариунд тохирох <b>3 мэргэжил</b>
           </p>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6 sm:gap-8">
             {testScores.map((career, i) => (
               <div
                 key={i}
-                className="flex items-start bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-8 border border-[#E6E6F2] gap-8"
+                className="flex flex-col sm:flex-row items-start bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 sm:p-8 border border-[#E6E6F2] gap-4 sm:gap-8 w-full"
               >
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center w-full sm:w-auto">
                   <Image
                     src="/193484-2.jpg"
                     alt="cert"
                     width={160}
                     height={120}
-                    className="rounded-xl shadow-sm"
+                    className="rounded-xl shadow-sm w-full sm:w-auto"
                   />
                 </div>
-                <div className="flex-1">
-                  <div className="font-semibold text-2xl text-[#232360] mb-4">
+                <div className="w-full">
+                  <div className="font-semibold text-xl sm:text-2xl text-[#232360] mb-4">
                     {career.career}
                   </div>
 
                   {/* Match Score */}
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-40 bg-gray-200 rounded-full h-10 relative flex items-center">
+                    <div className="w-32 sm:w-40 bg-gray-200 rounded-full h-8 sm:h-10 relative flex items-center">
                       <div
-                        className="bg-blue-500 h-10 rounded-full"
+                        className="bg-yellow-500 h-8 sm:h-10 rounded-full"
                         style={{ width: `${career.match}%` }}
                       ></div>
-                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-base text-black font-bold">
+                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm sm:text-base text-black font-bold">
                         {career.match}%
                       </span>
                     </div>
-                    <button className="p-2.5 rounded-lg hover:bg-gray-100 border border-gray-200 transition-colors duration-300">
+                    <button className="p-2 sm:p-2.5 rounded-lg hover:bg-gray-100 border border-gray-200 transition-colors duration-300">
                       <svg
-                        width="22"
-                        height="22"
+                        width="20"
+                        height="20"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -245,72 +242,62 @@ export default function Profile() {
                   </div>
 
                   {/* Test Scores Grid */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gray-50 p-4 rounded-xl">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
                       <h3 className="font-semibold text-gray-700 mb-2">MBTI</h3>
-                      <p className="text-2xl font-bold text-blue-600">
+                      <p className="text-xl sm:text-2xl font-bold text-yellow-500">
                         {career.tests.mbti}
                       </p>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-xl">
+                    <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
                       <h3 className="font-semibold text-gray-700 mb-2">
                         Holland Code
                       </h3>
-                      <p className="text-2xl font-bold text-blue-600">
+                      <p className="text-xl sm:text-2xl font-bold text-yellow-500">
                         {career.tests.holland}
                       </p>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-xl">
+                    <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
                       <h3 className="font-semibold text-gray-700 mb-2">
                         EQ Score
                       </h3>
-                      <p className="text-2xl font-bold text-blue-600">
+                      <p className="text-xl sm:text-2xl font-bold text-yellow-500">
                         {career.tests.eq}/100
                       </p>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-xl">
+                    <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
                       <h3 className="font-semibold text-gray-700 mb-2">
-                        Big Five
+                        Огноо
                       </h3>
-                      <div className="space-y-1">
-                        <div className="flex justify-between">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">
-                            Openness
+                            Тест өгсөн
                           </span>
-                          <span className="font-medium">
-                            {career.tests.bigFive.openness}%
+                          <span className="font-medium text-base">
+                            <span className="text-[#232360] font-bold">2025</span>.
+                            <span className="text-yellow-500 font-bold">05</span>.
+                            <span className="text-gray-600">12</span>
                           </span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">
-                            Conscientiousness
+                            Дараагийн тест
                           </span>
-                          <span className="font-medium">
-                            {career.tests.bigFive.conscientiousness}%
+                          <span className="font-medium text-base">
+                            <span className="text-[#232360] font-bold">2025</span>.
+                            <span className="text-yellow-500 font-bold">11</span>.
+                            <span className="text-gray-600">12</span>
                           </span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">
-                            Extraversion
+                            Хугацаа дуусах
                           </span>
-                          <span className="font-medium">
-                            {career.tests.bigFive.extraversion}%
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">
-                            Agreeableness
-                          </span>
-                          <span className="font-medium">
-                            {career.tests.bigFive.agreeableness}%
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">
-                            Neuroticism
-                          </span>
-                          <span className="font-medium">
-                            {career.tests.bigFive.neuroticism}%
+                          <span className="font-medium text-base">
+                            <span className="text-[#232360] font-bold">2026</span>.
+                            <span className="text-yellow-500 font-bold">05</span>.
+                            <span className="text-gray-600">12</span>
                           </span>
                         </div>
                       </div>
@@ -323,47 +310,6 @@ export default function Profile() {
         </div>
 
         {/* Profile Info: Right side */}
-        <aside className="w-[400px] flex flex-col items-center">
-          <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-gray-200 mb-8 shadow-lg hover:shadow-xl transition-all duration-300">
-            <Image
-              src="/193484-2.jpg"
-              alt="profile"
-              width={192}
-              height={192}
-              className="object-cover"
-            />
-          </div>
-          <div className="w-full bg-white rounded-2xl border border-[#E6E6F2] p-10 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col gap-4">
-            <h2 className="font-bold mb-4 text-xl text-[#232360]">
-              Information summary
-            </h2>
-            <div className="mb-2 text-lg flex justify-between">
-              <span className="text-gray-600">Phone</span>{" "}
-              <b className="text-[#232360]">+97699839573</b>
-            </div>
-            <div className="mb-2 text-lg flex justify-between">
-              <span className="text-gray-600">Email</span>{" "}
-              <b className="text-[#232360]">neoisneo07@gmail.com</b>
-            </div>
-            <div className="mb-2 text-lg flex justify-between">
-              <span className="text-gray-600">Adress</span>{" "}
-              <b className="text-[#232360]">Ulaanbaatar</b>
-            </div>
-            <button className="mt-6 w-full bg-black text-white py-4 rounded-xl flex items-center justify-center gap-3 text-lg font-semibold hover:bg-[#232360] transition-all duration-300 shadow-md hover:shadow-lg">
-              Засах
-              <svg
-                width="22"
-                height="22"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M15.232 5.232l3.536 3.536M9 13l6.071-6.071a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.94l-3.535 1.178 1.178-3.535a4 4 0 01.94-1.414z" />
-              </svg>
-            </button>
-          </div>
-        </aside>
       </div>
     </div>
   );
