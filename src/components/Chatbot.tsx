@@ -23,11 +23,35 @@ interface BigFiveScores {
   Conscientiousness: number;
 }
 
-interface ChatbotProps {
-  onQuizSubmit?: { [key: number]: number };
+interface HollandScores {
+  R: number;
+  I: number;
+  A: number;
+  S: number;
+  E: number;
+  C: number;
 }
 
-const Chatbot = ({ onQuizSubmit }: ChatbotProps) => {
+interface MBTIScores {
+  E_I: { E: number; I: number };
+  S_N: { S: number; N: number };
+  T_F: { T: number; F: number };
+  J_P: { J: number; P: number };
+}
+
+interface ChatbotProps {
+  onQuizSubmit?: { [key: number]: number };
+  hollandResults?: HollandScores;
+  mbtiResults?: MBTIScores;
+  eqResults?: number[];
+}
+
+const Chatbot = ({
+  onQuizSubmit,
+  hollandResults,
+  mbtiResults,
+  eqResults,
+}: ChatbotProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [textInput, setTextInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -45,24 +69,37 @@ const Chatbot = ({ onQuizSubmit }: ChatbotProps) => {
     }
   }, [messages]);
 
-  // Quiz-ээс ирсэн хариултыг боловсруулах
+  // Process quiz results when they arrive
   useEffect(() => {
     if (onQuizSubmit) {
       processQuizResults(onQuizSubmit);
     }
   }, [onQuizSubmit]);
 
-  // bigFiveScores шинэчлэгдсэн бол API руу хүсэлт илгээх
+  // Send test results to API when they're ready
   useEffect(() => {
-    if (bigFiveScores) {
-      console.log("Sending Big Five Scores to API:", bigFiveScores);
+    if (bigFiveScores || hollandResults || mbtiResults || eqResults) {
+      console.log("Sending Test Results to API:", {
+        bigFiveScores,
+        hollandResults,
+        mbtiResults,
+        eqResults,
+      });
       handleSubmit(new Event("submit") as unknown as FormEvent);
     }
-  }, [bigFiveScores]);
+  }, [bigFiveScores, hollandResults, mbtiResults, eqResults]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!textInput.trim() && !imageUrl.trim() && !bigFiveScores) return;
+    if (
+      !textInput.trim() &&
+      !imageUrl.trim() &&
+      !bigFiveScores &&
+      !hollandResults &&
+      !mbtiResults &&
+      !eqResults
+    )
+      return;
 
     const content: MessageContent[] = [];
     if (textInput.trim()) {
@@ -72,31 +109,90 @@ const Chatbot = ({ onQuizSubmit }: ChatbotProps) => {
       content.push({ type: "image_url", image_url: { url: imageUrl } });
     }
 
-    if (bigFiveScores) {
-      // Big Five оноог Монголоор хөрвүүлэх
-      const translatedScores = {
-        "Сэтгэл хөдлөлийн тогтвортой байдал (Neuroticism)":
-          bigFiveScores.Neuroticism,
-        "Гадагшаа чиглэсэн зан (Extraversion)": bigFiveScores.Extraversion,
-        "Шинэ санаанд нээлттэй байдал (Openness)": bigFiveScores.Openness,
-        "Хамтран ажиллах чадвар (Agreeableness)": bigFiveScores.Agreeableness,
-        "Төлөвлөлттэй, зохион байгуулалттай байдал (Conscientiousness)":
-          bigFiveScores.Conscientiousness,
-      };
+    if (bigFiveScores || hollandResults || mbtiResults || eqResults) {
+      if (bigFiveScores) {
+        const translatedScores = {
+          "Сэтгэл хөдлөлийн тогтвортой байдал": bigFiveScores.Neuroticism,
+          "Гадагшаа чиглэсэн зан": bigFiveScores.Extraversion,
+          "Шинэ санаанд нээлттэй байдал": bigFiveScores.Openness,
+          "Хамтран ажиллах чадвар": bigFiveScores.Agreeableness,
+          "Төлөвлөлттэй, зохион байгуулалттай байдал":
+            bigFiveScores.Conscientiousness,
+        };
 
-      // Монгол хэл дээрх оноог мессеж болгон бэлдэх
-      const scoresText = Object.entries(translatedScores)
-        .map(([trait, score]) => `${trait}: ${score}`)
-        .join(", ");
+        const scoresText = Object.entries(translatedScores)
+          .map(([trait, score]) => `${trait}: ${score}`)
+          .join(", ");
+
+        content.push({
+          type: "text",
+          text: `Миний Big Five оноо: ${scoresText}`,
+        });
+      }
+
+      if (hollandResults) {
+        const hollandScores = {
+          "Практик (R)": hollandResults.R,
+          "Судалгааны (I)": hollandResults.I,
+          "Уран бүтээл (A)": hollandResults.A,
+          "Нийгмийн (S)": hollandResults.S,
+          "Бизнес (E)": hollandResults.E,
+          "Удирдамж (C)": hollandResults.C,
+        };
+
+        const scoresText = Object.entries(hollandScores)
+          .map(([type, score]) => `${type}: ${score}`)
+          .join(", ");
+
+        content.push({
+          type: "text",
+          text: `Миний Holland Code оноо: ${scoresText}`,
+        });
+      }
+
+      if (mbtiResults) {
+        const mbtiType = [
+          mbtiResults.E_I.E > mbtiResults.E_I.I ? "E" : "I",
+          mbtiResults.S_N.S > mbtiResults.S_N.N ? "S" : "N",
+          mbtiResults.T_F.T > mbtiResults.T_F.F ? "T" : "F",
+          mbtiResults.J_P.J > mbtiResults.J_P.P ? "J" : "P",
+        ].join("");
+
+        const mbtiScores = {
+          "Гадагшаа чиглэсэн (E) vs Дотогшоо чиглэсэн (I)": `${mbtiResults.E_I.E}-${mbtiResults.E_I.I}`,
+          "Мэдрэмж (S) vs Зөн совин (N)": `${mbtiResults.S_N.S}-${mbtiResults.S_N.N}`,
+          "Бодол (T) vs Мэдрэмж (F)": `${mbtiResults.T_F.T}-${mbtiResults.T_F.F}`,
+          "Шийдвэр (J) vs Уян хатан байдал (P)": `${mbtiResults.J_P.J}-${mbtiResults.J_P.P}`,
+        };
+
+        const scoresText = Object.entries(mbtiScores)
+          .map(([type, score]) => `${type}: ${score}`)
+          .join(", ");
+
+        content.push({
+          type: "text",
+          text: `Миний MBTI төрөл: ${mbtiType}\n${scoresText}`,
+        });
+      }
+
+      if (eqResults && eqResults.length === 40) {
+        // Calculate EQ scores
+        const sum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
+        const selfAwareness = sum(eqResults.slice(0, 8));
+        const selfRegulation = sum(eqResults.slice(8, 16));
+        const motivation = sum(eqResults.slice(16, 24));
+        const empathy = sum(eqResults.slice(24, 32));
+        const socialSkills = sum(eqResults.slice(32, 40));
+        const overall = sum(eqResults);
+        content.push({
+          type: "text",
+          text: `Миний EQ оноо:\nӨөрийгөө ойлгох: ${selfAwareness}/40\nӨөрийгөө зохицуулах: ${selfRegulation}/40\nМотиваци: ${motivation}/40\nӨрөвдөх сэтгэл: ${empathy}/40\nНийгмийн ур чадвар: ${socialSkills}/40\nНийт оноо: ${overall}/200`,
+        });
+      }
 
       content.push({
         type: "text",
-        text: `Миний Big Five оноо: ${scoresText}`,
-      });
-
-      content.push({
-        type: "text",
-        text: " Эхлээд миний оноог хараад сэтгэл зүйн зөвлөгөө өгөөд дараа нь миний оноонд тохирох бүх мэргэжилийг санал болго",
+        text: "Эхлээд миний оноог хараад сэтгэл зүйн зөвлөгөө өгөөд дараа нь миний оноонд тохирох бүх мэргэжилийг санал болго монгол хэлээр хариул",
       });
     }
 
@@ -105,6 +201,7 @@ const Chatbot = ({ onQuizSubmit }: ChatbotProps) => {
       content,
       timestamp: new Date().toLocaleTimeString(),
     };
+
     setMessages((prev) => [...prev, userMessage]);
     setTextInput("");
     setImageUrl("");
@@ -114,30 +211,44 @@ const Chatbot = ({ onQuizSubmit }: ChatbotProps) => {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({
+          messages: [...messages, userMessage],
+          testResults: {
+            bigFive: bigFiveScores,
+            holland: hollandResults,
+            mbti: mbtiResults,
+            eq: eqResults,
+          },
+        }),
       });
 
-      console.log("Fetch Response Status:", response.status);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
       const data = await response.json();
-      console.log("API Response Data:", data);
-      if (data.error) throw new Error(data.error);
+
+      if (!response.ok) {
+        throw new Error(data.error || `HTTP error! status: ${response.status}`);
+      }
+
+      if (!data.message) {
+        throw new Error("No response message from server");
+      }
 
       const assistantMessage: Message = {
         role: "assistant",
         content: data.message,
         timestamp: new Date().toLocaleTimeString(),
       };
+
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error("Error:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred";
+
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "Sorry, something went wrong.",
+          content: `Уучлаарай, алдаа гарлаа: ${errorMessage}. Дараа дахин оролдоно уу.`,
           timestamp: new Date().toLocaleTimeString(),
         },
       ]);
