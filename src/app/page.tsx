@@ -82,6 +82,19 @@ export default function Home() {
               SCROLL
             </span>
           </div>
+          <a className="ml-auto mr-[-1350px] font-bold w-30 text-white py-2 px-2 rounded-full relative after:content-[''] after:absolute after:bottom-0 after:left-[5px] after:right-[15px] after:h-[1px] after:bg-white hover:after:h-0 transition-all duration-300 cursor-pointer group">
+            <span className="inline-flex">
+              {Array.from("LET'S TALK").map((letter, index) => (
+                <span 
+                  key={index} 
+                  className="inline-block group-hover:animate-bounce"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </span>
+          </a>
         </section>
 
         <section
