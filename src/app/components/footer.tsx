@@ -13,7 +13,8 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-base font-medium text-center md:text-left text-gray-200 mt-[20px]">
-              Силиконын Хөндийд гайхалтай<br/> зүйлс бүтээж байна.
+            Монголд гайхалтай <br/> зүйлсийг бүтээж байна.
+
             </p>
             <div className="flex gap-3 justify-center md:justify-start mt-[20px]">
               <a href="#" className="hover:text-orange-500 transition-colors" aria-label="Instagram">
