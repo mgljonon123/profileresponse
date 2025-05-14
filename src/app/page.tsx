@@ -156,27 +156,12 @@ export default function Home() {
             <div className="flex-1 flex justify-center">
               <img src="/top-view-career-written-note-with-stickers-notepad-white-background-job-office-copybook-salary-college-business-color.jpg" alt="career card" className="w-72 md:w-[400px] rounded-xl shadow-lg transform rotate-3" />
             </div>
-<<<<<<< HEAD
-
-            <div className=" absolute   top-115 left-310 flex-1 flex flex-col items-center  ml-0 md:ml-10">
-              <p className=" md:text-[20px] max-w-lg text-sm text-gray-900 leading-relaxed mb-8 text-center mt-32">
-                Та ямар мэргэжил, карьерын
-                <br />
-                замыг сонгохыг хүсэж байна вэ?
-              </p>
-
-              <button
-                onClick={() => router.push("/auth/login")}
-                className="px-8 py-3 border border-black rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center ml-4"
-              >
-=======
             <div className="absolute top-115 left-310 flex-1 flex flex-col items-center ml-0 md:ml-10">
               <p className="text-[20px] max-w-lg text-gray-900 leading-relaxed mb-8 text-center mt-32">
                 Та ямар мэргэжил, карьерын<br /> замыг сонгохыг хүсэж байна вэ?
               </p>
               <button onClick={() => router.push("/auth/login")}
                 className="px-8 py-3 border border-gray-400 rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center ml-4 text-black">
->>>>>>> 63ffda8cb16c4ce0dbcc1f0f54419489749ed1c9
                 Хариултаа олох
                 <span className="ml-2">+</span>
               </button>
