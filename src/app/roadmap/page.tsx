@@ -14,7 +14,6 @@ export default function RoadmapPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#181818] text-white">
-      {/* Header */}
       <header className="flex items-center justify-between px-8 py-4 border-b border-gray-700">
         <Link href="/" className="text-2xl font-bold focus:outline-none">
         START UP
@@ -30,9 +29,7 @@ export default function RoadmapPage() {
         </div>
       </header>
 
-      {/* Main Content */}
       <div className="flex flex-1">
-        {/* Sidebar */}
         <aside className="w-1/4 bg-white text-black border-r border-gray-300 p-6">
           <h2 className="text-lg font-semibold mb-4 text-black">МЭРГЭЖИЛ</h2>
           <ul className="text-sm space-y-2">
@@ -43,11 +40,9 @@ export default function RoadmapPage() {
           </ul>
         </aside>
 
-        {/* Main Area (empty) */}
         <main className="flex-1 bg-white"></main>
       </div>
 
-      {/* Footer */}
       <Footer />
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
     </div>
