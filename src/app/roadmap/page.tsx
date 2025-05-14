@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Menu from '../components/Menu';
-import Footer from '../components/footer';
-import Link from 'next/link';
+import React, { useState } from "react";
+import Menu from "../components/Menu";
+import Footer from "../components/footer";
+import Link from "next/link";
 
 export default function RoadmapPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,7 +16,7 @@ export default function RoadmapPage() {
     <div className="min-h-screen flex flex-col bg-[#181818] text-white">
       <header className="flex items-center justify-between px-8 py-4 border-b border-gray-700">
         <Link href="/" className="text-2xl font-bold focus:outline-none">
-        START UP
+          START UP
         </Link>
 
         <div className="flex items-center gap-4">
@@ -24,7 +24,7 @@ export default function RoadmapPage() {
             onClick={toggleMenu}
             className="w-7 h-7 bg-gray-200 text-black rounded-full flex items-center justify-center text-xs focus:outline-none hover:bg-gray-300 transition-colors duration-300 z-50"
           >
-            {isMenuOpen ? '✕' : '☰'}
+            {isMenuOpen ? "✕" : "☰"}
           </button>
         </div>
       </header>
@@ -36,7 +36,9 @@ export default function RoadmapPage() {
             <li className="text-gray-600">Тухайн мэргэжил</li>
             <li className="hover:text-black cursor-pointer">Roadmap</li>
             <li className="hover:text-black cursor-pointer">asd</li>
-            <li className="hover:text-black cursor-pointer">Технологийн анхан шатны ажлууд</li>
+            <li className="hover:text-black cursor-pointer">
+              Технологийн анхан шатны ажлууд
+            </li>
           </ul>
         </aside>
 
@@ -47,4 +49,4 @@ export default function RoadmapPage() {
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
     </div>
   );
-} 
+}

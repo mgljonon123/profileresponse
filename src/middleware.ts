@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-const publicPaths = ["/saerch","/"];
+const publicPaths = ["/saerch", "/work", "/profile","/"];
 
 const staticPaths = ["/_next", "/favicon.ico", "/images", "/api/public"];
 
