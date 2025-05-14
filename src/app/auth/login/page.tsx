@@ -35,7 +35,6 @@ const Login: React.FC = () => {
       }
 
       setSuccess(true);
-      // Show success message for 1.5 seconds before redirecting
       setTimeout(() => {
         router.push("/test");
         router.refresh();
@@ -49,7 +48,6 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left Side - Form */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0">
         <div className="flex flex-col items-center w-full max-w-md">
           <div className="bg-gray-200 rounded-xl w-12 h-12 flex items-center justify-center mb-6 text-2xl font-bold text-gray-700 relative top-4 left-4">
@@ -128,7 +126,6 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* Right Side - Image & Quote */}
       <div className="hidden md:flex w-1/2 bg-black items-center justify-center relative">
         <img
           src="/4e659b59aabaf3fae230a92f49aede08 2.svg"
