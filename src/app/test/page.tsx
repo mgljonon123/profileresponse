@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { questions } from "../../lib/TS_questions";
 import Chatbot from "../../components/Chatbot";
 import { useRouter } from "next/navigation";
+import WelcomeScreen from "../../components/WelcomeScreen";
+import React from "react";
 
 // Holland Code test questions
 const hollandQuestions = {
@@ -259,8 +261,33 @@ type MBTIScores = {
 };
 type TestType = "personality" | "mbti" | "eq" | "holland";
 
+const steps = [
+  "Эхлэх",
+  "Таны зан чанарын хэв маягийг тодорхойлох",
+  "Танд тохирох ажил мэргэжлийн санал",
+  "Хобби",
+];
+
+function TestTimeline({ currentStep }: { currentStep: number }) {
+  return (
+    <div className="hidden md:flex flex-col items-center h-full min-h-[500px] bg-black w-80 rounded-3xl p-8 ml-12">
+      <button className="bg-white text-black px-4 py-1 rounded-full text-xs font-semibold shadow mb-8 mt-2">Тест эхлэх</button>
+      <div className="flex flex-col gap-16 relative w-full">
+        {steps.map((step, idx) => (
+          <div key={idx} className="flex items-center gap-4 relative z-10">
+            <div className={`w-6 h-6 rounded-full border-4 border-black flex items-center justify-center ${idx === currentStep ? 'bg-white' : 'bg-white'} `}></div>
+            <span className={`text-white ${idx === currentStep ? 'font-bold' : 'font-normal'}`}>{step}</span>
+          </div>
+        ))}
+        <div className="absolute left-2 top-3 w-1 h-[calc(100%-24px)] bg-white/20 rounded-full z-0"></div>
+      </div>
+    </div>
+  );
+}
+
 const TestPage = () => {
   const router = useRouter();
+  const [showWelcome, setShowWelcome] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResults, setShowResults] = useState(false);
@@ -296,6 +323,12 @@ const TestPage = () => {
     Conscientiousness: number;
   } | null>(null);
   const [recommendedTests, setRecommendedTests] = useState<string[]>([]);
+
+  // Step index for timeline
+  let stepIdx = 0;
+  if (testType === "personality") stepIdx = 1;
+  else if (testType === "mbti" || testType === "eq" || testType === "holland") stepIdx = 2;
+  // You can further refine stepIdx logic if needed
 
   // Add this function before the useEffect
   const calculateRecommendedTests = (
@@ -540,7 +573,10 @@ const TestPage = () => {
       const category = mbtiCategoryOrder[categoryIndex] as MBTICategory;
       const q = mbtiQuestions[category][currentMbtiQuestion];
       currentQuestionText = q.text;
-      currentOptions = [q.optionA, q.optionB];
+      currentOptions = [
+        `A. ${q.optionA ? q.optionA : "Сонголт A"}`,
+        `B. ${q.optionB ? q.optionB : "Сонголт B"}`,
+      ];
       setMbtiAnswers((prev) => {
         const updated = { ...prev };
         // Debug log for MBTI scoring
@@ -694,6 +730,10 @@ const TestPage = () => {
           (Object.keys(hollandQuestions).length * 11)) *
         100;
 
+  if (showWelcome) {
+    return <WelcomeScreen onStart={() => setShowWelcome(false)} />;
+  }
+
   if (showResults) {
     return null;
   }
@@ -703,114 +743,75 @@ const TestPage = () => {
   if (testType === "personality") {
     currentQuestionText = questions[currentQuestion].text;
     currentOptions = [
-      "Огт санал нийлэхгүй",
-      "Санал нийлэхгүй",
+      "Огт таалагдахгүй",
+      "Таалагдахгүй",
       "Дундаж",
-      "Санал нийлж байна",
-      "Баттай санал нийлж байна",
+      "Таалагдана",
     ];
   } else if (testType === "mbti") {
     const categoryIndex = currentMbtiCategory;
     const category = mbtiCategoryOrder[categoryIndex] as MBTICategory;
     const q = mbtiQuestions[category][currentMbtiQuestion];
     currentQuestionText = q.text;
-    currentOptions = [q.optionA, q.optionB];
+    currentOptions = [
+      `A. ${q.optionA ? q.optionA : "Сонголт A"}`,
+      `B. ${q.optionB ? q.optionB : "Сонголт B"}`,
+    ];
   } else if (testType === "eq") {
     currentQuestionText = eqQuestions[currentEqQuestion];
     currentOptions = [
-      "Rarely",
-      "Sometimes",
-      "Often",
-      "Usually",
-      "Almost Always",
+      "Ховор",
+      "Заримдаа",
+      "Олонтоо",
+      "Ихэвчлэн",
+      "Бараг үргэлж",
     ];
   } else {
     const categories = Object.keys(hollandQuestions) as HollandCategory[];
     const currentCategory = categories[currentHollandCategory];
-    currentQuestionText =
-      hollandQuestions[currentCategory][currentHollandQuestion];
+    currentQuestionText = hollandQuestions[currentCategory][currentHollandQuestion];
     currentOptions = ["Тийм", "Үгүй"];
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-300 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-3xl shadow-xl p-8">
-          {/* Test Type Indicator */}
-          <div className="mb-8">
-            <div className="flex justify-center">
-              <div className="px-4 py-2 rounded-lg bg-purple-600 text-white">
-                {testType === "personality"
-                  ? "Зан чанарын тест"
-                  : testType === "mbti"
-                  ? "MBTI тест"
-                  : testType === "eq"
-                  ? "EQ тест"
-                  : "Holland Code тест"}
+    <div className="min-h-screen bg-white flex flex-col md:flex-row items-center justify-center p-0 md:p-12">
+      {/* Main test area */}
+      <div className="flex-1 flex flex-col items-center justify-center w-full">
+        <div className="mt-20 mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-8 leading-tight">{currentQuestionText}</h2>
+        </div>
+        <div className="flex flex-col gap-8 w-full max-w-xl mx-auto">
+          {currentOptions.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => handleAnswer(index + 1)}
+              className="flex items-center gap-6 w-full p-7 bg-white border border-gray-200 rounded-3xl shadow-md text-gray-900 text-xl font-semibold transition-all duration-200 hover:bg-[#E8D7B9] hover:border-[#B04B2F] hover:shadow-xl group min-h-[72px]"
+            >
+              <span className="w-14 h-14 flex items-center justify-center rounded-full bg-[#B04B2F] text-white font-bold text-2xl group-hover:bg-white group-hover:text-[#B04B2F] border-2 border-[#B04B2F] transition-all">{index + 1}</span>
+              {option}
+            </button>
+          ))}
+        </div>
+        <button className="block mx-auto mt-10 text-gray-500 text-base font-semibold hover:underline">skip question</button>
+      </div>
+      {/* Timeline */}
+      <div className="hidden md:flex flex-col items-center h-full ml-8 mt-12">
+        <div className="bg-white rounded-3xl p-10 flex flex-col items-center w-96 min-h-[520px] relative shadow-lg border border-gray-100">
+          <div className="absolute left-10 top-10 w-1 h-[calc(100%-80px)] bg-gray-200 rounded-full z-0"></div>
+          <div className="flex flex-col gap-16 z-10 mt-2">
+            {steps.map((step, idx) => (
+              <div key={idx} className="flex items-center gap-6">
+                <div className={`w-10 h-10 rounded-full border-4 flex items-center justify-center font-bold text-base transition-all duration-200 ${idx === stepIdx ? 'bg-[#B04B2F] border-[#B04B2F]' : 'bg-white border-gray-300'}`}></div>
+                <span className={`text-gray-900 text-lg ${idx === stepIdx ? 'font-bold' : 'font-normal'}`}>{step}</span>
               </div>
-            </div>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="mb-8">
-            <div className="flex justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">
-                {testType === "personality"
-                  ? "Асуулт"
-                  : testType === "mbti"
-                  ? "MBTI"
-                  : testType === "eq"
-                  ? "EQ"
-                  : "Holland Code"}{" "}
-                {testType === "personality"
-                  ? currentQuestion + 1
-                  : testType === "mbti"
-                  ? mbtiCategoryOrder.indexOf(currentMbtiCategory) * 5 +
-                    currentMbtiQuestion +
-                    1
-                  : testType === "eq"
-                  ? currentEqQuestion + 1
-                  : currentHollandCategory * 11 + currentHollandQuestion + 1}
-                /
-                {testType === "personality"
-                  ? questions.length
-                  : testType === "mbti"
-                  ? mbtiCategoryOrder.length * 5
-                  : testType === "eq"
-                  ? eqQuestions.length
-                  : Object.keys(hollandQuestions).length * 11}
-              </span>
-              <span className="text-sm font-medium text-gray-700">
-                {Math.round(progress)}%
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div
-                className="bg-purple-600 h-2.5 rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-          </div>
-
-          {/* Question */}
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              {currentQuestionText}
-            </h2>
-          </div>
-
-          {/* Answer Options */}
-          <div className="space-y-4">
-            {currentOptions.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswer(index + 1)}
-                className="w-full p-4 text-left bg-white border border-gray-200 rounded-xl hover:bg-purple-50 hover:border-purple-200 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              >
-                {option}
-              </button>
             ))}
           </div>
+          <button
+            onClick={() => setShowWelcome(true)}
+            className="absolute top-6 right-6 bg-[#B04B2F] text-white px-6 py-2 rounded-full text-base font-semibold shadow hover:bg-[#c96a4e] transition-colors"
+          >
+            Тест эхлэх
+          </button>
         </div>
       </div>
     </div>

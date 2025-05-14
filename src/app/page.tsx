@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Menu from "./components/Menu";
 import { FaBars } from "react-icons/fa";
-import Footer from "./components/footer";
+import Footer from "../components/Footer";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
