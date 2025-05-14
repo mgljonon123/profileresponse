@@ -1,100 +1,54 @@
-import { useState, useRef } from "react";
+'use client';
 
-interface AnimatedCardProps {
-  image: string;
-  title: string;
-}
+import React from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, title }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
+type AnimatedCardProps = {
+  items: {
+    image: string;
+    title: string;
+  }[];
+};
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current || !cardRef.current) return;
-
-    const rect = containerRef.current.getBoundingClientRect();
-    const xPos = e.clientX - rect.left;
-    const yPos = e.clientY - rect.top;
-
-    const xAxis = (rect.width / 2 - xPos) / 25;
-    const yAxis = (rect.height / 2 - yPos) / 25;
-
-    if (cardRef.current) {
-      cardRef.current.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-    }
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (cardRef.current) {
-      cardRef.current.style.transition = "transform 0.1s ease";
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (cardRef.current) {
-      cardRef.current.style.transform = "rotateY(0deg) rotateX(0deg)";
-      cardRef.current.style.transition = "transform 0.5s ease";
-    }
-  };
+const AnimatedCardStack: React.FC<AnimatedCardProps> = ({ items }) => {
+  const { scrollYProgress } = useScroll();
+  const smoothScroll = useSpring(scrollYProgress, {
+    damping: 20,
+    stiffness: 100,
+  });
 
   return (
-    <div
-      className="flex flex-col items-center"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="image-container" ref={cardRef}>
-        <img
-          src={image}
-          alt={title}
-          className="w-[300px] h-[420px] object-cover rounded-lg shadow-lg"
-        />
-        <div className="image-overlay"></div>
-      </div>
-      <p className="text-sm mt-3 font-medium text-black">{title}</p>
+    <div className="relative h-[200vh] flex items-center justify-center bg-white overflow-hidden">
+      {items.map((item, index) => {
+        const start = index * 0.1;
+        const end = start + 0.2;
+        const y = useTransform(smoothScroll, [start, end], [100, 0]);
+        const opacity = useTransform(smoothScroll, [start, end], [0, 1]);
 
-      <style jsx>{`
-        .image-container {
-          position: relative;
-          transform-style: preserve-3d;
-          transition: transform 0.6s;
-        }
+        const exitY = useTransform(smoothScroll, [end, end + 0.1], [0, -100]);
+        const exitOpacity = useTransform(smoothScroll, [end, end + 0.1], [1, 0]);
 
-        .image-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            135deg,
-            rgba(66, 139, 202, 0.8) 0%,
-            rgba(0, 76, 153, 0.9) 100%
-          );
-          opacity: 0;
-          transition: opacity 0.4s;
-          border-radius: 12px;
-        }
-
-        .image-container:hover .image-overlay {
-          opacity: 0.3;
-        }
-
-        .image-container:hover img {
-          transform: scale(1.05);
-        }
-
-        img {
-          transition: transform 0.6s;
-        }
-      `}</style>
+        return (
+          <motion.div
+            key={index}
+            style={{
+              y,
+              opacity,
+              zIndex: items.length - index,
+              position: 'absolute',
+              transformStyle: 'preserve-3d',
+            }}
+            className="w-[300px] sm:w-[400px] rounded-xl shadow-xl bg-white overflow-hidden transition-all"
+          >
+            <img src={item.image} alt={item.title} className="w-full h-64 object-cover" />
+            <div className="p-4 text-center font-semibold text-lg text-gray-800">
+              {item.title}
+            </div>
+          </motion.div>
+        );
+      })}
     </div>
   );
 };
 
-export default AnimatedCard;
+export default AnimatedCardStack;
