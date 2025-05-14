@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface QuestionPanelProps {
   currentStep?: number;
@@ -9,7 +9,7 @@ interface QuestionPanelProps {
 const QuestionPanel: React.FC<QuestionPanelProps> = ({
   currentStep = 0,
   questions = [],
-  onAnswer
+  onAnswer,
 }) => {
   return (
     <div className="w-full p-6 bg-white rounded-lg shadow-md">
@@ -19,24 +19,24 @@ const QuestionPanel: React.FC<QuestionPanelProps> = ({
             {questions[currentStep].question}
           </h2>
           <div className="space-y-2">
-            {questions[currentStep].options?.map((option: any, index: number) => (
-              <button
-                key={index}
-                onClick={() => onAnswer?.(option)}
-                className="w-full p-3 text-left border rounded-md hover:bg-gray-50 transition-colors"
-              >
-                {option}
-              </button>
-            ))}
+            {questions[currentStep].options?.map(
+              (option: any, index: number) => (
+                <button
+                  key={index}
+                  onClick={() => onAnswer?.(option)}
+                  className="w-full p-3 text-left border rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  {option}
+                </button>
+              )
+            )}
           </div>
         </div>
       ) : (
-        <div className="text-center text-gray-500">
-          No questions available
-        </div>
+        <div className="text-center text-gray-500">No questions available</div>
       )}
     </div>
   );
 };
 
-export default QuestionPanel; 
+export default QuestionPanel;

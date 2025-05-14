@@ -25,7 +25,6 @@ model User {
   createdAt                  DateTime             @default(now())
   updatedAt                  DateTime             @updatedAt
 
-  // Relations
   testResults                TestResult[]
   chatHistory                ChatHistory[]
   roadmaps                   Roadmap[]
@@ -37,13 +36,13 @@ model User {
 model TestResult {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   userId        String    @db.ObjectId
-  testType      String    // 'MBTI', 'Holland', 'BigFive', etc.
-  resultData    Json      // stores detailed result
-  xValue        Float     // graph X-axis
-  yValue        Float     // graph Y-axis (score)
+  testType      String    
+  resultData    Json      
+  xValue        Float     
+  yValue        Float     
   takenAt       DateTime  @default(now())
 
-  // Relations
+  
   user          User      @relation(fields: [userId], references: [id])
   recommendations CareerRecommendation[]
   chatHistory   ChatHistory[]
@@ -53,11 +52,11 @@ model ChatHistory {
   id           String      @id @default(auto()) @map("_id") @db.ObjectId
   userId       String      @db.ObjectId
   message      String
-  isUser       Boolean     // true for user message, false for bot
+  isUser       Boolean    
   createdAt    DateTime    @default(now())
   testResultId String?     @db.ObjectId
 
-  // Relations
+  
   user         User        @relation(fields: [userId], references: [id])
   testResult   TestResult? @relation(fields: [testResultId], references: [id])
 }
@@ -69,7 +68,7 @@ model Roadmap {
   roadmapData Json
   createdAt   DateTime @default(now())
 
-  // Relations
+  
   user        User     @relation(fields: [userId], references: [id])
   career      Career   @relation(fields: [careerId], references: [id])
 }
@@ -79,10 +78,10 @@ model CareerRecommendation {
   userId            String      @db.ObjectId
   recommendedCareerId String     @db.ObjectId
   testResultId      String?     @db.ObjectId
-  confidenceScore   Float       // e.g., 0.85
+  confidenceScore   Float       
   recommendedAt     DateTime    @default(now())
 
-  // Relations
+  
   user              User        @relation("UserRecommendations", fields: [userId], references: [id])
   career            Career      @relation(fields: [recommendedCareerId], references: [id])
   testResult        TestResult? @relation(fields: [testResultId], references: [id])
@@ -92,10 +91,10 @@ model Career {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
-  isTop10     Boolean  @default(false) // true if part of top 10 list
+  isTop10     Boolean  @default(false) 
   createdAt   DateTime @default(now())
 
-  // Relations
+  
   roadmaps    Roadmap[]
   recommendations CareerRecommendation[]
 }
@@ -108,9 +107,9 @@ model Subscription {
   startDate DateTime
   endDate   DateTime
   isActive  Boolean  @default(true)
-  features  Json     // Store specific features for each tier
+  features  Json    
 
-  // Relations
+  
   user      User     @relation(fields: [userId], references: [id])
   payments  Payment[]
 }
@@ -122,9 +121,9 @@ model Payment {
   amount         Float
   paymentMethod  String
   paymentDate    DateTime @default(now())
-  status         String   // e.g., 'completed', 'pending', 'failed'
+  status         String   
 
-  // Relations
+  
   user           User     @relation(fields: [userId], references: [id])
   subscription   Subscription @relation(fields: [subscriptionId], references: [id])
 }

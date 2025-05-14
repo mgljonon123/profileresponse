@@ -14,7 +14,7 @@ export default function Home() {
   const [textIndex, setTextIndex] = useState(0);
   const texts = [
     "ЯМАР МЭРГЭЖИЛ",
-    "Та ямар мэргэжил, карьерын зам сонгох ёстойгоо шийдэхэд бэрхшээлтэй байна уу?"
+    "Та ямар мэргэжил, карьерын зам сонгох ёстойгоо шийдэхэд бэрхшээлтэй байна уу?",
   ];
 
   const navigateToProfile = () => {
@@ -105,7 +105,10 @@ export default function Home() {
       <main className="relative overflow-x-hidden">
         {/* <section id="section1" className="h-screen bg-[#3e3e3e] text-white flex flex-col justify-center items-start px-10 md:px-32 relative">
           <div className="absolute top-5 left-10 md:left-22">
-            <Link href="/" className="text-[40px] font-extrabold focus:outline-none text-white">
+            <Link
+              href="/"
+              className="text-[40px] font-extrabold focus:outline-none text-white"
+            >
               START UP
             </Link>
           </div>
@@ -173,7 +176,9 @@ export default function Home() {
           </div>
           <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
             <div className="w-px h-10 bg-gray-600"></div>
-            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
+            <span className="mt-2 text-xs tracking-widest transform rotate-90">
+              SCROLL
+            </span>
           </div>
         </section>
 
