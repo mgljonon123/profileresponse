@@ -18,13 +18,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-base font-medium text-center md:text-left text-gray-200 mt-[20px]">
-<<<<<<< HEAD
-            Монголд гайхалтай <br/> зүйлсийг бүтээж байна.
-
-=======
-              Силиконын Хөндийд гайхалтай
-              <br /> зүйлс бүтээж байна.
->>>>>>> 66c605c0e6b02e4a07189114699c8fc5b60db549
+              Силиконын Хөндийд гайхалтай <br /> зүйлс бүтээж байна.
             </p>
             <div className="flex gap-3 justify-center md:justify-start mt-[20px]">
               <a

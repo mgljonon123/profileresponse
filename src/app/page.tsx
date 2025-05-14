@@ -65,10 +65,10 @@ export default function Home() {
           <div className="container grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="text-center  lg:pr-32 w-full">
               <div className="flex flex-col items-end w-full">
-                <h1 className="text-right font-bold text-black leading-tight pt-2 max-w-3xl text-3xl md:text-6xl ml-auto md:mr-[-250px]">
+                <h1 className="text-right font-bold text-black leading-tight pt-2 max-w-3xl text-3xl md:text-6xl ml-auto md:mr-[-238px]">
                 Ирээдүйд хүрэх таны
                 </h1>
-                <h1 className="text-right font-bold text-black leading-tight pt-2 max-w-3xl text-3xl md:text-6xl ml-auto md:mr-[-175px]">
+                <h1 className="text-right font-bold text-black leading-tight pt-2 max-w-3xl text-3xl md:text-6xl ml-auto md:mr-[-150px]">
                  зам эндээс эхлэнэ.
                 </h1>
 
@@ -84,7 +84,7 @@ export default function Home() {
               
 
               <button onClick={() => router.push("/auth/login")}
-               className=" bg-black text-white py-3 px-10 rounded-full flex items-center space-x-2 ml-57 mt-10">
+               className=" bg-black text-white py-3 px-10 rounded-full flex items-center space-x-2 ml-59 mt-10">
                 <span>Хариултаа олох</span>
                 {/* <i className="bx bx-right-arrow-alt"></i> */}
               </button>
@@ -137,7 +137,10 @@ export default function Home() {
 
 
         <section id="section2" className="relative h-screen bg-gray-200 flex items-center justify-center px-4 md:px-32">
-          <h2 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[60px] md:text-[200px] font-bold text-gray-350 opity-20 select-none animate-letter-spacing z-0 pointer-events-none whitespace-nowrap">
+         <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
+            Λ
+          </div>
+          <h2 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[60px] md:text-[200px] font-bold text-gray-400 opacity-20 select-none animate-letter-spacing z-0 pointer-events-none whitespace-nowrap">
             МЭРГЭЖИЛ
           </h2>
           <div className="absolute top-70 left-10 md:left-75 z-10">
@@ -185,7 +188,7 @@ export default function Home() {
 
 
         <section id="section3" className="h-screen bg-[#ffffff] text-white flex items-center justify-center px-10 md:px-32 text-center relative">
-        <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
+          <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
             Λ
           </div>
           <div className="max-w-5xl mx-auto px-4 relative">
