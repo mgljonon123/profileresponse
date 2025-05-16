@@ -48,7 +48,7 @@ export default function Home() {
   };
 
   return (
-    <>
+    <> 
       <header className="top-8 py-10 bg-[#f1f1f1] left-12 w-full z-10 transition-all duration-300" id="header">
         <nav className="flex items-center justify-between container px-20 py-4">
           <a href="#" className="text-black text-4xl font-semibold uppercase">Start Up</a>
@@ -60,13 +60,13 @@ export default function Home() {
       </header>
       
 
-
+ 
       
-      <main>
-        <section className="py-40 bg-[#f1f1f1] text-white relative">
-          <div className="container grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <main className="relative overflow-x-hidden w-full">
+        <section className="py-55 bg-[#f1f1f1] text-white relative">
+          <div className="container    grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="text-center  lg:pr-32 w-full">
-              <div className="flex flex-col items-end w-full">
+              <div className="flex  flex-col items-end w-full    ">
                 <h1 className="text-right font-bold text-black leading-tight pt-2 max-w-3xl text-3xl md:text-6xl ml-auto md:mr-[-238px]">
                 Ирээдүйд хүрэх таны
                 </h1>
@@ -83,12 +83,12 @@ export default function Home() {
                 <span className="circle" aria-hidden="true">
                   <span className="icon arrow"></span>
                 </span>
-                <span className="button-text">Хариултаа олох...</span>
+                <span className="button-text">Хариултаа олох</span>
               </button>
             </div>
 
             
-            <div className="w-[1300px] h-[500px] relative">
+            <div className="absolute top-40 left-310 w-130 h-120  ">
               <Spline
                 scene="https://prod.spline.design/9kUyxvQoK5udN49V/scene.splinecode"
                 style={{ width: '100%', height: '100%' }}
@@ -109,41 +109,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
-
-
-      <main className="relative overflow-x-hidden">
-        {/* <section id="section1" className="h-screen bg-[#3e3e3e] text-white flex flex-col justify-center items-start px-10 md:px-32 relative">
-          <div className="absolute top-5 left-10 md:left-22">
-            <Link
-              href="/"
-              className="text-[40px] font-extrabold focus:outline-none text-white"
-            >
-              START UP
-            </Link>
-          </div>
-          <button className="absolute top-10 right-10 w-10 h-10 flex items-center justify-center text-white hover:text-[#E94A1F] transition-colors duration-300" onClick={toggleMenu}>
-            <FaBars size={24} />
-          </button>
-          <h3 className="ml-auto mr-10 md:mr-302 text-[#E94A1F] text-sm md:text-base tracking-widest font-semibold">
-            БИД БОЛ УРАМ ЗОРИГИЙН ГАЛ
-          </h3>
-          <h1 className="ml-auto mr-10 md:mr-172 text-4xl md:text-6xl font-extrabold leading-tight pt-10 max-w-1xl">
-            Ирээдүйд хүрэх таны<br /> зам эндээс эхлэнэ.
-          </h1>
-          <p className="ml-auto mr-10 md:mr-240 pt-10 text-lg text-gray-300 max-w-md">
-            Карьерийн зөвлөгөө өгч, өөрийгөө илүү сайн таньж, ирээдүйгээ төлөвлө.
-          </p>
-          <div className="absolute bottom-10 left-10 md:left-32 flex space-x-2">
-            <div className="w-3 h-3 bg-[#E94A1F] rounded-full"></div>
-            <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
-            <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
-          </div>
-          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-300">
-            <div className="w-px h-10 bg-gray-300"></div>
-            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
-          </div>
-        </section> */}
 
 
         <section id="section2" className="relative h-screen bg-[#ffffff] flex items-center justify-center px-4 md:px-32">
@@ -177,8 +142,8 @@ export default function Home() {
 
 
               <button onClick={() => router.push("/auth/login")}
-                className="px-8 py-3  md:mr-[95px]  border border-gray-400 rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center ml-4 text-black">
-                Хариултаа олох
+                className="px-8 py-3  md:mr-[130px]  border border-gray-400 rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center ml-4 text-black">
+                Route Map
                 <span className="ml-2">+</span>
               </button>
 
@@ -197,15 +162,15 @@ export default function Home() {
 
 
 
-        <section id="section3" className="h-screen bg-[#ffffff] text-white flex items-center justify-center px-10 md:px-32 text-center relative">
+        <section id="section3" className="h-screen bg-[#f1f1f1] text-white flex items-center justify-center px-10 md:px-32 text-center relative">
           <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
             Λ
           </div>
           <div className="max-w-5xl mx-auto px-4 relative">
             <h3 className="absolute top-[-10px] left-[-30px] text-[20px] text-black tracking-[0.2em] font-bold">АМЖИЛТЫН ТҮЛХҮҮР</h3>
             <p className="mt-20 text-[36px] tracking-[0.0em] text-black leading-relaxed font-bold text-justify">
-              Мэргэжил гэдэг бол хүний хүсэл мөрөөдөл, авьяас чадвар, үнэт зүйлсийн уулзвар цэг. 
-              Бид танд сонголт нь зөвхөн ашигтай бус, зорилготой, үнэ цэнтэй амьдралтай байхад тусална.
+              Мэргэжил гэдэг бол хүний хүсэл мөрөөдөл авьяас чадвар үнэт зүйлсийн уулзвар цэг.  
+              Бид танд сонголт нь зөвхөн ашигтай бус зорилготой үнэ цэнтэй амьдралтай байхад тусална.
             </p>
           </div>
           <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-300">
@@ -219,9 +184,9 @@ export default function Home() {
           <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
             Λ
           </div>
-          <h2 className="text-3xl text-black md:text-5xl font-extrabold mb-12">Багцын Үнийн Санал</h2>
+          <h2 className="text-3xl text-black md:text-5xl font-extrabold mb-18">Багцын Үнийн Санал</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl">
-            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm">
+            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A]">
               <h3 className="text-2xl font-bold tracking-wide">Free</h3>
               <p className="text-4xl font-semibold mt-4">$0/mo</p>
               <ul className="text-base mt-8 space-y-4 text-gray-300">
@@ -229,9 +194,9 @@ export default function Home() {
                 <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>MBTI, BigFive, Holland Code тест</li>
                 <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Карьерын зөвлөмж</li>
               </ul>
-              <button className="mt-[160px] bg-[#E94A1F] text-white px-6 py-1 rounded-full font-medium uppercase tracking-wider hover:bg-[#3a322d] transition">GET STARTED</button>
+              <button className="button-free mt-[160px]">GET STARTED</button>
             </div>
-            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm">
+            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A]">
               <h3 className="text-2xl font-bold tracking-wide">Pro</h3>
               <p className="text-4xl font-semibold mt-4">$5/mo</p>
               <ul className="text-base mt-8 space-y-4 text-gray-300">
@@ -240,9 +205,9 @@ export default function Home() {
                 <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>10 тест</li>
                 <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Бүтээмжин зөвлөмж</li>
               </ul>
-              <button className="mt-[120px] bg-[#E94A1F] text-black px-6 py-1 rounded-full font-medium uppercase tracking-wider hover:bg-[#e6c200] transition">GET STARTED</button>
+              <button className="button-pro mt-[120px]">GET STARTED</button>
             </div>
-            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm">
+            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A]">
               <h3 className="text-2xl font-bold tracking-wide">Plas</h3>
               <p className="text-4xl font-semibold mt-4">$10/mo</p>
               <ul className="text-base mt-8 space-y-4 text-gray-300">
@@ -250,7 +215,7 @@ export default function Home() {
                 <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Roadmap зам</li>
                 <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Voice messages anywhere</li>
               </ul>
-              <button className="mt-[160px] bg-[#E94A1F] text-black px-6 py-1 rounded-full font-medium uppercase tracking-wider hover:bg-[#e6c200] transition">GET STARTED</button>
+              <button className="button-plas mt-[160px]">GET STARTED</button>
             </div>
           </div>
           <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
@@ -289,6 +254,7 @@ export default function Home() {
           background: #282936;
           border-radius: 1.625rem;
         }
+
         button.learn-more:hover .circle {
           width: 240px;
           border-radius: 1.625rem;
@@ -352,6 +318,192 @@ export default function Home() {
 
         button:hover .button-text {
           color: #fff;
+        }
+
+        .button-free {
+          width: 170px;
+          display: inline-block;
+          padding: 8px 20px;
+          border: 2px solid #4f4f4f;
+          border-radius: 6px;
+          transition: all 0.2s ease-in;
+          position: relative;
+          overflow: hidden;
+          font-size: 17px;
+          cursor: pointer;
+          color: white;
+          z-index: 1;
+        }
+
+        .button-free:before {
+          content: "";
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%) scaleY(1) scaleX(1.25);
+          top: 100%;
+          width: 140%;
+          height: 180%;
+          background-color: rgba(0, 0, 0, 0.05);
+          border-radius: 50%;
+          display: block;
+          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+          z-index: -1;
+        }
+
+        .button-free:after {
+          content: "";
+          position: absolute;
+          left: 55%;
+          transform: translateX(-50%) scaleY(1) scaleX(1.45);
+          top: 180%;
+          width: 160%;
+          height: 190%;
+          background-color: #E94A1F;
+          border-radius: 50%;
+          display: block;
+          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+          z-index: -1;
+        }
+
+        .button-free:hover {
+          color: #ffffff;
+          border: 1px solid #E94A1F;
+        }
+
+        .button-free:hover:before {
+          top: -35%;
+          background-color: #E94A1F;
+          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }
+
+        .button-free:hover:after {
+          top: -45%;
+          background-color: #E94A1F;
+          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }
+
+        .button-pro {
+          width: 170px;
+          display: inline-block;
+          padding: 8px 20px;  
+          border: 2px solid #4f4f4f;
+          border-radius: 6px;
+          transition: all 0.2s ease-in;
+          position: relative;
+          overflow: hidden;
+          font-size: 17px;
+          cursor: pointer;
+          color: white;
+          z-index: 1;
+        }
+
+        .button-pro:before {
+          content: "";
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%) scaleY(1) scaleX(1.25);
+          top: 100%;
+          width: 140%;
+          height: 180%;
+          background-color: rgba(0, 0, 0, 0.05);
+          border-radius: 50%;
+          display: block;
+          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+          z-index: -1;
+        }
+
+        .button-pro:after {
+          content: "";
+          position: absolute;
+          left: 55%;
+          transform: translateX(-50%) scaleY(1) scaleX(1.45);
+          top: 180%;
+          width: 160%;
+          height: 190%;
+          background-color: #E94A1F;
+          border-radius: 50%;
+          display: block;
+          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+          z-index: -1;
+        }
+
+        .button-pro:hover {
+          color: #ffffff;
+          border: 1px solid #E94A1F;
+        }
+
+        .button-pro:hover:before {
+          top: -35%;
+          background-color: #E94A1F;
+          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }
+
+        .button-pro:hover:after {
+          top: -45%;
+          background-color: #E94A1F;
+          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }
+
+        .button-plas {
+          width: 170px;
+          display: inline-block;
+          padding: 8px 20px;
+          border: 2px solid #4f4f4f;
+          border-radius: 6px;
+          transition: all 0.2s ease-in;
+          position: relative;
+          overflow: hidden;
+          font-size: 17px;
+          cursor: pointer;
+          color: white;
+          z-index: 1;
+        }
+
+        .button-plas:before {
+          content: "";
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%) scaleY(1) scaleX(1.25);
+          top: 100%;
+          width: 140%;
+          height: 180%;
+          background-color: rgba(0, 0, 0, 0.05);
+          border-radius: 50%;
+          display: block;
+          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+          z-index: -1;
+        }
+
+        .button-plas:after {
+          content: "";
+          position: absolute;
+          left: 55%;
+          transform: translateX(-50%) scaleY(1) scaleX(1.45);
+          top: 180%;
+          width: 160%;
+          height: 190%;
+          background-color: #E94A1F;
+          border-radius: 50%;
+          display: block;
+          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+          z-index: -1;
+        }
+
+        .button-plas:hover {
+          color: #ffffff;
+          border: 1px solid #E94A1F;
+        }
+
+        .button-plas:hover:before {
+          top: -35%;
+          background-color: #E94A1F;
+          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }
+
+        .button-plas:hover:after {
+          top: -45%;
+            background-color: #E94A1F;
+          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
         }
       `}</style>
     </>
