@@ -93,7 +93,6 @@ export default function Profile() {
     setEmails([...emails, { email: "", added: "шинэ" }]);
   };
 
-  // Sample test scores data
   const testScores = [
     {
       career: "Software Developer",
@@ -187,11 +186,9 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Gradient Banner */}
       <div className="w-full h-24 sm:h-32 rounded-2xl mb-8 sm:mb-12 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-6 sm:px-10 shadow-md" />
 
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch w-full">
-        {/* Main Section: Test results */}
         <div className="w-full lg:flex-1 flex-grow basis-0">
           <p className="mb-5 text-lg sm:text-xl text-[#232360]">
             Таний <b>test</b> хариунд тохирох <b>3 мэргэжил</b>
@@ -216,7 +213,6 @@ export default function Profile() {
                     {career.career}
                   </div>
 
-                  {/* Match Score */}
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-32 sm:w-40 bg-gray-200 rounded-full h-8 sm:h-10 relative flex items-center">
                       <div
@@ -241,7 +237,6 @@ export default function Profile() {
                     </button>
                   </div>
 
-                  {/* Test Scores Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
                       <h3 className="font-semibold text-gray-700 mb-2">MBTI</h3>
@@ -309,7 +304,6 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Profile Info: Right side */}
       </div>
     </div>
   );

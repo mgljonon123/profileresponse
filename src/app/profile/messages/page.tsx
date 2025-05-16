@@ -39,23 +39,19 @@ export default function MessagesPage() {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-
   useEffect(() => {
 
     if (typeof window !== "undefined") {
       scrollToBottom();
     }
   }, [messages]); 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
-
     const userMessage = input.trim();
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setIsLoading(true);
-
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -63,7 +59,7 @@ export default function MessagesPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "openai/gpt-4.1", // GPT-4.1 загварыг ашиглах
+          model: "deepseek/deepseek-chat:free",
           messages: [
             {
               role: "system",
@@ -114,7 +110,6 @@ export default function MessagesPage() {
 
   return (
     <div className="max-w-5xl mx-auto mt-8">
-      {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
@@ -148,10 +143,8 @@ export default function MessagesPage() {
         </div>
       </div>
 
-      {/* Gradient Banner */}
       <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-8 shadow-sm" />
 
-      {/* Welcome Section */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-4">
           Бид өнөөдөр танд <span className="text-purple-500">яаж</span> туслах вэ?
@@ -161,10 +154,8 @@ export default function MessagesPage() {
         </p>
       </div>
 
-      {/* Chat Interface */}
       <div className="flex flex-col h-[600px] bg-white rounded-2xl shadow-lg border border-[#f0f0f5]">
-        {/* Chat Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <div className="mb-8">
