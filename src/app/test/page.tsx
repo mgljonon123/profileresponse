@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { questions } from "../../lib/TS_questions";
 import Chatbot from "../../components/Chatbot";
 import { useRouter } from "next/navigation";
+import WelcomeScreen from "../../components/WelcomeScreen";
+import React from "react";
+import TimelineCard from "../../components/TimelineCard";
 
 // Holland Code test questions
 const hollandQuestions = {
@@ -91,111 +94,110 @@ const hollandQuestions = {
 const mbtiQuestions = {
   E_I: [
     {
-      text: "During a campus club event, I:",
-      optionA: "Enjoy meeting new people and joining group activities.",
-      optionB:
-        "Prefer having a few meaningful chats and leaving early to recharge.",
+      text: "Сургуулийн клубын арга хэмжээнд оролцохдоо:",
+      optionA: "Шинэ хүмүүстэй танилцаж, бүлгийн үйл ажиллагаанд идэвхтэй оролцдог.",
+      optionB: "Цөөн хэдэн хүнтэй утга учиртай яриа өрнүүлээд эртхэн гарч амардаг.",
     },
     {
-      text: "When working on a group project, I:",
-      optionA: "Love brainstorming ideas with my teammates.",
-      optionB: "Like thinking through my ideas alone before sharing.",
+      text: "Бүлгийн төсөл дээр ажиллахдаа:",
+      optionA: "Багийнхантайгаа санаа бодлоо чөлөөтэй хуваалцдаг.",
+      optionB: "Санаагаа эхлээд өөрөө бодож байж дараа нь хуваалцдаг.",
     },
     {
-      text: "In a class discussion, I usually:",
-      optionA: "Speak up with ideas as they come to me.",
-      optionB: "Listen carefully and share when I've thought it through.",
+      text: "Анги дотор хэлэлцүүлэгт:",
+      optionA: "Санаа орж ирэнгүүтээ шууд хэлдэг.",
+      optionB: "Анхааралтай сонсож, бодож байж санаагаа хэлдэг.",
     },
     {
-      text: "At a career fair, I feel most comfortable:",
-      optionA: "Talking to many recruiters and exploring all booths.",
-      optionB: "Preparing questions and focusing on a few companies.",
+      text: "Ажлын үзэсгэлэнд:",
+      optionA: "Олон ажил олгогчтой уулзаж, бүх л павильон ордог.",
+      optionB: "Бэлтгэлтэй очиж, цөөн компани дээр төвлөрдөг.",
     },
     {
-      text: "After a long day of classes, I recharge by:",
-      optionA: "Hanging out with friends or attending a campus event.",
-      optionB: "Relaxing alone with a book, music, or Netflix.",
+      text: "Удаан хичээллэсний дараа:",
+      optionA: "Найзуудтайгаа уулзах, арга хэмжээнд оролцох.",
+      optionB: "Ганцаараа ном унших, хөгжим сонсох, кино үзэх.",
     },
   ],
   S_N: [
     {
-      text: "When choosing a major, I focus on:",
-      optionA: "Specific skills and job roles it prepares me for.",
-      optionB: "How it aligns with my long-term dreams and interests.",
+      text: "Мэргэжлээ сонгохдоо:",
+      optionA: "Ямар ур чадвар, ажлын байр бэлдэж өгдөгт анхаардаг.",
+      optionB: "Урт хугацааны мөрөөдөл, сонирхолд хэр нийцэж байгааг хардаг.",
     },
     {
-      text: "When solving a problem for a class project, I:",
-      optionA: "Use proven methods and focus on the facts.",
-      optionB: "Explore creative solutions and new ideas.",
+      text: "Бүлгийн төсөл дээр асуудал шийдэхдээ:",
+      optionA: "Батлагдсан арга барил, бодит баримтад тулгуурладаг.",
+      optionB: "Шинэлэг, бүтээлч шийдэл хайдаг.",
     },
     {
-      text: "In a lecture, I learn best from:",
-      optionA: "Clear examples and step-by-step explanations.",
-      optionB: "Big-picture concepts and future applications.",
+      text: "Лекц дээр:",
+      optionA: "Тодорхой жишээ, алхам алхмаар тайлбарлахаас хамгийн сайн сурдаг.",
+      optionB: "Том зургаар, ирээдүйн хэрэглээгээр ойлгодог.",
     },
     {
-      text: "When planning an internship application, I:",
-      optionA: "Create a detailed checklist of tasks and deadlines.",
-      optionB: "Focus on the role's potential to inspire my career.",
+      text: "Дадлага хийхээр төлөвлөхдөө:",
+      optionA: "Нарийн төлөвлөгөө, хугацаа гаргадаг.",
+      optionB: "Ажлын байрны урам зориг, ирээдүйн боломжийг хардаг.",
     },
     {
-      text: "When reading a syllabus, I notice:",
-      optionA: "Specific assignments and due dates.",
-      optionB: "The course's overall goals and themes.",
+      text: "Хичээлийн хөтөлбөр уншихдаа:",
+      optionA: "Тодорхой даалгавар, хугацааг анзаардаг.",
+      optionB: "Хичээлийн ерөнхий зорилго, сэдвийг хардаг.",
     },
   ],
   T_F: [
     {
-      text: "When resolving a disagreement in a group project, I:",
-      optionA: "Focus on the most logical solution based on facts.",
-      optionB: "Consider everyone's feelings and team harmony.",
+      text: "Бүлгийн төсөл дээр маргаан гарахад:",
+      optionA: "Хамгийн логик, баримтад тулгуурласан шийдлийг сонгодог.",
+      optionB: "Бүгдийн сэтгэл санаа, багийн уур амьсгалыг харгалздаг.",
     },
     {
-      text: "When picking an internship, I prioritize:",
-      optionA: "Pay, skills gained, and career advancement.",
-      optionB: "A supportive team and meaningful work.",
+      text: "Дадлага сонгохдоо:",
+      optionA: "Цалин, ур чадвар, карьерын өсөлтийг чухалчилдаг.",
+      optionB: "Дэмжлэгтэй баг, утга учиртай ажлыг илүүд үздэг.",
     },
     {
-      text: "When giving feedback to a classmate, I:",
-      optionA: "Point out specific strengths and weaknesses.",
-      optionB: "Encourage them while being mindful of their feelings.",
+      text: "Хамтрагчдаа санал өгөхдөө:",
+      optionA: "Давуу болон сул талыг нь шууд хэлдэг.",
+      optionB: "Сэтгэлд нь хүрэхээр, урам өгч хэлдэг.",
     },
     {
-      text: "In a team decision, I:",
-      optionA: "Analyze data to choose the best option.",
-      optionB: "Ensure everyone's values are considered.",
+      text: "Багийн шийдвэр гаргахдаа:",
+      optionA: "Өгөгдөлд тулгуурлан хамгийн зөв шийдлийг гаргадаг.",
+      optionB: "Бүгдийн үнэт зүйлийг харгалзан үздэг.",
     },
     {
-      text: "When prioritizing school tasks, I base decisions on:",
-      optionA: "Deadlines and objective importance.",
-      optionB: "How tasks affect my goals and relationships.",
+      text: "Хичээлийн ажлаа эрэмбэлэхдээ:",
+      optionA: "Хугацаа, ач холбогдлоор нь шийддэг.",
+      optionB: "Зорилго, харилцаанд хэрхэн нөлөөлөхийг хардаг.",
     },
   ],
   J_P: [
     {
-      text: "When managing my school schedule, I prefer:",
-      optionA: "A detailed plan with set study times.",
-      optionB: "A flexible approach based on my mood or priorities.",
+      text: "Хичээлийн хуваариа зохицуулахдаа:",
+      optionA: "Нарийн төлөвлөгөө, тогтсон цагийн хуваарьтай байх дуртай.",
+      optionB: "Сэтгэл санаа, тэр үеийн чухал зүйлээсээ хамааруулдаг.",
     },
     {
-      text: "When starting a semester-long project, I:",
-      optionA: "Set milestones and aim to finish early.",
-      optionB: "Work in bursts and wrap up near the deadline.",
+      text: "Урт хугацааны төсөл эхлэхдээ:",
+      optionA: "Алхам алхмаар зорилт тавьж, эрт дуусгахыг хичээдэг.",
+      optionB: "Санаа орж ирэх бүртээ хэсэгчилж хийдэг, эцэст нь дуусгадаг.",
     },
     {
-      text: "In my study space, I feel best when:",
-      optionA: "Everything is organized and clutter-free.",
-      optionB: "There's room for creative mess and spontaneity.",
+      text: "Сурах орчин:",
+      optionA: "Бүх зүйл цэгцтэй, цэвэрхэн байх дуртай.",
+      optionB: "Бага зэрэг эмх замбараагүй, бүтээлч орчинд дуртай.",
     },
     {
-      text: "When a professor changes an assignment, I:",
-      optionA: "Adjust my plan quickly to stay on track.",
-      optionB: "See it as a chance to try something new.",
+      text: "Багш даалгавар өөрчлөхөд:",
+      optionA: "Төлөвлөгөөгөө хурдан өөрчилж, хуваарьтаа нийцүүлдэг.",
+      optionB: "Шинэ боломж гэж харж, өөрөөр туршиж үздэг.",
     },
     {
-      text: "My approach to career planning is:",
-      optionA: "Setting clear goals with a timeline.",
-      optionB: "Keeping options open and exploring as I go.",
+      text: "Карьер төлөвлөлт:",
+      optionA: "Тодорхой зорилго, хугацаатай төлөвлөгөө гаргадаг.",
+      optionB: "Боломж гарвал туршиж үзэх, нээлттэй байхыг илүүд үздэг.",
     },
   ],
 };
@@ -203,50 +205,50 @@ const mbtiQuestions = {
 // EQ test questions
 const eqQuestions = [
   // Self-Awareness
-  "I notice when I'm feeling stressed about a school deadline before it overwhelms me.",
-  "I can identify why I feel upset after a tough group project meeting.",
-  "I understand how my mood affects my performance in class or at work.",
-  "I recognize when my emotions (e.g., excitement, frustration) influence my decisions.",
-  "I'm aware of my strengths and weaknesses when applying for internships.",
-  "I can tell when I'm too nervous to perform well in a class presentation.",
-  "I reflect on my emotions after a disagreement with a classmate or colleague.",
-  "I know when I need a break to avoid burnout during exam season.",
+  "Би шалгалтын хугацаа ойртоход өөрийгөө стресстэж байгаагаа анзаардаг.",
+  "Би бүлгийн уулзалтын дараа яагаад сэтгэл дундуур байгаагаа ойлгодог.",
+  "Миний сэтгэл санаа хичээл эсвэл ажилд минь хэрхэн нөлөөлж байгааг мэддэг.",
+  "Миний сэтгэл хөдлөл (жишээ нь: баярлах, уурлах) шийдвэр гаргалтад минь хэрхэн нөлөөлж байгааг анзаардаг.",
+  "Би дадлага хийхдээ өөрийн давуу болон сул талаа мэддэг.",
+  "Би анги дээр илтгэл тавихдаа хэт их сандарч байгаагаа мэдэрдэг.",
+  "Би хамтрагчтайгаа маргалдсаны дараа сэтгэл хөдлөлөө эргэцүүлдэг.",
+  "Шалгалтын улиралд өөрийгөө шатаахгүйн тулд амрах хэрэгтэйгээ мэддэг.",
   // Self-Regulation
-  "I stay calm when a professor gives me unexpected critical feedback.",
-  "I avoid snapping at a teammate even when I'm frustrated during a project.",
-  "I can refocus after a disappointing grade or internship rejection.",
-  "I manage my stress effectively during busy weeks (e.g., exams and club events).",
-  "I resist impulsive reactions when someone disagrees with me in a debate.",
-  "I adapt my approach when a group project isn't going as planned.",
-  "I stay patient when a task (e.g., job application) takes longer than expected.",
-  "I control my emotions when presenting ideas in a high-stakes setting.",
+  "Багш гэнэтийн шүүмжлэл өгөхөд тайван байж чаддаг.",
+  "Багийн төсөл дээр уурласан ч бусдад уурлахгүй байхыг хичээдэг.",
+  "Муу дүн авсан эсвэл дадлагад тэнцээгүй ч хурдан сэргэдэг.",
+  "Шалгалтын болон клубын арга хэмжээ зэрэг завгүй үедээ стрессээ удирдаж чаддаг.",
+  "Хэн нэгэнтэй маргалдах үедээ түргэн уурлахгүй байхыг хичээдэг.",
+  "Багийн төсөл төлөвлөсөн ёсоор явахгүй бол арга барилаа өөрчилдөг.",
+  "Ажлаа удаан хийж байхад тэвчээртэй байдаг.",
+  "Чухал санаагаа хэлэхдээ сэтгэл хөдлөлөө хянаж чаддаг.",
   // Motivation
-  "I stay motivated to complete assignments even when they're challenging.",
-  "I set personal goals (e.g., improving grades, landing an internship) and work toward them.",
-  "I bounce back quickly after failing a test or missing a job opportunity.",
-  "I feel excited about learning new skills for my future career.",
-  "I push myself to improve, even when I'm already doing well in a class.",
-  "I stay focused on long-term career goals despite short-term obstacles.",
-  "I find satisfaction in completing tasks, like organizing a club event.",
-  "I take initiative to seek out opportunities (e.g., networking, volunteering).",
+  "Хэцүү даалгавар байсан ч дуусгахын тулд өөрийгөө зоригжуулдаг.",
+  "Хувийн зорилго тавьж, түүндээ хүрэхийн тулд хичээдэг.",
+  "Шалгалтад унасан ч эсвэл ажлын боломж алдсан ч хурдан сэргэдэг.",
+  "Ирээдүйн карьераа бодож шинэ ур чадвар сурахдаа урам зоригтой байдаг.",
+  "Хичээлдээ сайн байсан ч өөрийгөө улам хөгжүүлэхийг хичээдэг.",
+  "Богино хугацааны бэрхшээл тулгарсан ч урт хугацааны зорилгоо мартдаггүй.",
+  "Клубын арга хэмжээ зохион байгуулахдаа амжилтад хүрэхэд баярладаг.",
+  "Сүлжээ үүсгэх, сайн дурын ажилд идэвхтэй оролцдог.",
   // Empathy
-  "I can tell when a classmate is upset, even if they don't say it.",
-  "I listen carefully to understand a teammate's perspective during a disagreement.",
-  "I adjust my communication style to make others feel comfortable in group work.",
-  "I offer support when a friend or colleague is stressed about school or work.",
-  "I understand why a professor or boss might be frustrated with a project's progress.",
-  "I notice when a group member feels left out and try to include them.",
-  "I can sense when someone needs encouragement before a big presentation.",
-  "I consider others' feelings when giving feedback on their work.",
+  "Ангидаа хэн нэгэн сэтгэл дундуур байгааг анзаардаг.",
+  "Багийн маргааны үеэр бусдын байр суурийг ойлгохыг хичээдэг.",
+  "Багийн ажилд бусдыг тухтай байлгахын тулд харилцаагаа өөрчилдөг.",
+  "Найз эсвэл хамтрагч нь хичээл, ажилд стресстэж байвал туслахыг хичээдэг.",
+  "Багийн төсөл удааширч байхад багш яагаад уурлаж байгааг ойлгодог.",
+  "Багийн гишүүн ганцаардаж байгааг анзаарвал хамруулахыг хичээдэг.",
+  "Том илтгэлийн өмнө хэн нэгэнд урам өгөх хэрэгтэйг мэдэрдэг.",
+  "Бусдад санал өгөхдөө тэдний сэтгэл санааг харгалздаг.",
   // Social Skills
-  "I communicate my ideas clearly during group discussions or meetings.",
-  "I build positive relationships with classmates, even if we're very different.",
-  "I resolve conflicts in a study group without letting tensions escalate.",
-  "I inspire my teammates to work together toward a shared goal.",
-  "I feel confident leading a club activity or team project.",
-  "I adapt my behavior to fit different social settings (e.g., class vs. internship).",
-  "I give constructive feedback that motivates others to improve.",
-  "I network effectively at career fairs or student events to make connections.",
+  "Бүлгийн хэлэлцүүлэг, уулзалтын үеэр санаагаа тодорхой илэрхийлдэг.",
+  "Өөрөөсөө өөр хүмүүстэй ч эерэг харилцаа үүсгэдэг.",
+  "Судалгааны бүлэгт маргаан гарахад хурцадмал байдлыг намжаадаг.",
+  "Багийн гишүүдийг нэг зорилгын төлөө урамшуулж чаддаг.",
+  "Клубын үйл ажиллагаа, багийн төслийг удирдахад өөртөө итгэлтэй байдаг.",
+  "Хичээл, дадлагын орчинд өөрийгөө тохируулж чаддаг.",
+  "Бусдад урам өгөх, сайжруулах санал өгөхдөө эерэгээр ханддаг.",
+  "Карьeрын үзэсгэлэн, оюутны арга хэмжээнд сүлжээ үүсгэж чаддаг.",
 ];
 
 type HollandCategory = keyof typeof hollandQuestions;
@@ -259,8 +261,33 @@ type MBTIScores = {
 };
 type TestType = "personality" | "mbti" | "eq" | "holland";
 
+const steps = [
+  "Эхлэх",
+  "Таны зан чанарын хэв маягийг тодорхойлох",
+  "Танд тохирох ажил мэргэжлийн санал",
+  "Хобби",
+];
+
+function TestTimeline({ currentStep }: { currentStep: number }) {
+  return (
+    <div className="hidden md:flex flex-col justify-between min-h-screen w-80 bg-white rounded-3xl p-8 ml-12">
+      <button className="bg-white text-black px-4 py-1 rounded-full text-xs font-semibold shadow mb-8 mt-2">Тест эхлэх</button>
+      <div className="flex flex-col gap-16 relative w-full">
+        {steps.map((step, idx) => (
+          <div key={idx} className="flex items-center gap-4 relative z-10">
+            <div className={`w-6 h-6 rounded-full border-4 border-black flex items-center justify-center ${idx === currentStep ? 'bg-white' : 'bg-white'} `}></div>
+            <span className={`text-white ${idx === currentStep ? 'font-bold' : 'font-normal'}`}>{step}</span>
+          </div>
+        ))}
+        <div className="absolute left-2 top-3 w-1 h-[calc(100%-24px)] bg-white/20 rounded-full z-0"></div>
+      </div>
+    </div>
+  );
+}
+
 const TestPage = () => {
   const router = useRouter();
+  const [showWelcome, setShowWelcome] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResults, setShowResults] = useState(false);
@@ -296,6 +323,12 @@ const TestPage = () => {
     Conscientiousness: number;
   } | null>(null);
   const [recommendedTests, setRecommendedTests] = useState<string[]>([]);
+
+  // Step index for timeline
+  let stepIdx = 0;
+  if (testType === "personality") stepIdx = 1;
+  else if (testType === "mbti" || testType === "eq" || testType === "holland") stepIdx = 2;
+  // You can further refine stepIdx logic if needed
 
   // Add this function before the useEffect
   const calculateRecommendedTests = (
@@ -540,7 +573,10 @@ const TestPage = () => {
       const category = mbtiCategoryOrder[categoryIndex] as MBTICategory;
       const q = mbtiQuestions[category][currentMbtiQuestion];
       currentQuestionText = q.text;
-      currentOptions = [q.optionA, q.optionB];
+      currentOptions = [
+        `A. ${q.optionA ? q.optionA : "Сонголт A"}`,
+        `B. ${q.optionB ? q.optionB : "Сонголт B"}`,
+      ];
       setMbtiAnswers((prev) => {
         const updated = { ...prev };
         // Debug log for MBTI scoring
@@ -683,7 +719,7 @@ const TestPage = () => {
     testType === "personality"
       ? ((currentQuestion + 1) / questions.length) * 100
       : testType === "mbti"
-      ? ((mbtiCategoryOrder.indexOf(currentMbtiCategory) * 5 +
+      ? ((currentMbtiCategory * 5 +
           currentMbtiQuestion +
           1) /
           (mbtiCategoryOrder.length * 5)) *
@@ -694,6 +730,10 @@ const TestPage = () => {
           (Object.keys(hollandQuestions).length * 11)) *
         100;
 
+  if (showWelcome) {
+    return <WelcomeScreen onStart={() => setShowWelcome(false)} />;
+  }
+
   if (showResults) {
     return null;
   }
@@ -703,115 +743,74 @@ const TestPage = () => {
   if (testType === "personality") {
     currentQuestionText = questions[currentQuestion].text;
     currentOptions = [
-      "Огт санал нийлэхгүй",
-      "Санал нийлэхгүй",
+      "Огт таалагдахгүй",
+      "Таалагдахгүй",
       "Дундаж",
-      "Санал нийлж байна",
-      "Баттай санал нийлж байна",
+      "Таалагдана",
+      "Маш таалагдаж байна",
     ];
   } else if (testType === "mbti") {
     const categoryIndex = currentMbtiCategory;
     const category = mbtiCategoryOrder[categoryIndex] as MBTICategory;
     const q = mbtiQuestions[category][currentMbtiQuestion];
     currentQuestionText = q.text;
-    currentOptions = [q.optionA, q.optionB];
+    currentOptions = [
+      `A. ${q.optionA ? q.optionA : "Сонголт A"}`,
+      `B. ${q.optionB ? q.optionB : "Сонголт B"}`,
+    ];
   } else if (testType === "eq") {
     currentQuestionText = eqQuestions[currentEqQuestion];
     currentOptions = [
-      "Rarely",
-      "Sometimes",
-      "Often",
-      "Usually",
-      "Almost Always",
+      "Ховор",
+      "Заримдаа",
+      "Олонтоо",
+      "Ихэвчлэн",
+      "Бараг үргэлж",
     ];
   } else {
     const categories = Object.keys(hollandQuestions) as HollandCategory[];
     const currentCategory = categories[currentHollandCategory];
-    currentQuestionText =
-      hollandQuestions[currentCategory][currentHollandQuestion];
+    currentQuestionText = hollandQuestions[currentCategory][currentHollandQuestion];
     currentOptions = ["Тийм", "Үгүй"];
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-300 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-3xl shadow-xl p-8">
-          {/* Test Type Indicator */}
-          <div className="mb-8">
-            <div className="flex justify-center">
-              <div className="px-4 py-2 rounded-lg bg-purple-600 text-white">
-                {testType === "personality"
-                  ? "Зан чанарын тест"
-                  : testType === "mbti"
-                  ? "MBTI тест"
-                  : testType === "eq"
-                  ? "EQ тест"
-                  : "Holland Code тест"}
-              </div>
-            </div>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="mb-8">
-            <div className="flex justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">
-                {testType === "personality"
-                  ? "Асуулт"
-                  : testType === "mbti"
-                  ? "MBTI"
-                  : testType === "eq"
-                  ? "EQ"
-                  : "Holland Code"}{" "}
-                {testType === "personality"
-                  ? currentQuestion + 1
-                  : testType === "mbti"
-                  ? mbtiCategoryOrder.indexOf(currentMbtiCategory) * 5 +
-                    currentMbtiQuestion +
-                    1
-                  : testType === "eq"
-                  ? currentEqQuestion + 1
-                  : currentHollandCategory * 11 + currentHollandQuestion + 1}
-                /
-                {testType === "personality"
-                  ? questions.length
-                  : testType === "mbti"
-                  ? mbtiCategoryOrder.length * 5
-                  : testType === "eq"
-                  ? eqQuestions.length
-                  : Object.keys(hollandQuestions).length * 11}
-              </span>
-              <span className="text-sm font-medium text-gray-700">
-                {Math.round(progress)}%
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div
-                className="bg-purple-600 h-2.5 rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-          </div>
-
-          {/* Question */}
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              {currentQuestionText}
-            </h2>
-          </div>
-
-          {/* Answer Options */}
-          <div className="space-y-4">
-            {currentOptions.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswer(index + 1)}
-                className="w-full p-4 text-left bg-white border border-gray-200 rounded-xl hover:bg-purple-50 hover:border-purple-200 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              >
-                {option}
-              </button>
-            ))}
-          </div>
+    <div className="min-h-screen h-screen overflow-hidden bg-white flex flex-col md:flex-row items-center justify-end p-0">
+      {/* START UP logo/button top left */}
+      <button
+        onClick={() => router.push("/")}
+        className="fixed top-6 left-6 z-50 bg-white text-black px-6 py-3 rounded-full shadow-lg text-lg font-extrabold tracking-widest border-2 border-black hover:bg-gray-100 hover:border-gray-700 transition-all duration-200"
+        style={{letterSpacing: '0.1em'}}
+      >
+        START UP
+      </button>
+      {/* Main test area */}
+      <div className="flex-1 flex flex-col items-center justify-center w-full">
+        <div className="mt-8 mb-6 text-center">
+          <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-4 leading-tight">{currentQuestionText}</h2>
         </div>
+        <div className="flex flex-col gap-4 w-full max-w-md mx-auto">
+          {currentOptions.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => handleAnswer(index + 1)}
+              className="flex items-center gap-4 w-full p-4 bg-white border border-gray-300 rounded-2xl shadow text-gray-900 text-base font-semibold transition-all duration-200 hover:bg-gray-100 hover:border-gray-500 hover:shadow-lg group min-h-[48px]"
+            >
+              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-500 text-white font-bold text-base group-hover:bg-white group-hover:text-gray-500 border-2 border-gray-500 transition-all">{index + 1}</span>
+              {option}
+            </button>
+          ))}
+        </div>
+        <button className="block mx-auto mt-4 text-gray-500 text-sm font-semibold hover:underline">skip question</button>
+      </div>
+      {/* Timeline */}
+      <div className="hidden md:flex flex-col items-center justify-center h-screen mr-0">
+        <TimelineCard
+          steps={steps}
+          currentStep={stepIdx}
+          onStart={() => setShowWelcome(true)}
+          className="w-full h-full max-w-none min-h-screen rounded-none"
+        />
       </div>
     </div>
   );
