@@ -20,14 +20,12 @@ const directions = [
 const ResultPage: React.FC = () => {
   return (
     <div className="min-h-screen w-screen bg-white text-black flex flex-col">
-      {/* Header */}
       <header className="bg-black h-32 flex items-center justify-center relative text-white">
         <span className="absolute left-0 right-0 top-0 bottom-0 opacity-10 flex items-center justify-center text-[120px] font-black select-none pointer-events-none">
           A
         </span>
       </header>
 
-      {/* Main */}
       <main className="flex-1 bg-gray-100 flex flex-col py-8 px-4">
         <div className="max-w-4xl w-full mx-auto">
           <h2 className="text-center text-2xl font-bold mb-2 mt-4">
