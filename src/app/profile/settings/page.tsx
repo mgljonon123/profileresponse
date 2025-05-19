@@ -33,7 +33,7 @@ export default function SettingsPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-blue-600">Neo</span>
+            Сайн Байна уу? <span className="text-blue-600">Zolo</span>
           </h1>
           <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
         </div>

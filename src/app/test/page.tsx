@@ -779,7 +779,7 @@ const TestPage = () => {
       {/* START UP logo/button top left */}
       <button
         onClick={() => router.push("/")}
-        className="fixed top-6 left-6 z-50 bg-white text-black px-6 py-3 rounded-full shadow-lg text-lg font-extrabold tracking-widest border-2 border-black hover:bg-gray-100 hover:border-gray-700 transition-all duration-200"
+        className="fixed top-6 left-6 z-50 bg-white text-black px-6 py-3 rounded-full text-[28px] text-lg font-bold tracking-widest   "
         style={{letterSpacing: '0.1em'}}
       >
         START UP
@@ -787,7 +787,7 @@ const TestPage = () => {
       {/* Main test area */}
       <div className="flex-1 flex flex-col items-center justify-center w-full">
         <div className="mt-8 mb-6 text-center">
-          <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-4 leading-tight">{currentQuestionText}</h2>
+          <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-8 leading-tight">{currentQuestionText}</h2>
         </div>
         <div className="flex flex-col gap-4 w-full max-w-md mx-auto">
           {currentOptions.map((option, index) => (

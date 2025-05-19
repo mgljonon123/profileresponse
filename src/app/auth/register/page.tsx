@@ -115,7 +115,7 @@ const Register: React.FC = () => {
               minLength={6}
             />
             <div className="text-xs text-gray-500 mb-6">
-              Бүртгүүлснээр та Neohub.com-ийн үйлчилгээний нөхцөл ба нууцлалын
+              Бүртгүүлснээр та Start Up.com-ийн үйлчилгээний нөхцөл ба нууцлалын
               бодлогыг хүлээн зөвшөөрч байна
             </div>
             <button
@@ -132,7 +132,7 @@ const Register: React.FC = () => {
       <div className="hidden md:flex w-1/2 bg-black items-center justify-center relative">
         <Image
           src="/register-art.png"
-          alt="NeoHub Visual"
+          alt="Start Up Visual"
           fill
           className="absolute inset-0 w-full h-full object-cover"
           priority

@@ -150,7 +150,7 @@ export default function Profile() {
       <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-yellow-500">Neo</span>
+            Сайн Байна уу? <span className="text-yellow-500">Zolo</span>
           </h1>
           <p className="text-gray-400 text-base mt-2">Mon, 25 May 2025</p>
         </div>
