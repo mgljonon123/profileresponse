@@ -779,7 +779,7 @@ const TestPage = () => {
       {/* START UP logo/button top left */}
       <button
         onClick={() => router.push("/")}
-        className="fixed top-6 left-6 z-50 bg-white text-black px-6 py-3 rounded-full shadow-lg text-lg font-extrabold tracking-widest border-2 border-black hover:bg-gray-100 hover:border-gray-700 transition-all duration-200"
+        className="fixed top-10 left-10 z-50 text-black px-6 py-3 text-lg font-extrabold tracking-widest transition-all duration-200"
         style={{letterSpacing: '0.1em'}}
       >
         START UP
@@ -801,7 +801,6 @@ const TestPage = () => {
             </button>
           ))}
         </div>
-        <button className="block mx-auto mt-4 text-gray-500 text-sm font-semibold hover:underline">skip question</button>
       </div>
       {/* Timeline */}
       <div className="hidden md:flex flex-col items-center justify-center h-screen mr-0">
