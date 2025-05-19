@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -33,18 +34,31 @@ export default function MessagesPage() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [nickName, setNickName] = useState("Neo");
+  const [profilePic, setProfilePic] = useState("/profile.jpg");
+
+  // localStorage-ээс хоч нэр, зургийг ачаалах
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedNickName = localStorage.getItem("nickName") || "Neo";
+      const storedProfilePic = localStorage.getItem("profilePic") || "/profile.jpg";
+      setNickName(storedNickName);
+      setProfilePic(storedProfilePic);
+    }
+  }, []);
 
   const scrollToBottom = () => {
     if (messagesEndRef.current && messages) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-  useEffect(() => {
 
+  useEffect(() => {
     if (typeof window !== "undefined") {
       scrollToBottom();
     }
-  }, [messages]); 
+  }, [messages]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -113,13 +127,13 @@ export default function MessagesPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Ажлын Туслах
+            Ажлын Туслах <span className="text-[#4f46e5]">{nickName}</span>
           </h1>
           <p className="text-gray-400 text-sm mt-1">2025 оны 5-р сарын 25, Даваа</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
-            <Image src="/193484-2.jpg" alt="профайл" width={48} height={48} />
+            <Image src={profilePic} alt="профайл" width={48} height={48} className="object-cover" />
           </div>
           <button
             onClick={() => router.push("/")}
@@ -155,7 +169,7 @@ export default function MessagesPage() {
       </div>
 
       <div className="flex flex-col h-[600px] bg-white rounded-2xl shadow-lg border border-[#f0f0f5]">
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <div className="mb-8">
