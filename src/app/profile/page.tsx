@@ -103,13 +103,14 @@ export default function Profile() {
           <p className="text-gray-400 text-base mt-2">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4 sm:gap-6">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+          <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
             <Image
               src={profilePic}
               alt="profile"
-              width={56}
-              height={56}
+              fill
+              sizes="(max-width: 768px) 56px, 56px"
               className="object-cover"
+              priority
             />
           </div>
           <button
@@ -148,13 +149,15 @@ export default function Profile() {
                 className="flex flex-col sm:flex-row items-start bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 sm:p-8 border border-[#E6E6F2] gap-4 sm:gap-8 w-full"
               >
                 <div className="flex flex-col items-center w-full sm:w-auto">
-                  <Image
-                    src={profilePic}
-                    alt="cert"
-                    width={160}
-                    height={120}
-                    className="rounded-xl shadow-sm w-full sm:w-auto"
-                  />
+                  <div className="relative w-40 h-30 rounded-xl overflow-hidden shadow-md">
+                    <Image
+                      src={profilePic}
+                      alt="cert"
+                      fill
+                      sizes="(max-width: 768px) 160px, 160px"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
                 <div className="w-full">
                   <div className="font-semibold text-xl sm:text-2xl text-[#232360] mb-4">
