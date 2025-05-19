@@ -65,12 +65,6 @@ const QuestionPage = () => {
               </button>
             ))}
           </div>
-          <button
-            className="text-gray-400 hover:underline text-base mt-2"
-            onClick={handleNext}
-          >
-            skip question
-          </button>
         </div>
       </div>
       {/* Right: Timeline */}

@@ -1,73 +1,8 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 
-// Sidebar icon SVG-үүд
-const icons = [
-  // 1. User/profile (active)
-  <svg
-    key="user"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-    className="w-7 h-7"
-  >
-    <circle cx="12" cy="8" r="4" />
-    <path d="M4 20c0-2.5 3.5-4 8-4s8 1.5 8 4" />
-  </svg>,
-  // 2. Chart/analytics
-  <svg
-    key="chart"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-    className="w-7 h-7"
-  >
-    <path d="M3 17v-6a2 2 0 012-2h2a2 2 0 012 2v6M13 17v-2a2 2 0 012-2h2a2 2 0 012 2v2M17 17V7a2 2 0 00-2-2h-2a2 2 0 00-2 2v10" />
-  </svg>,
-  // 3. Chat/message
-  <svg
-    key="chat"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-    className="w-7 h-7"
-  >
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-  </svg>,
-  // 4. Settings/gear
-  <svg
-    key="settings"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-    className="w-7 h-7"
-  >
-    <circle cx="12" cy="12" r="3" />
-    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09A1.65 1.65 0 0011 3.09V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51h.09a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-  </svg>,
-  // 5. Tooth/dental
-  <svg
-    key="tooth"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-    className="w-7 h-7"
-  >
-    <path d="M12 2C7.03 2 2.73 6.11 2.73 11.07c0 2.5 1.13 4.77 3.13 6.36.5.39.8 1 .8 1.64v.01c0 1.1.9 2 2 2 .55 0 1-.45 1-1v-2.5c0-.28.22-.5.5-.5s.5.22.5.5V21c0 .55.45 1 1 1s1-.45 1-1v-2.42c0-.28.22-.5.5-.5s.5.22.5.5V21c0 .55.45 1 1 1s1-.9 1-2v-.01c0-.64.3-1.25.8-1.64 2-1.59 3.13-3.86 3.13-6.36C21.27 6.11 16.97 2 12 2z" />
-  </svg>,
-];
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const [emails, setEmails] = useState([
@@ -81,7 +16,20 @@ export default function Profile() {
     language: "",
     timeZone: "",
   });
+  const [nickName, setNickName] = useState("Neo");
+  const [profilePic, setProfilePic] = useState("/profile.jpg");
   const router = useRouter();
+
+  // localStorage-ээс хоч нэр, зургийг ачаалах
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedNickName = localStorage.getItem("nickName") || "Neo";
+      const storedProfilePic = localStorage.getItem("profilePic") || "/profile.jpg";
+      setNickName(storedNickName);
+      setProfilePic(storedProfilePic);
+      setForm((prev) => ({ ...prev, nickName: storedNickName }));
+    }
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -150,14 +98,14 @@ export default function Profile() {
       <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-yellow-500">Zolo</span>
+            Сайн Байна уу? <span className="text-[#4f46e5]">{nickName}</span>
           </h1>
           <p className="text-gray-400 text-base mt-2">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4 sm:gap-6">
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
             <Image
-              src="/193484-2.jpg"
+              src={profilePic}
               alt="profile"
               width={56}
               height={56}
@@ -201,7 +149,7 @@ export default function Profile() {
               >
                 <div className="flex flex-col items-center w-full sm:w-auto">
                   <Image
-                    src="/193484-2.jpg"
+                    src={profilePic}
                     alt="cert"
                     width={160}
                     height={120}
@@ -303,7 +251,6 @@ export default function Profile() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );

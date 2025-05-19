@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
@@ -12,7 +13,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Test scores data
 const testScores = {
   mbti: {
     E: 65,
@@ -48,7 +48,6 @@ const testScores = {
   },
 };
 
-// Chart data for different test types
 const getChartData = (testType: string) => {
   switch (testType) {
     case "MBTI":
@@ -83,7 +82,7 @@ const getChartData = (testType: string) => {
           score: testScores.bigFive.conscientiousness,
         },
         { name: "Extraversion", score: testScores.bigFive.extraversion },
-        { name: "Agreeableness", score: testScores.bigFive.agreeableness },
+        { name: " Agreeableness", score: testScores.bigFive.agreeableness },
         { name: "Neuroticism", score: testScores.bigFive.neuroticism },
       ];
     default:
@@ -133,7 +132,19 @@ const statusColor: { [key: string]: string } = {
 
 export default function AnalyticsPage() {
   const [selectedTest, setSelectedTest] = useState("MBTI");
+  const [nickName, setNickName] = useState("Neo");
+  const [profilePic, setProfilePic] = useState("/profile.jpg");
   const router = useRouter();
+
+  // localStorage-ээс хоч нэр, зургийг ачаалах
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedNickName = localStorage.getItem("nickName") || "Neo";
+      const storedProfilePic = localStorage.getItem("profilePic") || "/profile.jpg";
+      setNickName(storedNickName);
+      setProfilePic(storedProfilePic);
+    }
+  }, []);
 
   const chartData = getChartData(selectedTest);
 
@@ -143,13 +154,13 @@ export default function AnalyticsPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-blue-600">Zolo</span>
+            Сайн Байна уу? <span className="text-[#4f46e5]">{nickName}</span>
           </h1>
           <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
-            <Image src="/193484-2.jpg" alt="profile" width={48} height={48} />
+            <Image src={profilePic} alt="profile" width={48} height={48} className="object-cover" />
           </div>
           <button
             onClick={() => router.push("/")}
@@ -178,7 +189,6 @@ export default function AnalyticsPage() {
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 gap-8 mb-10">
-        {/* Line Chart */}
         <div className="bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-semibold text-[#232360]">
@@ -224,7 +234,7 @@ export default function AnalyticsPage() {
                     backgroundColor: "white",
                     border: "1px solid #f0f0f0",
                     borderRadius: "8px",
-                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                    boxShadow: "0 2px 4px rgba(0,0 estando,0.1)",
                   }}
                 />
                 <Line
