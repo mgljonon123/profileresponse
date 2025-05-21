@@ -6,8 +6,7 @@ import { FaBars } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Spline from '@splinetool/react-spline';
-
+import SplineViewer from "./components/SplineViewer";
 
 export default function Home() {
   const [showScroll, setShowScroll] = useState(false);
@@ -88,24 +87,10 @@ export default function Home() {
             </div>
 
             
-            <div className="absolute top-40 left-310 w-130 h-120  ">
-              <Spline
-                scene="https://prod.spline.design/9kUyxvQoK5udN49V/scene.splinecode"
-                style={{ width: '100%', height: '100%' }}
-                onLoad={(splineApp) => {
-                  if (splineApp) {
-                    console.log('Spline scene loaded successfully');
-                  }
-                }}
-                onError={(error) => {
-                  console.error('Error loading Spline scene:', error);
-                }}
-                onMouseDown={(e) => {
-                  if (e.target) {
-                    console.log('Mouse down on:', e.target);
-                  }
-                }}
-              />
+            <div className="absolute top-40 left-310 w-130 h-120">
+              <div className="relative w-full h-full">
+                <SplineViewer />
+              </div>
             </div>
           </div>
         </section>

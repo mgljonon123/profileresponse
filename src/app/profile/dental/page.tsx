@@ -1,38 +1,85 @@
 "use client";
-
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function DentalPage() {
+const professions = [
+  "Программист",
+  "Веб хөгжүүлэгч",
+  "Мобайл хөгжүүлэгч",
+  "AI/ML инженер",
+  "Системийн админ",
+  "UX/UI дизайнер",
+  "DevOps инженер",
+  "Дата шинжэгч",
+  "Кибер аюулгүй байдлын мэргэжилтэн",
+  "Блокчейн хөгжүүлэгч",
+  "Game Developer",
+  "Full Stack хөгжүүлэгч",
+  "Frontend хөгжүүлэгч",
+  "Backend хөгжүүлэгч",
+  "QA инженер",
+  "Архитектор",
+  "Багш",
+  "Барилгачин",
+  "Дизайнер",
+  "Инженер",
+  "Маркетингийн мэргэжилтэн",
+  "Нягтлан бодогч",
+  "Орчуулагч",
+  "Сэтгүүлч",
+  "Хуульч"
+];
+
+export default function RoadmapPage() {
   const router = useRouter();
-  const [nickName, setNickName] = useState("Neo");
-  const [profilePic, setProfilePic] = useState("/profile.jpg");
+  const [aiResponse, setAiResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedProfession, setSelectedProfession] = useState('');
 
-  // localStorage-ээс хоч нэр, профайлын зургийг ачаалах
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedNickName = localStorage.getItem("nickName") || "Neo";
-      const storedProfilePic = localStorage.getItem("profilePic") || "/profile.jpg";
-      setNickName(storedNickName);
-      setProfilePic(storedProfilePic);
+  const getAIRecommendation = async () => {
+    if (!selectedProfession) {
+      alert('Мэргэжил сонгоно уу');
+      return;
     }
-  }, []);
+
+    setIsLoading(true);
+    try {
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: `Мэргэжил: ${selectedProfession}` }),
+      });
+      
+      if (!res.ok) {
+        throw new Error('Failed to get AI recommendation');
+      }
+      
+      const data = await res.json();
+      setAiResponse(data.choices[0].text);
+    } catch (err) {
+      console.error('Error getting AI recommendation:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto mt-8">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-[#232360]">
-            Dental Dashboard <span className="text-[#4f46e5]">{nickName}</span>
+          <h1 className="text-2xl font-bold text-[#1a1a2e]">
+            Карьерын Зам
           </h1>
-          <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
+          <p className="text-[#4a4a6a] text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#e0e0e7] shadow-md bg-white">
             <Image
-              src={profilePic}
+              src="/images/default-avatar.png"
               alt="profile"
               width={48}
               height={48}
@@ -41,7 +88,7 @@ export default function DentalPage() {
           </div>
           <button
             onClick={() => router.push("/")}
-            className="bg-white p-3 rounded-full shadow-md hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
+            className="bg-white p-3 rounded-full shadow-md hover:bg-[#f8f9ff] transition-all duration-300 flex items-center justify-center group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +96,7 @@ export default function DentalPage() {
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="w-6 h-6 text-[#232360] group-hover:text-[#E94A1F] transition-colors duration-300"
+              className="w-6 h-6 text-[#4a4a6a] group-hover:text-[#2563eb] transition-colors duration-300"
             >
               <path
                 strokeLinecap="round"
@@ -62,20 +109,74 @@ export default function DentalPage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-8 shadow-md" />
+      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] flex items-end px-8 shadow-md">
+        <h2 className="text-2xl font-bold text-white mb-4">Мэргэжлийн Зам</h2>
+      </div>
 
-      {/* Dummy Content */}
+      {/* Main Content */}
       <div className="bg-white rounded-2xl shadow-lg p-10 border border-[#f0f0f5] flex flex-col items-center justify-center min-h-[300px]">
-        <div className="text-2xl font-semibold text-[#232360] mb-4">
-          Dental Section
+        <div className="text-2xl font-semibold text-[#1a1a2e] mb-4">
+          Мэргэжлийн Замын Зөвлөгөө
         </div>
-        <div className="text-gray-500 text-lg mb-6">
-          This is a placeholder for dental-related content. Add your dental
-          dashboard, charts, or information here.
+        <div className="text-[#4a4a6a] text-lg mb-6 text-center">
+          Өөрийн мэргэжлийн замыг тодорхойлж, шаардлагатай ур чадваруудыг хөгжүүлэхэд туслахаар бэлэн байна.
         </div>
-        <button className="bg-[#4f46e5] text-white px-8 py-3 rounded-lg shadow-md hover:bg-[#7c3aed] transition font-semibold">
-          Add Dental Record
-        </button>
+
+        {/* Profession Selection */}
+        <div className="w-full max-w-md mb-6">
+          <select
+            value={selectedProfession}
+            onChange={(e) => setSelectedProfession(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-transparent"
+          >
+            <option value="">Мэргэжил сонгох</option>
+            {professions.map((prof) => (
+              <option key={prof} value={prof}>
+                {prof}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex gap-4">
+          <button 
+            onClick={() => router.push("/profile")}
+            className="bg-[#4f46e5] text-white px-8 py-3 rounded-lg shadow-md hover:bg-[#4338ca] transition font-semibold"
+          >
+            Профайл руу буцах
+          </button>
+          <button 
+            onClick={getAIRecommendation}
+            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] text-white rounded-lg shadow-md hover:from-[#4338ca] hover:to-[#6d28d9] transition-all duration-300 font-semibold"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              strokeWidth={2} 
+              stroke="currentColor" 
+              className="w-5 h-5"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" 
+              />
+            </svg>
+            AI Зөвлөгөө авах
+          </button>
+        </div>
+
+        {isLoading && (
+          <div className="mt-6 text-[#4a4a6a]">Уншиж байна...</div>
+        )}
+
+        {aiResponse && (
+          <div className="mt-6 bg-gray-50 p-6 rounded-lg w-full">
+            <h2 className="text-xl font-semibold mb-4 text-[#1a1a2e]">AI Зөвлөгөө</h2>
+            <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
+          </div>
+        )}
       </div>
     </div>
   );
