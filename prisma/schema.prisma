@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -26,6 +24,7 @@ model User {
   updatedAt                  DateTime             @updatedAt
 
   testResults                TestResult[]
+  personalityTestResults     PersonalityTestResult[]
   chatHistory                ChatHistory[]
   roadmaps                   Roadmap[]
   recommendations            CareerRecommendation[] @relation("UserRecommendations")
@@ -126,4 +125,45 @@ model Payment {
   
   user           User     @relation(fields: [userId], references: [id])
   subscription   Subscription @relation(fields: [subscriptionId], references: [id])
+}
+
+model PersonalityTestResult {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String    @db.ObjectId
+  takenAt       DateTime  @default(now())
+  
+  // MBTI Results
+  mbtiType      String    // e.g., "ENFP"
+  
+  // MBTI Detailed Scores
+  extroversionScore      Int     // Гадагшаа (E) / Дотогшоо (I) score 0-10
+  sensingScore           Int     // Мэдрэмж (S) / Зөн совин (N) score 0-10
+  thinkingScore          Int     // Бодол (T) / Мэдрэмж (F) score 0-10
+  judgingScore           Int     // Шийдвэр (J) / Уян хатан (P) score 0-10
+  
+  // Holland Code Results
+  hollandCode           String   // e.g., "RIA"
+  practicalScore        Int      // Практик (R) score
+  investigativeScore    Int      // Судалгааны (I) score
+  artisticScore         Int      // Уран бүтээл (A) score
+  socialScore           Int      // Нийгмийн (S) score
+  businessScore         Int      // Бизнес (E) score
+  conventionalScore     Int      // Удирдамж (C) score
+  
+  // Big Five Results (as percentages)
+  emotionalStability    Float    // Сэтгэл хөдлөлийн тогтвортой байдал (0-100%)
+  extraversion          Float    // Гадагшаа чиглэсэн зан (0-100%)
+  openness              Float    // Шинэ санаанд нээлттэй байдал (0-100%)
+  agreeableness         Float    // Хамтран ажиллах чадвар (0-100%)
+  conscientiousness     Float    // Төлөвлөлттэй, зохион байгуулалттай байдал (0-100%)
+  
+  // EQ Results
+  selfAwareness         Int      // Өөрийгөө ойлгох (0-40)
+  selfRegulation        Int      // Өөрийгөө зохицуулах (0-40)
+  motivation            Int      // Мотиваци (0-40)
+  empathy               Int      // Өрөвдөх сэтгэл (0-40)
+  socialSkills          Int      // Нийгмийн ур чадвар (0-40)
+  totalEQScore          Int      // Нийт оноо (0-200)
+  
+  user                  User     @relation(fields: [userId], references: [id])
 }
