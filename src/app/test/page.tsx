@@ -762,6 +762,23 @@ const TestPage = () => {
       </button>
       {/* Main test area */}
       <div className="flex-1 flex flex-col items-center justify-center w-full">
+        {/* Progress Bar */}
+        <div className="w-full max-w-md mx-auto mb-8 px-4">
+          <div className="flex justify-between mb-2">
+            <span className="text-sm font-medium text-gray-700">
+              Тестийн явц
+            </span>
+            <span className="text-sm font-medium text-gray-700">
+              {Math.round(progress)}%
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div
+              className="bg-[#B04B2F] h-2.5 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        </div>
         <div className="mt-8 mb-6 text-center">
           <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-8 leading-tight">
             {currentQuestionText}
