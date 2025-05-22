@@ -58,6 +58,7 @@ const ResultPage = () => {
 
       setIsLoadingRecommendations(true);
       try {
+        // Get AI recommendations
         const response = await fetch("/api/career-recommendations", {
           method: "POST",
           headers: {
@@ -78,6 +79,42 @@ const ResultPage = () => {
         const data = await response.json();
         const recommendations = data.choices[0].message.content;
         setAiRecommendations(recommendations);
+
+        // Save test results and recommendations
+        console.log("Saving test results...", {
+          bigFive: results.bigFive,
+          mbti: results.mbti,
+          holland: results.holland,
+          eq: results.eq,
+          aiRecommendations: recommendations,
+        });
+
+        const saveResponse = await fetch("/api/test-results", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            bigFive: results.bigFive,
+            mbti: results.mbti,
+            holland: results.holland,
+            eq: results.eq,
+            aiRecommendations: recommendations,
+          }),
+        });
+
+        if (!saveResponse.ok) {
+          const errorData = await saveResponse.json();
+          console.error("Failed to save test results:", {
+            status: saveResponse.status,
+            statusText: saveResponse.statusText,
+            error: errorData,
+            headers: Object.fromEntries(saveResponse.headers.entries()),
+          });
+        } else {
+          const successData = await saveResponse.json();
+          console.log("Test results saved successfully:", successData);
+        }
 
         // Debug logging
         console.log("Raw AI Response:", recommendations);

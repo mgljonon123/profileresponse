@@ -452,10 +452,24 @@ const TestPage = () => {
     }
 
     // Sort by score and get top 5
-    return recommendations
+    const top5Tests = recommendations
       .sort((a, b) => b.score - a.score)
       .slice(0, 5)
       .map((rec) => rec.test);
+
+    // Log the top 5 profession names with detailed information
+    console.log("=== Top 5 Recommended Professions ===");
+    top5Tests.forEach((test, index) => {
+      console.log(`### ${index + 1}. **${test}**`);
+      console.log(`**Шалтгаан:** ${getProfessionReason(test, mbtiType)}`);
+      console.log(`**Шаардлагатай ур чадвар:** ${getRequiredSkills(test)}`);
+      console.log(`**Цалин:** ${getSalaryRange(test)}`);
+      console.log(`**Өсөх боломж:** ${getGrowthOpportunities(test)}`);
+      console.log(""); // Add empty line between professions
+    });
+    console.log("===================================");
+
+    return top5Tests;
   };
 
   useEffect(() => {
@@ -705,6 +719,70 @@ const TestPage = () => {
           (Object.keys(hollandQuestions).length * 11)) *
         100;
 
+  // Helper functions for profession details
+  const getProfessionReason = (profession: string, mbtiType: string) => {
+    const reasons: { [key: string]: string } = {
+      "Leadership Skills Assessment": `${mbtiType} төрлийн хүмүүс зохион байгуулалт, шийдвэр гаргах чадвараараа алдартай бөгөөд энэ нь захиргааны менежерын үүрэгт тохирно. Тэд багийн ажил, стратегийн төлөвлөлтийг сайн удирдах чадвартай.`,
+      "Technical Skills Assessment": `Энэ мэргэжил нь практик шийдвэр гаргах, техник асуудлыг шийдвэрлэх чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн хүчтэй тал болох зохион байгуулалт, ажлыг үр дүнтэй гүйцэтгэх чадварыг ашигладаг.`,
+      "Research Skills Test": `Хууль сахиулах ажил нь дүрэм журам, зохион байгуулалт, шийдвэр гаргах чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн сайн талыг ашигладаг. Энэ мэргэжил нь тэдний шударга байдал, зохион байгуулалтын чадварыг илэрхийлдэг.`,
+      "Financial Analysis": `Финансын аналитик нь тооцоолол, стратегийн төлөвлөлт, үр дүнтэй шийдвэр гаргах чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн сайн тал болох логик сэтгэлгээ, зохион байгуулалтын чадварыг ашигладаг.`,
+      "Educational Management": `Боловсролын менежер нь зохион байгуулалт, стратегийн төлөвлөлт, харилцааны ур чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн хүчтэй тал болох зохион байгуулалт, шийдвэр гаргах чадварыг ашигладаг.`,
+    };
+    return (
+      reasons[profession] ||
+      "Энэ мэргэжил нь таны зан чанар, ур чадварт тохирно."
+    );
+  };
+
+  const getRequiredSkills = (profession: string) => {
+    const skills: { [key: string]: string } = {
+      "Leadership Skills Assessment":
+        "Зохион байгуулалт, харилцааны ур чадвар, стратегийн төлөвлөлт, мэдээлэл технологийн мэдлэг.",
+      "Technical Skills Assessment":
+        "Инженерийн мэдлэг, техник асуудлыг шийдвэрлэх чадвар, зохион байгуулалт, тооцооллын ур чадвар.",
+      "Research Skills Test":
+        "Хууль зүйн мэдлэг, харилцааны ур чадвар, шийдвэр гаргах чадвар, стрессийг удирдах чадвар.",
+      "Financial Analysis":
+        "Санхүүгийн мэдлэг, аналитик сэтгэлгээ, тооцооллын ур чадвар, стратегийн төлөвлөлт.",
+      "Educational Management":
+        "Харилцааны ур чадвар, зохион байгуулалт, стратегийн төлөвлөлт, боловсролын мэдлэг.",
+    };
+    return (
+      skills[profession] ||
+      "Мэргэжлийн ур чадвар, харилцааны ур чадвар, зохион байгуулалт."
+    );
+  };
+
+  const getSalaryRange = (profession: string) => {
+    const salaries: { [key: string]: string } = {
+      "Leadership Skills Assessment": "20,000,000 - 40,000,000 MNT сард.",
+      "Technical Skills Assessment": "25,000,000 - 50,000,000 MNT сард.",
+      "Research Skills Test": "15,000,000 - 30,000,000 MNT сард.",
+      "Financial Analysis": "30,000,000 - 60,000,000 MNT сард.",
+      "Educational Management": "20,000,000 - 40,000,000 MNT сард.",
+    };
+    return salaries[profession] || "15,000,000 - 35,000,000 MNT сард.";
+  };
+
+  const getGrowthOpportunities = (profession: string) => {
+    const opportunities: { [key: string]: string } = {
+      "Leadership Skills Assessment":
+        "Дээд удирдлагын албан тушаалд дэвших, илүү том байгууллагад ажиллах.",
+      "Technical Skills Assessment":
+        "Аж үйлдвэрийн салбарт дээд удирдлагын албан тушаалд дэвших, төсөл менежер болох.",
+      "Research Skills Test":
+        "Дээд албан тушаалд дэвших, илүү төв ажлыг удирдах.",
+      "Financial Analysis":
+        "Дээд удирдлагын албан тушаалд дэвших, санхүүгийн менежер болох.",
+      "Educational Management":
+        "Дээд удирдлагын албан тушаалд дэвших, томоохон боловсролын байгууллагад ажиллах.",
+    };
+    return (
+      opportunities[profession] ||
+      "Дээд удирдлагын албан тушаалд дэвших, илүү том байгууллагад ажиллах."
+    );
+  };
+
   if (showWelcome) {
     return <WelcomeScreen onStart={() => setShowWelcome(false)} />;
   }
@@ -764,6 +842,17 @@ const TestPage = () => {
       <div className="flex-1 flex flex-col items-center justify-center w-full">
         {/* Progress Bar */}
         <div className="w-full max-w-md mx-auto mb-8 px-4">
+          <div className="text-center mb-4">
+            <span className="text-lg font-semibold text-[#B04B2F]">
+              {testType === "personality"
+                ? "Таны зан чанарын хэв маягийг тодорхойлох"
+                : testType === "mbti"
+                ? "MBTI Тест"
+                : testType === "eq"
+                ? "EQ Тест"
+                : "Holland Code Тест"}
+            </span>
+          </div>
           <div className="flex justify-between mb-2">
             <span className="text-sm font-medium text-gray-700">
               Тестийн явц
