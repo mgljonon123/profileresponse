@@ -50,9 +50,6 @@ const Login: React.FC = () => {
     <div className="min-h-screen flex">
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0">
         <div className="flex flex-col items-center w-full max-w-md">
-          <div className="bg-gray-200 rounded-xl w-12 h-12 flex items-center justify-center mb-6 text-2xl font-bold text-gray-700 relative top-4 left-4">
-            N
-          </div>
           <h2 className="text-3xl font-bold mb-2 text-center">
             Өөрийн бүртгэл рүү нэвтрэх
           </h2>
@@ -128,17 +125,17 @@ const Login: React.FC = () => {
       </div>
       <div className="hidden md:flex w-1/2 bg-black items-center justify-center relative">
         <img
-          src="/4e659b59aabaf3fae230a92f49aede08 2.svg"
+          src="/be5f80d22cb68f27eeb93bcb65fcf1a2.jpg"
           alt="Start Up Visual"
           className="absolute inset-0 w-full h-full object-cover opacity-80"
         />
         <div className="relative z-10 text-white p-10">
-          <div className="text-xs mb-2 tracking-widest">Start Up.COM</div>
+          <div className="text-xs mb-2 tracking-widest">START UP.COM</div>
           <div className="text-xl font-semibold mb-2">
-            "Дата багатай байлаа ч, мэдлэгийн үүд нээлттэй хэвээр!"
+            “Таны ирээдүй таны сонголтоос эхэлнэ.”
           </div>
           <div className="text-lg">
-            "Хичээлээ хаях хэрэггүй – бид яамны датагаар ч үргэлжлүүлнэ!"
+          “Таны ирээдүй таны сонголтоос эхэлнэ.”
           </div>
         </div>
         <div className="absolute inset-0 bg-black opacity-60"></div>
