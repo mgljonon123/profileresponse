@@ -6,7 +6,7 @@ import { FaBars } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import SplineViewer from "./components/SplineViewer";
+
 
 export default function Home() {
   const [showScroll, setShowScroll] = useState(false);
@@ -89,7 +89,7 @@ export default function Home() {
             
             <div className="absolute top-40 left-310 w-130 h-120">
               <div className="relative w-full h-full">
-                <SplineViewer />
+                {/* Removed SplineViewer */}
               </div>
             </div>
           </div>

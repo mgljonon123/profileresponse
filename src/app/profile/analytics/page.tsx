@@ -126,7 +126,7 @@ const projects = [
 const statusColor: { [key: string]: string } = {
   "маш сайн": "bg-blue-200 text-blue-700",
   сайн: "bg-green-100 text-green-700",
-  дунд: "bg-yellow-100 text-yellow-700",
+  дунд: "bg-[#7fdaf4] text-[#7fdaf4]",
   муу: "bg-red-100 text-red-700",
 };
 
@@ -154,9 +154,9 @@ export default function AnalyticsPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-[#4f46e5]">{nickName}</span>
+            Сайн Байна уу? <span className="text-[#E94A1F]">{nickName}</span>
           </h1>
-          <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
+          <p className="text-gray-500 text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
@@ -190,22 +190,185 @@ export default function AnalyticsPage() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 gap-8 mb-10">
         <div className="bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-10">
             <h2 className="text-xl font-semibold text-[#232360]">
               Test Scores Analysis
             </h2>
-            <select
-              value={selectedTest}
-              onChange={(e) => setSelectedTest(e.target.value)}
-              className="border rounded-lg px-4 py-2 bg-[#f7f7fa] text-gray-700 font-semibold"
-            >
-              <option value="MBTI">MBTI Test</option>
-              <option value="Holland">Holland Code</option>
-              <option value="EQ">EQ Test</option>
-              <option value="Big Five">Big Five Test</option>
-            </select>
+            <ul className="menu">
+              <li className="item">
+                <a href="#" className="link">
+                  {selectedTest === "All" ? "All Tests" : 
+                   selectedTest === "MBTI" ? "MBTI Test" :
+                   selectedTest === "Holland" ? "Holland Test" :
+                   selectedTest === "EQ" ? "EQ Test" : "Big Five Test"}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M7 10l5 5 5-5z"/>
+                  </svg>
+                </a>
+                <ul className="submenu">
+                  
+                  <li className="submenu-item">
+                    <a href="#" className="submenu-link" onClick={() => setSelectedTest("MBTI")}>Mbti Test</a>
+                  </li>
+                  <li className="submenu-item">
+                    <a href="#" className="submenu-link" onClick={() => setSelectedTest("Holland")}>Holland Code</a>
+                  </li>
+                  <li className="submenu-item">
+                    <a href="#" className="submenu-link" onClick={() => setSelectedTest("EQ")}>EQ Test</a>
+                  </li>
+                  <li className="submenu-item">
+                    <a href="#" className="submenu-link" onClick={() => setSelectedTest("Big Five")}>Big Five Test</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <style jsx>{`
+              .menu {
+                font-size: 14px;
+                line-height: 1.4;
+                color: #000000;
+                width: fit-content;
+                display: flex;
+                list-style: none;
+              }
+
+              .menu a {
+                text-decoration: none;
+                color: inherit;
+                font-family: inherit;
+                font-size: inherit;
+                line-height: inherit;
+              }
+
+              .menu .link {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 8px 24px;
+                border-radius: 12px;
+                overflow: hidden;
+                transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+                background-color: #f7f7fa;
+                border: 1px solid #e5e5e5;
+              }
+
+              .menu .link::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #eab308;
+                z-index: -1;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+              }
+
+              .menu .link svg {
+                width: 12px;
+                height: 12px;
+                fill: #000000;
+                transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+              }
+
+              .menu .item {
+                position: relative;
+              }
+
+              .menu .item .submenu {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 100%;
+                border-radius: 0 0 12px 12px;
+                left: 0;
+                width: 100%;
+                overflow: hidden;
+                border: 1px solid #cccccc;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-8px);
+                transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+                z-index: 1;
+                pointer-events: none;
+                list-style: none;
+                background-color: white;
+              }
+
+              .menu .item:hover .submenu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                pointer-events: auto;
+                border-top: transparent;
+                border-color: #eab308;
+              }
+
+              .menu .item:hover .link {
+                color: #000000;
+                border-radius: 12px 12px 0 0;
+                background-color: white;
+              }
+
+              .menu .item:hover .link::after {
+                transform: scaleX(0);
+              }
+
+              .menu .item:hover .link svg {
+                fill: #000000;
+                transform: rotate(-180deg);
+              }
+
+              .submenu .submenu-item {
+                width: 100%;
+                transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+              }
+
+              .submenu .submenu-link {
+                display: block;
+                padding: 8px 16px;
+                width: 100%;
+                position: relative;
+                text-align: center;
+                transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+                color: #000000;
+              }
+
+              .submenu .submenu-item:last-child .submenu-link {
+                border-bottom: none;
+              }
+
+              .submenu .submenu-link::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: scaleX(0);
+                width: 100%;
+                height: 100%;
+                background-color: #eab308;
+                z-index: -1;
+                transform-origin: left;
+                transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+              }
+
+              .submenu .submenu-link:hover:before {
+                transform: scaleX(1);
+                transform-origin: right;
+              }
+
+              .submenu .submenu-link:hover {
+                color: #ffffff;
+              }
+            `}</style>
           </div>
-          <div className="h-[400px]">
+          <div className="h-[430px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={chartData}
@@ -240,7 +403,7 @@ export default function AnalyticsPage() {
                 <Line
                   type="monotone"
                   dataKey="score"
-                  stroke="#a78bfa"
+                  stroke="#E94A1F"
                   strokeWidth={2}
                   dot={{
                     fill: "#fff",

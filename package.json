@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
-    "@splinetool/react-spline": "^4.0.0",
-    "@splinetool/runtime": "^0.9.506",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.9",
     "axios": "^1.9.0",

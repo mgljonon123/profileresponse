@@ -39,7 +39,7 @@ const plans = [
     features: ["Хязгааргүй тест", "Roadmap зам", "Voice messages anywhere"],
     button: {
       text: "GET STARTED",
-      color: "bg-yellow-200 text-black hover:bg-yellow-300",
+      color: "bg-[#7fdaf4] text-black hover:bg-[#7fdaf4]",
     },
   },
 ];
@@ -115,7 +115,7 @@ const PayPage = () => {
                   className={`w-12 h-12 rounded-full flex-shrink-0 mr-4 flex items-center justify-center shadow-xl transition-all duration-300
                     ${
                       idx === 0
-                        ? "bg-gradient-to-br from-yellow-300 via-pink-400 to-green-300 border-[5px] border-black cartoon-bubble"
+                        ? "bg-gradient-to-br from-[#7fdaf4] via-pink-400 to-green-300 border-[5px] border-black cartoon-bubble"
                         : "bg-white border-4 border-gray-700"
                     }
                   `}
@@ -128,7 +128,7 @@ const PayPage = () => {
                   className={`text-xl drop-shadow-[0_2px_0_rgba(0,0,0,0.8)] transition-all duration-300
                     ${
                       idx === 0
-                        ? "text-yellow-400 cartoon-text"
+                        ? "text-[#7fdaf4] cartoon-text"
                         : "text-white text-lg"
                     }
                   `}

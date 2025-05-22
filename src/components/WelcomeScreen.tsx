@@ -59,7 +59,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         </ul>
         <button 
           onClick={onStart}
-          className="mt-[160px] w-full py-4 px-8 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold rounded-xl hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
+          className="mt-[160px] w-full py-4 px-8 bg-gradient-to-r from-[#7fdaf4] to-orange-500 text-white font-bold rounded-xl hover:from-[#7fdaf4] hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
         >
           GET STARTED
         </button>

@@ -89,6 +89,40 @@ export default function Profile() {
         },
         eq: 85,
       },
+      
+    },
+    {
+      career: "UX Designer",
+      match: 70,
+      tests: {
+        mbti: "ENFP",
+        holland: "AIS",
+        bigFive: {
+          openness: 95,
+          conscientiousness: 75,
+          extraversion: 80,
+          agreeableness: 85,
+          neuroticism: 40,
+        },
+        eq: 85,
+      },
+      
+    },
+    {
+      career: "Data Scientist",
+      match: 75,
+      tests: {
+        mbti: "INTP",
+        holland: "IRE",
+        bigFive: {
+          openness: 90,
+          conscientiousness: 85,
+          extraversion: 40,
+          agreeableness: 65,
+          neuroticism: 35,
+        },
+        eq: 72,
+      },
     },
   ];
 
@@ -98,7 +132,7 @@ export default function Profile() {
       <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-[#4f46e5]">{nickName}</span>
+            Сайн Байна уу? <span className="text-[#7fdaf4]">{nickName}</span>
           </h1>
           <p className="text-gray-400 text-base mt-2">Mon, 25 May 2025</p>
         </div>
@@ -140,7 +174,7 @@ export default function Profile() {
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch w-full">
         <div className="w-full lg:flex-1 flex-grow basis-0">
           <p className="mb-5 text-lg sm:text-xl text-[#232360]">
-            Таний <b>test</b> хариунд тохирох <b>3 мэргэжил</b>
+            Таний <b>test</b> хариунд тохирох <b>5 мэргэжил</b>
           </p>
           <div className="flex flex-col gap-6 sm:gap-8">
             {testScores.map((career, i) => (
@@ -167,7 +201,7 @@ export default function Profile() {
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-32 sm:w-40 bg-gray-200 rounded-full h-8 sm:h-10 relative flex items-center">
                       <div
-                        className="bg-yellow-500 h-8 sm:h-10 rounded-full"
+                        className="bg-[#7fdaf4] h-8 sm:h-10 rounded-full"
                         style={{ width: `${career.match}%` }}
                       ></div>
                       <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm sm:text-base text-black font-bold">
@@ -190,8 +224,8 @@ export default function Profile() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
-                      <h3 className="font-semibold text-gray-700 mb-2">MBTI</h3>
-                      <p className="text-xl sm:text-2xl font-bold text-yellow-500">
+                      <h3 className="font-semibold text-[#E94A1F] mb-2">MBTI</h3>
+                      <p className="text-xl sm:text-2xl font-bold text-[#7fdaf4]">
                         {career.tests.mbti}
                       </p>
                     </div>
@@ -199,7 +233,7 @@ export default function Profile() {
                       <h3 className="font-semibold text-gray-700 mb-2">
                         Holland Code
                       </h3>
-                      <p className="text-xl sm:text-2xl font-bold text-yellow-500">
+                      <p className="text-xl sm:text-2xl font-bold text-[#7fdaf4]">
                         {career.tests.holland}
                       </p>
                     </div>
@@ -207,7 +241,7 @@ export default function Profile() {
                       <h3 className="font-semibold text-gray-700 mb-2">
                         EQ Score
                       </h3>
-                      <p className="text-xl sm:text-2xl font-bold text-yellow-500">
+                          <p className="text-xl sm:text-2xl font-bold text-[#7fdaf4]">
                         {career.tests.eq}/100
                       </p>
                     </div>
@@ -222,7 +256,7 @@ export default function Profile() {
                           </span>
                           <span className="font-medium text-base">
                             <span className="text-[#232360] font-bold">2025</span>.
-                            <span className="text-yellow-500 font-bold">05</span>.
+                            <span className="text-[#7fdaf4] font-bold">05</span>.
                             <span className="text-gray-600">12</span>
                           </span>
                         </div>
@@ -232,7 +266,7 @@ export default function Profile() {
                           </span>
                           <span className="font-medium text-base">
                             <span className="text-[#232360] font-bold">2025</span>.
-                            <span className="text-yellow-500 font-bold">11</span>.
+                            <span className="text-[#7fdaf4] font-bold">11</span>.
                             <span className="text-gray-600">12</span>
                           </span>
                         </div>
@@ -242,7 +276,7 @@ export default function Profile() {
                           </span>
                           <span className="font-medium text-base">
                             <span className="text-[#232360] font-bold">2026</span>.
-                            <span className="text-yellow-500 font-bold">05</span>.
+                            <span className="text-[#7fdaf4] font-bold">05</span>.
                             <span className="text-gray-600">12</span>
                           </span>
                         </div>
