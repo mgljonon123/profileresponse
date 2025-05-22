@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-const publicPaths = ["/saerch", "/work","/home"];
+const protectedPaths = ["/profile", "/test"];
 
 const staticPaths = ["/_next", "/favicon.ico", "/images", "/api/public"];
 
@@ -13,33 +13,32 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const isPublicPath = publicPaths.some((publicPath) =>
-    path.startsWith(publicPath)
+  const isProtectedPath = protectedPaths.some((protectedPath) =>
+    path.startsWith(protectedPath)
   );
 
-  const token = request.cookies.get("token")?.value;
+  // Only check authentication for protected paths
+  if (isProtectedPath) {
+    const token = request.cookies.get("token")?.value;
+    let isAuthenticated = false;
 
-  let isAuthenticated = false;
-  try {
-    if (token) {
-      const secret = new TextEncoder().encode(
-        process.env.JWT_SECRET || "your-secret-key"
-      );
-      await jwtVerify(token, secret);
-      isAuthenticated = true;
+    try {
+      if (token) {
+        const secret = new TextEncoder().encode(
+          process.env.JWT_SECRET || "your-secret-key"
+        );
+        await jwtVerify(token, secret);
+        isAuthenticated = true;
+      }
+    } catch (error) {
+      isAuthenticated = false;
     }
-  } catch (error) {
-    isAuthenticated = false;
-  }
 
-  if (isPublicPath && isAuthenticated) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
-  if (!isPublicPath && !isAuthenticated) {
-    const loginUrl = new URL("/auth/login", request.url);
-    loginUrl.searchParams.set("from", path);
-    return NextResponse.redirect(loginUrl);
+    if (!isAuthenticated) {
+      const loginUrl = new URL("/auth/login", request.url);
+      loginUrl.searchParams.set("from", path);
+      return NextResponse.redirect(loginUrl);
+    }
   }
 
   return NextResponse.next();

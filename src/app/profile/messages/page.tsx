@@ -41,7 +41,8 @@ export default function MessagesPage() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedNickName = localStorage.getItem("nickName") || "Neo";
-      const storedProfilePic = localStorage.getItem("profilePic") || "/profile.jpg";
+      const storedProfilePic =
+        localStorage.getItem("profilePic") || "/profile.jpg";
       setNickName(storedNickName);
       setProfilePic(storedProfilePic);
     }
@@ -129,11 +130,19 @@ export default function MessagesPage() {
           <h1 className="text-2xl font-bold text-[#232360]">
             Ажлын Туслах <span className="text-[#4f46e5]">{nickName}</span>
           </h1>
-          <p className="text-gray-400 text-sm mt-1">2025 оны 5-р сарын 25, Даваа</p>
+          <p className="text-gray-400 text-sm mt-1">
+            2025 оны 5-р сарын 25, Даваа
+          </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
-            <Image src={profilePic} alt="профайл" width={48} height={48} className="object-cover" />
+            <Image
+              src={profilePic}
+              alt="профайл"
+              width={48}
+              height={48}
+              className="object-cover"
+            />
           </div>
           <button
             onClick={() => router.push("/")}
@@ -161,10 +170,12 @@ export default function MessagesPage() {
 
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-4">
-          Бид өнөөдөр танд <span className="text-purple-500">яаж</span> туслах вэ?
+          Бид өнөөдөр танд <span className="text-purple-500">яаж</span> туслах
+          вэ?
         </h1>
         <p className="text-gray-500 max-w-xl mx-auto text-lg">
-          Ажлын замнал, тестийн үр дүн, мэргэжлийн хөгжлийн талаар мэргэжлийн зөвлөгөө аваарай. Сэдвээ сонго, эсвэл асуултаа шууд асуу.
+          Ажлын замнал, тестийн үр дүн, мэргэжлийн хөгжлийн талаар мэргэжлийн
+          зөвлөгөө аваарай. Сэдвээ сонго, эсвэл асуултаа шууд асуу.
         </p>
       </div>
 

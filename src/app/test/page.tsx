@@ -95,8 +95,10 @@ const mbtiQuestions = {
   E_I: [
     {
       text: "Сургуулийн клубын арга хэмжээнд оролцохдоо:",
-      optionA: "Шинэ хүмүүстэй танилцаж, бүлгийн үйл ажиллагаанд идэвхтэй оролцдог.",
-      optionB: "Цөөн хэдэн хүнтэй утга учиртай яриа өрнүүлээд эртхэн гарч амардаг.",
+      optionA:
+        "Шинэ хүмүүстэй танилцаж, бүлгийн үйл ажиллагаанд идэвхтэй оролцдог.",
+      optionB:
+        "Цөөн хэдэн хүнтэй утга учиртай яриа өрнүүлээд эртхэн гарч амардаг.",
     },
     {
       text: "Бүлгийн төсөл дээр ажиллахдаа:",
@@ -132,7 +134,8 @@ const mbtiQuestions = {
     },
     {
       text: "Лекц дээр:",
-      optionA: "Тодорхой жишээ, алхам алхмаар тайлбарлахаас хамгийн сайн сурдаг.",
+      optionA:
+        "Тодорхой жишээ, алхам алхмаар тайлбарлахаас хамгийн сайн сурдаг.",
       optionB: "Том зургаар, ирээдүйн хэрэглээгээр ойлгодог.",
     },
     {
@@ -271,12 +274,24 @@ const steps = [
 function TestTimeline({ currentStep }: { currentStep: number }) {
   return (
     <div className="hidden md:flex flex-col justify-between min-h-screen w-80 bg-white rounded-3xl p-8 ml-12">
-      <button className="bg-white text-black px-4 py-1 rounded-full text-xs font-semibold shadow mb-8 mt-2">Тест эхлэх</button>
+      <button className="bg-white text-black px-4 py-1 rounded-full text-xs font-semibold shadow mb-8 mt-2">
+        Тест эхлэх
+      </button>
       <div className="flex flex-col gap-16 relative w-full">
         {steps.map((step, idx) => (
           <div key={idx} className="flex items-center gap-4 relative z-10">
-            <div className={`w-6 h-6 rounded-full border-4 border-black flex items-center justify-center ${idx === currentStep ? 'bg-white' : 'bg-white'} `}></div>
-            <span className={`text-white ${idx === currentStep ? 'font-bold' : 'font-normal'}`}>{step}</span>
+            <div
+              className={`w-6 h-6 rounded-full border-4 border-black flex items-center justify-center ${
+                idx === currentStep ? "bg-white" : "bg-white"
+              } `}
+            ></div>
+            <span
+              className={`text-white ${
+                idx === currentStep ? "font-bold" : "font-normal"
+              }`}
+            >
+              {step}
+            </span>
           </div>
         ))}
         <div className="absolute left-2 top-3 w-1 h-[calc(100%-24px)] bg-white/20 rounded-full z-0"></div>
@@ -327,7 +342,8 @@ const TestPage = () => {
   // Step index for timeline
   let stepIdx = 0;
   if (testType === "personality") stepIdx = 1;
-  else if (testType === "mbti" || testType === "eq" || testType === "holland") stepIdx = 2;
+  else if (testType === "mbti" || testType === "eq" || testType === "holland")
+    stepIdx = 2;
   // You can further refine stepIdx logic if needed
 
   // Add this function before the useEffect
@@ -571,59 +587,26 @@ const TestPage = () => {
     } else if (testType === "mbti") {
       const categoryIndex = currentMbtiCategory;
       const category = mbtiCategoryOrder[categoryIndex] as MBTICategory;
-      const q = mbtiQuestions[category][currentMbtiQuestion];
-      currentQuestionText = q.text;
-      currentOptions = [
-        `A. ${q.optionA ? q.optionA : "Сонголт A"}`,
-        `B. ${q.optionB ? q.optionB : "Сонголт B"}`,
-      ];
+
+      // Зөвхөн 2 сонголттой (A, B) MBTI-д оноо нэмэх логик
       setMbtiAnswers((prev) => {
         const updated = { ...prev };
-        // Debug log for MBTI scoring
-        console.log("MBTI Answer Debug:", {
-          category,
-          score,
-          currentQuestion: currentMbtiQuestion + 1,
-          beforeUpdate: { ...prev },
-        });
-
-        if (score <= 3) {
-          // Option A (1-3) adds to first letter
-          if (category === "E_I") {
-            updated.E_I.E += score === 1 ? 2 : score === 2 ? 1 : 0;
-          }
-          if (category === "S_N") {
-            updated.S_N.S += score === 1 ? 2 : score === 2 ? 1 : 0;
-          }
-          if (category === "T_F") {
-            updated.T_F.T += score === 1 ? 2 : score === 2 ? 1 : 0;
-          }
-          if (category === "J_P") {
-            updated.J_P.J += score === 1 ? 2 : score === 2 ? 1 : 0;
-          }
-        } else {
-          // Option B (4-5) adds to second letter
-          if (category === "E_I") {
-            updated.E_I.I += score === 5 ? 2 : 1;
-          }
-          if (category === "S_N") {
-            updated.S_N.N += score === 5 ? 2 : 1;
-          }
-          if (category === "T_F") {
-            updated.T_F.F += score === 5 ? 2 : 1;
-          }
-          if (category === "J_P") {
-            updated.J_P.P += score === 5 ? 2 : 1;
-          }
+        if (category === "E_I") {
+          if (score === 1) updated.E_I.E += 1; // A сонголт (Тийм) - E
+          else if (score === 2) updated.E_I.I += 1; // B сонголт (Үгүй) - I
         }
-
-        // Debug log after update
-        console.log("MBTI Score Update:", {
-          category,
-          score,
-          afterUpdate: { ...updated },
-        });
-
+        if (category === "S_N") {
+          if (score === 1) updated.S_N.S += 1;
+          else if (score === 2) updated.S_N.N += 1;
+        }
+        if (category === "T_F") {
+          if (score === 1) updated.T_F.T += 1;
+          else if (score === 2) updated.T_F.F += 1;
+        }
+        if (category === "J_P") {
+          if (score === 1) updated.J_P.J += 1;
+          else if (score === 2) updated.J_P.P += 1;
+        }
         return updated;
       });
 
@@ -636,10 +619,10 @@ const TestPage = () => {
           setCurrentMbtiCategory(nextCategoryIdx);
           setCurrentMbtiQuestion(0);
         } else {
-          // Log final MBTI scores before moving to next test
-          console.log("Final MBTI Scores:", mbtiAnswers);
-          setTestType("eq");
-          setCurrentEqQuestion(0);
+          setTimeout(() => {
+            setTestType("eq");
+            setCurrentEqQuestion(0);
+          }, 0);
         }
       }
     } else if (testType === "eq") {
@@ -675,24 +658,18 @@ const TestPage = () => {
 
   // Helper functions for final results
   const getMBTIType = (mbti: MBTIScores) => {
-    const type = [
-      mbti.E_I.E > mbti.E_I.I ? "E" : "I",
-      mbti.S_N.S > mbti.S_N.N ? "S" : "N",
-      mbti.T_F.T > mbti.T_F.F ? "T" : "F",
-      mbti.J_P.J > mbti.J_P.P ? "J" : "P",
-    ].join("");
-
-    // Log detailed MBTI scoring
-    console.log("MBTI Type Calculation:", {
-      E_I: { E: mbti.E_I.E, I: mbti.E_I.I, diff: mbti.E_I.E - mbti.E_I.I },
-      S_N: { S: mbti.S_N.S, N: mbti.S_N.N, diff: mbti.S_N.S - mbti.S_N.N },
-      T_F: { T: mbti.T_F.T, F: mbti.T_F.F, diff: mbti.T_F.T - mbti.T_F.F },
-      J_P: { J: mbti.J_P.J, P: mbti.J_P.P, diff: mbti.J_P.J - mbti.J_P.P },
-      finalType: type,
-    });
-
+    let type = "";
+    type += mbti.E_I.E >= mbti.E_I.I ? "E" : "I";
+    type += mbti.S_N.S >= mbti.S_N.N ? "S" : "N";
+    type += mbti.T_F.T >= mbti.T_F.F ? "T" : "F";
+    type += mbti.J_P.J >= mbti.J_P.P ? "J" : "P";
     return type;
   };
+
+  useEffect(() => {
+    console.log("MBTI онооны өөрчлөлт:", mbtiAnswers);
+    console.log("MBTI төрлийн хариу:", getMBTIType(mbtiAnswers));
+  }, [mbtiAnswers]);
 
   const getHollandCode = (holland: typeof hollandAnswers) => {
     const scores = Object.entries(holland)
@@ -719,9 +696,7 @@ const TestPage = () => {
     testType === "personality"
       ? ((currentQuestion + 1) / questions.length) * 100
       : testType === "mbti"
-      ? ((currentMbtiCategory * 5 +
-          currentMbtiQuestion +
-          1) /
+      ? ((currentMbtiCategory * 5 + currentMbtiQuestion + 1) /
           (mbtiCategoryOrder.length * 5)) *
         100
       : testType === "eq"
@@ -770,7 +745,8 @@ const TestPage = () => {
   } else {
     const categories = Object.keys(hollandQuestions) as HollandCategory[];
     const currentCategory = categories[currentHollandCategory];
-    currentQuestionText = hollandQuestions[currentCategory][currentHollandQuestion];
+    currentQuestionText =
+      hollandQuestions[currentCategory][currentHollandQuestion];
     currentOptions = ["Тийм", "Үгүй"];
   }
 
@@ -780,14 +756,33 @@ const TestPage = () => {
       <button
         onClick={() => router.push("/")}
         className="fixed top-10 left-10 z-50 text-black px-6 py-3 text-lg font-extrabold tracking-widest transition-all duration-200"
-        style={{letterSpacing: '0.1em'}}
+        style={{ letterSpacing: "0.1em" }}
       >
         START UP
       </button>
       {/* Main test area */}
       <div className="flex-1 flex flex-col items-center justify-center w-full">
+        {/* Progress Bar */}
+        <div className="w-full max-w-md mx-auto mb-8 px-4">
+          <div className="flex justify-between mb-2">
+            <span className="text-sm font-medium text-gray-700">
+              Тестийн явц
+            </span>
+            <span className="text-sm font-medium text-gray-700">
+              {Math.round(progress)}%
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div
+              className="bg-[#B04B2F] h-2.5 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        </div>
         <div className="mt-8 mb-6 text-center">
-          <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-8 leading-tight">{currentQuestionText}</h2>
+          <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-8 leading-tight">
+            {currentQuestionText}
+          </h2>
         </div>
         <div className="flex flex-col gap-4 w-full max-w-md mx-auto">
           {currentOptions.map((option, index) => (
@@ -796,7 +791,9 @@ const TestPage = () => {
               onClick={() => handleAnswer(index + 1)}
               className="flex items-center gap-4 w-full p-4 bg-white border border-gray-300 rounded-2xl shadow text-gray-900 text-base font-semibold transition-all duration-200 hover:bg-gray-100 hover:border-gray-500 hover:shadow-lg group min-h-[48px]"
             >
-              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-500 text-white font-bold text-base group-hover:bg-white group-hover:text-gray-500 border-2 border-gray-500 transition-all">{index + 1}</span>
+              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-500 text-white font-bold text-base group-hover:bg-white group-hover:text-gray-500 border-2 border-gray-500 transition-all">
+                {index + 1}
+              </span>
               {option}
             </button>
           ))}
