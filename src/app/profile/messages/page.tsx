@@ -128,7 +128,7 @@ export default function MessagesPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Ажлын Туслах <span className="text-[#4f46e5]">{nickName}</span>
+            Ажлын Туслах <span className="text-[#F59E0B]">{nickName}</span>
           </h1>
           <p className="text-gray-400 text-sm mt-1">
             2025 оны 5-р сарын 25, Даваа
@@ -170,7 +170,7 @@ export default function MessagesPage() {
 
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-4">
-          Бид өнөөдөр танд <span className="text-purple-500">яаж</span> туслах
+          Бид өнөөдөр танд <span className="text-[#F59E0B]">яаж</span> туслах
           вэ?
         </h1>
         <p className="text-gray-500 max-w-xl mx-auto text-lg">
@@ -202,7 +202,7 @@ export default function MessagesPage() {
                     onClick={() => setInput(topic.title + ": ")}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold text-xl text-gray-800 group-hover:text-purple-600 transition">
+                      <span className="font-semibold text-xl text-gray-800 group-hover:text-[#F59E0B] transition">
                         {topic.title}
                       </span>
                       <span className="inline-block ml-2">
@@ -234,7 +234,7 @@ export default function MessagesPage() {
                 <div
                   className={`max-w-[80%] rounded-2xl p-4 ${
                     message.role === "user"
-                      ? "bg-purple-500 text-white"
+                      ? "bg-[#F59E0B] text-white"
                       : "bg-gray-100 text-gray-800"
                   }`}
                 >
@@ -276,7 +276,7 @@ export default function MessagesPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="bg-purple-500 text-white rounded-xl px-6 py-3 hover:bg-purple-600 transition disabled:opacity-50"
+              className="bg-[#F59E0B] text-white rounded-xl px-6 py-3 hover:bg-[#F59E0B] transition disabled:opacity-50"
             >
               Илгээх
             </button>

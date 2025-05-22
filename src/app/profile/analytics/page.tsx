@@ -124,10 +124,10 @@ const projects = [
 ];
 
 const statusColor: { [key: string]: string } = {
-  "маш сайн": "bg-blue-200 text-blue-700",
-  сайн: "bg-green-100 text-green-700",
-  дунд: "bg-[#7fdaf4] text-[#7fdaf4]",
-  муу: "bg-red-100 text-red-700",
+  "маш сайн": "bg-[#ffffff] text-[#F59E0B]",
+  сайн: "bg-[#ffffff] text-[#F59E0B]",
+  дунд: "bg-[#ffffff] text-[#F59E0B]",
+  муу: "bg-[#ffffff] text-[#F59E0B]",
 };
 
 export default function AnalyticsPage() {
@@ -154,7 +154,7 @@ export default function AnalyticsPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-[#E94A1F]">{nickName}</span>
+            Сайн Байна уу? <span className="text-[#F59E0B]">{nickName}</span>
           </h1>
           <p className="text-gray-500 text-sm mt-1">Mon, 25 May 2025</p>
         </div>
@@ -185,7 +185,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-8 shadow-sm" />
+      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-8 shadow-sm" />
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 gap-8 mb-10">
@@ -262,7 +262,7 @@ export default function AnalyticsPage() {
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-color: #eab308;
+                background-color: #F59E0B;
                 z-index: -1;
                 transform: scaleX(0);
                 transform-origin: left;
@@ -307,7 +307,7 @@ export default function AnalyticsPage() {
                 transform: translateY(0);
                 pointer-events: auto;
                 border-top: transparent;
-                border-color: #eab308;
+                border-color: #F59E0B;
               }
 
               .menu .item:hover .link {
@@ -352,7 +352,7 @@ export default function AnalyticsPage() {
                 transform: scaleX(0);
                 width: 100%;
                 height: 100%;
-                background-color: #eab308;
+                background-color: #F59E0B;
                 z-index: -1;
                 transform-origin: left;
                 transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
@@ -403,11 +403,11 @@ export default function AnalyticsPage() {
                 <Line
                   type="monotone"
                   dataKey="score"
-                  stroke="#E94A1F"
+                  stroke="#F59E0B"
                   strokeWidth={2}
                   dot={{
                     fill: "#fff",
-                    stroke: "#232360",
+                    stroke: "#F59E0B",
                     strokeWidth: 2,
                     r: 6,
                   }}
@@ -421,7 +421,7 @@ export default function AnalyticsPage() {
 
       {/* Projects Table */}
       <div className="bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
-        <div className="text-[#7de2e6] font-semibold mb-6 text-xl">
+        <div className="text-[#F59E0B] font-semibold mb-6 text-xl">
           Projects
         </div>
         <div className="overflow-x-auto">
@@ -441,7 +441,7 @@ export default function AnalyticsPage() {
                   className="border-b last:border-b-0 hover:bg-[#f7f7fa] transition text-base"
                 >
                   <td className="py-4 px-6 flex items-center gap-2 font-semibold">
-                    <span className="inline-block w-7 h-7 rounded-full bg-[#e6f7fa] flex items-center justify-center text-[#7de2e6] font-bold">
+                    <span className="inline-block w-7 h-7 rounded-full bg-[#e6f7fa] flex items-center justify-center text-[#F59E0B] font-bold">
                       ✦
                     </span>{" "}
                     {p.name}

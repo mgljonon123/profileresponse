@@ -140,7 +140,7 @@ export default function SettingsPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-[#4f46e5]">{form.nickName}</span>
+            Сайн Байна уу? <span className="text-[#F59E0B]">{form.nickName}</span>
           </h1>
           <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
         </div>
@@ -168,15 +168,16 @@ export default function SettingsPage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-8 py-4 shadow-sm animate-fadeIn">
-        <p className="text-[#232360] font-semibold text-lg">Таны профайлын тохиргоо</p>
+      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-8 py-4 shadow-sm animate-fadeIn">
+        
+        <h2 className="text-2xl font-bold text-white mb-4">Таны профайлын тохиргоо</h2>
       </div>
 
       <div className="flex gap-10 items-start">
         {/* Profile Picture & Name */}
         <div className="flex flex-col items-center w-64 bg-[#f7f7fa] rounded-2xl p-6 shadow-sm border border-[#f0f0f5] animate-fadeIn">
           <div
-            className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#4f46e5]/20 mb-4 shadow transition-transform hover:scale-105 cursor-pointer"
+            className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#F59E0B]/20 mb-4 shadow transition-transform hover:scale-105 cursor-pointer"
             onClick={toggleImageZoom}
           >
             <Image src={profilePic} alt="profile" width={128} height={128} className="object-cover" />
@@ -186,7 +187,7 @@ export default function SettingsPage() {
             <div className="text-gray-400 text-sm mb-3">neoisneo07@gmail.com</div>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-[#4f46e5] text-white px-6 py-2 rounded-lg shadow hover:bg-[#7c3aed] hover:scale-105 transition-all duration-300 font-semibold"
+              className="bg-[#F59E0B] text-white px-6 py-2 rounded-lg shadow hover:bg-[#F59E0B] hover:scale-105 transition-all duration-300 font-semibold"
             >
               Засах
             </button>
@@ -203,7 +204,7 @@ export default function SettingsPage() {
               name="fullName"
               value={form.fullName}
               onChange={handleChange}
-              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition-all duration-300 text-[#232360] placeholder-gray-400"
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360] placeholder-gray-400"
               placeholder="Таны бүтэн нэр"
             />
           </div>
@@ -215,7 +216,7 @@ export default function SettingsPage() {
               name="nickName"
               value={form.nickName}
               onChange={handleChange}
-              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition-all duration-300 text-[#232360] placeholder-gray-400"
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360] placeholder-gray-400"
               placeholder="Таны хоч нэр"
             />
           </div>
@@ -227,7 +228,7 @@ export default function SettingsPage() {
               name="gender"
               value={form.gender}
               onChange={handleChange}
-              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition-all duration-300 text-[#232360]"
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360]"
             >
               <option value="">Хүйс сонгоно уу</option>
               <option value="male">Эрэгтэй</option>
@@ -243,7 +244,7 @@ export default function SettingsPage() {
               name="country"
               value={form.country}
               onChange={handleChange}
-              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-[#4f46e5] transition-all duration-300 text-[#232360]"
+              className="w-full border border-[#e0e0e7] rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360]"
             >
               <option value="">Улс сонгоно уу</option>
               <option value="mn">Монгол</option>
@@ -265,7 +266,7 @@ export default function SettingsPage() {
               key={i}
               className="flex items-center gap-4 bg-white rounded-lg px-4 py-3 shadow-sm border border-[#e0e0e7] transition-all duration-300 hover:shadow-md hover:scale-[1.01]"
             >
-              <div className="bg-[#4f46e5]/10 text-[#4f46e5] rounded-full w-8 h-8 flex items-center justify-center font-bold">
+              <div className="bg-[#F59E0B]/10 text-[#F59E0B] rounded-full w-8 h-8 flex items-center justify-center font-bold">
                 @
               </div>
               <div className="font-medium text-[#232360]">{e.email}</div>
@@ -274,12 +275,12 @@ export default function SettingsPage() {
           ))}
           <button
             onClick={addEmail}
-            className="mt-2 text-[#4f46e5] bg-[#4f46e5]/10 px-5 py-2 rounded-lg font-semibold shadow hover:bg-[#4f46e5]/20 hover:scale-105 transition-all duration-300 w-fit"
-          >
+            className="mt-2 text-[#232360] px-5 py-2 rounded-lg font-semibold shadow hover:bg-[#F59E0B]/20 hover:text-[#F59E0B] hover:scale-105 transition-all duration-300 w-fit"
+>
             + Имэйл хаяг нэмэх
           </button>
         </div>
-      </div>
+      </div>  
 
       {/* Modal for Editing Profile */}
       {isModalOpen && (

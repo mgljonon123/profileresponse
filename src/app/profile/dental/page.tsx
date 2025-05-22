@@ -109,7 +109,7 @@ export default function RoadmapPage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] flex items-end px-8 shadow-md">
+      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-8 shadow-md">
         <h2 className="text-2xl font-bold text-white mb-4">Мэргэжлийн Зам</h2>
       </div>
 
@@ -127,7 +127,7 @@ export default function RoadmapPage() {
           <select
             value={selectedProfession}
             onChange={(e) => setSelectedProfession(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4f46e5] focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent"
           >
             <option value="">Мэргэжил сонгох</option>
             {professions.map((prof) => (
@@ -141,13 +141,13 @@ export default function RoadmapPage() {
         <div className="flex gap-4">
           <button 
             onClick={() => router.push("/profile")}
-            className="bg-[#4f46e5] text-white px-8 py-3 rounded-lg shadow-md hover:bg-[#4338ca] transition font-semibold"
+            className="bg-[#F59E0B] text-white px-8 py-3 rounded-lg shadow-md hover:bg-[#F59E0B] transition font-semibold"
           >
             Профайл руу буцах
           </button>
           <button 
             onClick={getAIRecommendation}
-            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] text-white rounded-lg shadow-md hover:from-[#4338ca] hover:to-[#6d28d9] transition-all duration-300 font-semibold"
+            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] text-white rounded-lg shadow-md hover:from-[#F59E0B] hover:to-[#F59E0B] transition-all duration-300 font-semibold"
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 

@@ -132,7 +132,7 @@ export default function Profile() {
       <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-[#7fdaf4]">{nickName}</span>
+            Сайн Байна уу? <span className="text-[#F59E0B]">{nickName}</span>
           </h1>
           <p className="text-gray-400 text-base mt-2">Mon, 25 May 2025</p>
         </div>
@@ -169,7 +169,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="w-full h-24 sm:h-32 rounded-2xl mb-8 sm:mb-12 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-6 sm:px-10 shadow-md" />
+      <div className="w-full h-24 sm:h-32 rounded-2xl mb-8 sm:mb-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-6 sm:px-10 shadow-md" />
 
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch w-full">
         <div className="w-full lg:flex-1 flex-grow basis-0">
@@ -224,8 +224,8 @@ export default function Profile() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
-                      <h3 className="font-semibold text-[#E94A1F] mb-2">MBTI</h3>
-                      <p className="text-xl sm:text-2xl font-bold text-[#7fdaf4]">
+                      <h3 className="font-semibold text-gray-700 mb-2">MBTI</h3>
+                      <p className="text-xl sm:text-2xl font-bold text-[#F59E0B]">
                         {career.tests.mbti}
                       </p>
                     </div>
@@ -233,7 +233,7 @@ export default function Profile() {
                       <h3 className="font-semibold text-gray-700 mb-2">
                         Holland Code
                       </h3>
-                      <p className="text-xl sm:text-2xl font-bold text-[#7fdaf4]">
+                      <p className="text-xl sm:text-2xl font-bold text-[#F59E0B]">
                         {career.tests.holland}
                       </p>
                     </div>
@@ -241,7 +241,7 @@ export default function Profile() {
                       <h3 className="font-semibold text-gray-700 mb-2">
                         EQ Score
                       </h3>
-                          <p className="text-xl sm:text-2xl font-bold text-[#7fdaf4]">
+                      <p className="text-xl sm:text-2xl font-bold text-[#F59E0B]">
                         {career.tests.eq}/100
                       </p>
                     </div>
@@ -256,7 +256,7 @@ export default function Profile() {
                           </span>
                           <span className="font-medium text-base">
                             <span className="text-[#232360] font-bold">2025</span>.
-                            <span className="text-[#7fdaf4] font-bold">05</span>.
+                            <span className="text-[#F59E0B] font-bold">05</span>.
                             <span className="text-gray-600">12</span>
                           </span>
                         </div>
@@ -266,7 +266,7 @@ export default function Profile() {
                           </span>
                           <span className="font-medium text-base">
                             <span className="text-[#232360] font-bold">2025</span>.
-                            <span className="text-[#7fdaf4] font-bold">11</span>.
+                            <span className="text-[#F59E0B] font-bold">11</span>.
                             <span className="text-gray-600">12</span>
                           </span>
                         </div>
@@ -276,7 +276,7 @@ export default function Profile() {
                           </span>
                           <span className="font-medium text-base">
                             <span className="text-[#232360] font-bold">2026</span>.
-                            <span className="text-[#7fdaf4] font-bold">05</span>.
+                            <span className="text-[#F59E0B] font-bold">05</span>.
                             <span className="text-gray-600">12</span>
                           </span>
                         </div>

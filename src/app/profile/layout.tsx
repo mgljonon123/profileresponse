@@ -104,8 +104,8 @@ export default function ProfileLayout({
                 href={item.href}
                 className={`flex items-center justify-center w-16 h-16 rounded-xl mb-2 transition ${
                   isActive
-                    ? "text-[#7fdaf4] bg-[#F2F6FF]"
-                    : "text-[#B0B0B0] hover:text-[#7fdaf4] hover:bg-[#F2F6FF]"
+                    ? "text-[#F59E0B] bg-[#F2F6FF]"
+                    : "text-[#B0B0B0] hover:text-[#F59E0B] hover:bg-[#F2F6FF]"
                 }`}
               >
                 {item.icon}
