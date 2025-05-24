@@ -49,6 +49,9 @@ const ResultPage = () => {
         holland: holland ? JSON.parse(holland) : {},
         recommendations: recommendations ? JSON.parse(recommendations) : [],
       });
+
+      // Log the received EQ data for debugging
+      console.log("Received EQ data:", eq ? JSON.parse(eq) : []);
     }
   }, [searchParams]);
 
@@ -189,7 +192,7 @@ const ResultPage = () => {
   };
 
   const calculateEQScore = (eq: number[] | undefined) => {
-    if (!eq || eq.length !== 40) return null;
+    if (!eq) return null;
     const sum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     return {
       selfAwareness: sum(eq.slice(0, 8)),

@@ -2,91 +2,90 @@
 
 import { useState, useEffect } from "react";
 import { questions } from "../../lib/TS_questions";
-import Chatbot from "../../components/Chatbot";
 import { useRouter } from "next/navigation";
 import WelcomeScreen from "../../components/WelcomeScreen";
-import React from "react";
 import TimelineCard from "../../components/TimelineCard";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Holland Code test questions
 const hollandQuestions = {
   R: [
-    "Мужааны дамжаанд суралцан төгсөх",
-    "Суудлын машин жолоодох",
-    "Амины сууцандаа засвар хийх",
-    "Цахилгаан эд зүйлсийг засварлах",
-    "Хөгжмийн хөг тааруулах",
-    "Гэр орныхоо эвдэрч элэгдсэн зүйлсийг засч янзлах",
-    "Зуслангийн газартаа ажиллах",
-    "Авто механикийн сургалтанд суралцан төгсөх",
-    "Орон сууцны засвараа өөрөө хийх",
-    "Техникийн асуудлууд шийдвэрлэх",
-    "Хуучирч элэгдсэн хэрэгсэл, механик төхөөрөмжүүдийг засч сэлбэн ажиллагаатай болгох",
+    "Та мужааны дамжаанд суралцан төгсөхөд сонирхолтой юу?",
+    "Та суудлын машин жолоодохыг сонирхдог уу?",
+    "Та амины сууцандаа засвар хийхэд сонирхолтой юу?",
+    "Та цахилгаан эд зүйлсийг засварлахыг сонирхдог уу?",
+    "Та хөгжмийн хөг тааруулахад сонирхолтой юу?",
+    "Та гэр орныхоо эвдэрч элэгдсэн зүйлсийг засч янзлахыг сонирхдог уу?",
+    "Та зуслангийн газартаа ажиллахад сонирхолтой юу?",
+    "Та авто механикийн сургалтанд суралцан төгсөхөд сонирхолтой юу?",
+    "Та орон сууцны засвараа өөрөө хийхэд сонирхолтой юу?",
+    "Та техникийн асуудлууд шийдвэрлэхэд сонирхолтой юу?",
+    "Та хуучирч элэгдсэн хэрэгсэл, механик төхөөрөмжүүдийг засч сэлбэн ажиллагаатай болгоход сонирхолтой юу?",
   ],
   I: [
-    "Эрдэм шинжилгээний лабораторид ажиллах",
-    "Практик амьдралын асуудлыг шийдвэрлэхэд тооны ухааныг хэрэглэх",
-    "Шинжлэх ухааны онол, үзлүүдийг судлах",
-    "Шинэ санал, зөвлөмж боловсруулах талаар мэдээллийг тунгаан судлах",
-    "Шинжлэх ухааны ном, хэвлэл, сэтгүүлүүд унших",
-    "Нарийн төвөгтэй асуудлын шийдвэрлэлийг олох",
-    "Эрдэм шинжилгээний музей үзэх",
-    "Янз бүрийн асуудлаар өгөгдөхүүнийг ангилах, системчлэх",
-    "Статистикийн чиглэлээр дамжаа төгсөх",
-    "Асуудлыг задлан шинжлэх",
-    "Шинэ мэдлэг эзэмших",
+    "Та эрдэм шинжилгээний лабораторид ажиллахад сонирхолтой юу?",
+    "Та практик амьдралын асуудлыг шийдвэрлэхэд тооны ухааныг хэрэглэхэд сонирхолтой юу?",
+    "Та шинжлэх ухааны онол, үзлүүдийг судлахад сонирхолтой юу?",
+    "Та шинэ санал, зөвлөмж боловсруулах талаар мэдээллийг тунгаан судлахад сонирхолтой юу?",
+    "Та шинжлэх ухааны ном, хэвлэл, сэтгүүлүүд уншихад сонирхолтой юу?",
+    "Та нарийн төвөгтэй асуудлын шийдвэрлэлийг олоход сонирхолтой юу?",
+    "Та эрдэм шинжилгээний музей үзэхэд сонирхолтой юу?",
+    "Та янз бүрийн асуудлаар өгөгдөхүүнийг ангилах, системчлэхэд сонирхолтой юу?",
+    "Та статистикийн чиглэлээр дамжаа төгсөхөд сонирхолтой юу?",
+    "Та асуудлыг задлан шинжлэхэд сонирхолтой юу?",
+    "Та шинэ мэдлэг эзэмшихэд сонирхолтой юу?",
   ],
   A: [
-    "Хөгжим тоглох",
-    "Сонин, сэтгүүлд материал бичиж өгөх",
-    "Өгүүллэг, уран сайхны санаанд тулгуурлан жүжгийн зохиол туурвих",
-    "Чуулга, найрал хөгжим, цөөхүүлийн бүрэлдэхүүнд тоглох",
-    "Модон эдлэл эсвэл хувцас, хунарын загвар зохиох",
-    "Хөрөг найруулал бичих юм уу, гэрэл зураг авах",
-    "Дизайны сургалтанд оролцох",
-    "Сонин, сэтгүүл эрхлэн гаргах",
-    "Зураг, уран зураг зурж сурах",
-    "Шүлэг унших, цээжлэх, бичих",
-    "Гоёл чимэглэлийн эд зүйлс хийх",
+    "Та хөгжим тоглохыг сонирхдог уу?",
+    "Та сонин, сэтгүүлд материал бичиж өгөхөд сонирхолтой юу?",
+    "Та өгүүллэг, уран сайхны санаанд тулгуурлан жүжгийн зохиол туурвихаар сонирхолтой юу?",
+    "Та чуулга, найрал хөгжим, цөөхүүлийн бүрэлдэхүүнд тоглохад сонирхолтой юу?",
+    "Та модон эдлэл эсвэл хувцас, хунарын загвар зохиохад сонирхолтой юу?",
+    "Та хөрөг найруулал бичих юм уу, гэрэл зураг авахад сонирхолтой юу?",
+    "Та дизайны сургалтанд оролцохдоо сонирхолтой юу?",
+    "Та сонин, сэтгүүл эрхлэн гаргахад сонирхолтой юу?",
+    "Та зураг, уран зураг зурж сурахад сонирхолтой юу?",
+    "Та шүлэг унших, цээжлэх, бичихэд сонирхолтой юу?",
+    "Та гоёл чимэглэлийн эд зүйлс хийхэд сонирхолтой юу?",
   ],
   S: [
-    "Нийгмийн хамгаалал, дэмжлэгийн хүрээлэлд ажиллах",
-    "Харилцааны сэтгэл зүйн дамжаанд суралцах",
-    "Насанд хүрээгүй хүмүүсийн хууль зөрчсөн баримтуудыг судлах",
-    "Хүмүүсийн хоорондын харилцааны асуудлаар ярилцах, мэтгэлцэх",
-    "Бусдыг ямар нэгэн ажил хийж гүйцэтгэхэд сургах",
-    "Нийгэм судлалын талаар ном унших",
-    "Хөгжлийн бэрхшээлтэй хүмүүст туслах",
-    "Хүнд үед нь зөвлөгөө өгөх",
-    "Сургуульд багшлах",
-    "Хүүхдийн төлөө санаа тавьж, ахмад хүмүүст туслах",
-    "Аялал жуулчлал, хөтлөгч эсвэл музейн тайлбарлагчийн дамжаанд суралцах",
+    "Та нийгмийн хамгаалал, дэмжлэгийн хүрээлэлд ажиллахад сонирхолтой юу?",
+    "Та харилцааны сэтгэл зүйн дамжаанд суралцахад сонирхолтой юу?",
+    "Та насанд хүрээгүй хүмүүсийн хууль зөрчсөн баримтуудыг судлахад сонирхолтой юу?",
+    "Та хүмүүсийн хоорондын харилцааны асуудлаар ярилцах, мэтгэлцэхэд сонирхолтой юу?",
+    "Та бусдыг ямар нэгэн ажил хийж гүйцэтгэхэд сургахад сонирхолтой юу?",
+    "Та нийгэм судлалын талаар ном уншихад сонирхолтой юу?",
+    "Та хөгжлийн бэрхшээлтэй хүмүүст туслахад сонирхолтой юу?",
+    "Та хүнд үед нь зөвлөгөө өгөхөд сонирхолтой юу?",
+    "Та сургуульд багшлахад сонирхолтой юу?",
+    "Та хүүхдийн төлөө санаа тавьж, ахмад хүмүүст туслахад сонирхолтой юу?",
+    "Та аялал жуулчлал, хөтлөгч эсвэл музейн тайлбарлагчийн дамжаанд суралцахад сонирхолтой юу?",
   ],
   E: [
-    "Төсөл эсвэл адил утгатай ямар нэг ажлын удирдагч байх",
-    "Удирдлагын чиглэлээр семинар, сургалт төгсөх",
-    "Бизнесийн болон засгийн газрын удирдлагын тухай унших",
-    "Улс төрийн цаг үеийн ажилд оролцох",
-    "Хувийн ажлуудаа санаачлан, удирдан гүйцэтгэх",
-    "Чухал, хариуцлагатай үйл хэргийг шийдвэрлэх",
-    "Хүмүүст нөлөөлөх",
-    "Үнэ хаялцах болон дуудлага худалдаанд оролцох",
-    "Бусад хүмүүсийн ажлыг удирдах",
-    "Зах зээлийн ханшийг судлах",
-    "Сонгуулийн ажлыг зохион байгуулах, явуулах",
+    "Та төсөл эсвэл адил утгатай ямар нэг ажлын удирдагч байхыг сонирхдог уу?",
+    "Та удирдлагын чиглэлээр семинар, сургалт төгсөхөд сонирхолтой юу?",
+    "Та бизнесийн болон засгийн газрын удирдлагын тухай уншихад сонирхолтой юу?",
+    "Та улс төрийн цаг үеийн ажилд оролцохдоо сонирхолтой юу?",
+    "Та хувийн ажлуудаа санаачлан, удирдан гүйцэтгэхэд сонирхолтой юу?",
+    "Та чухал, хариуцлагатай үйл хэргийг шийдвэрлэхэд сонирхолтой юу?",
+    "Та хүмүүст нөлөөлөхөд сонирхолтой юу?",
+    "Та үнэ хаялцах болон дуудлага худалдаанд оролцохдоо сонирхолтой юу?",
+    "Та бусад хүмүүсийн ажлыг удирдахад сонирхолтой юу?",
+    "Та зах зээлийн ханшийг судлахад сонирхолтой юу?",
+    "Та сонгуулийн ажлыг зохион байгуулах, явуулахад сонирхолтой юу?",
   ],
   C: [
-    "Ажлын өрөө ширээгээ эмх цэгцтэй байлгах",
-    "Тооны машин байнга хэрэглэх",
-    "Эд хөрөнгө данслах, цэслэх",
-    "Өөрийн зарлагаа нягт тэмдэглэн авах",
-    "Алдаа, алдангийг илрүүлэхээр баримтын шалгалт хийх",
-    "Бизнес, санхүүгийн тооцоо хийх",
-    "Албан бичиг баримтын хуулбар бүрдүүлэх",
-    "Байгууллагын компьютер тооцолон бодох техник зэргийг удирдан ажиллуулах",
-    "Стандарт маяг, дэлгэрэнгүй анкетууд хөтлөх",
-    "Нягтлан бодох бүртгэлийн дамжаанд суралцах",
-    "Албан бичиг төлөвлөх, хэвлэх",
+    "Та ажлын өрөө ширээгээ эмх цэгцтэй байлгахад сонирхолтой юу?",
+    "Та тооны машин байнга хэрэглэхэд сонирхолтой юу?",
+    "Та эд хөрөнгө данслах, цэслэхэд сонирхолтой юу?",
+    "Та өөрийн зарлагаа нягт тэмдэглэн авахад сонирхолтой юу?",
+    "Та алдаа, алдангийг илрүүлэхээр баримтын шалгалт хийхэд сонирхолтой юу?",
+    "Та бизнес, санхүүгийн тооцоо хийхэд сонирхолтой юу?",
+    "Та албан бичиг баримтын хуулбар бүрдүүлэхэд сонирхолтой юу?",
+    "Та байгууллагын компьютер тооцолон бодох техник зэргийг удирдан ажиллуулахад сонирхолтой юу?",
+    "Та стандарт маяг, дэлгэрэнгүй анкетууд хөтлөхөд сонирхолтой юу?",
+    "Та нягтлан бодох бүртгэлийн дамжаанд суралцахад сонирхолтой юу?",
+    "Та албан бичиг төлөвлөх, хэвлэхэд сонирхолтой юу?",
   ],
 } as const;
 
@@ -262,43 +261,15 @@ type MBTIScores = {
   T_F: { T: number; F: number };
   J_P: { J: number; P: number };
 };
-type TestType = "personality" | "mbti" | "eq" | "holland";
+type TestType = "personality" | "mbti" | "eq" | "holland" | "result";
 
 const steps = [
-  "Эхлэх",
   "Таны зан чанарын хэв маягийг тодорхойлох",
-  "Танд тохирох ажил мэргэжлийн санал",
-  "Хобби",
+  "MBTI Тест",
+  "EQ Тест",
+  "Holland Code Тест",
+  "Баярлла",
 ];
-
-function TestTimeline({ currentStep }: { currentStep: number }) {
-  return (
-    <div className="hidden md:flex flex-col justify-between min-h-screen w-80 bg-white rounded-3xl p-8 ml-12">
-      <button className="bg-white text-black px-4 py-1 rounded-full text-xs font-semibold shadow mb-8 mt-2">
-        Тест эхлэх
-      </button>
-      <div className="flex flex-col gap-16 relative w-full">
-        {steps.map((step, idx) => (
-          <div key={idx} className="flex items-center gap-4 relative z-10">
-            <div
-              className={`w-6 h-6 rounded-full border-4 border-black flex items-center justify-center ${
-                idx === currentStep ? "bg-white" : "bg-white"
-              } `}
-            ></div>
-            <span
-              className={`text-white ${
-                idx === currentStep ? "font-bold" : "font-normal"
-              }`}
-            >
-              {step}
-            </span>
-          </div>
-        ))}
-        <div className="absolute left-2 top-3 w-1 h-[calc(100%-24px)] bg-white/20 rounded-full z-0"></div>
-      </div>
-    </div>
-  );
-}
 
 const TestPage = () => {
   const router = useRouter();
@@ -339,12 +310,81 @@ const TestPage = () => {
   } | null>(null);
   const [recommendedTests, setRecommendedTests] = useState<string[]>([]);
 
-  // Step index for timeline
-  let stepIdx = 0;
-  if (testType === "personality") stepIdx = 1;
-  else if (testType === "mbti" || testType === "eq" || testType === "holland")
-    stepIdx = 2;
-  // You can further refine stepIdx logic if needed
+  // Total questions per test
+  const totalQuestions = {
+    personality: questions.length, // 25
+    mbti: Object.values(mbtiQuestions).reduce(
+      (sum, arr) => sum + arr.length,
+      0
+    ), // 20
+    eq: eqQuestions.length, // 40
+    holland: Object.values(hollandQuestions).reduce(
+      (sum, arr) => sum + arr.length,
+      0
+    ), // 66
+  };
+  const totalQuestionsSum = Object.values(totalQuestions).reduce(
+    (a, b) => a + b,
+    0
+  ); // 151
+
+  // Cumulative question counts for each stage
+  const cumulativeQuestions = {
+    personality: totalQuestions.personality, // 25
+    mbti: totalQuestions.personality + totalQuestions.mbti, // 25 + 20 = 45
+    eq: totalQuestions.personality + totalQuestions.mbti + totalQuestions.eq, // 45 + 40 = 85
+    holland:
+      totalQuestions.personality +
+      totalQuestions.mbti +
+      totalQuestions.eq +
+      totalQuestions.holland, // 85 + 66 = 151
+  };
+
+  // Calculate stepIdx based on cumulative progress
+  const calculateStepIdx = () => {
+    let completedQuestions = 0;
+
+    if (testType === "personality") {
+      completedQuestions = currentQuestion;
+      return (completedQuestions / cumulativeQuestions.personality) * 0.8; // 0 to 0.8 of step 0
+    } else if (testType === "mbti") {
+      completedQuestions =
+        cumulativeQuestions.personality +
+        currentMbtiCategory * 5 +
+        currentMbtiQuestion;
+      return (
+        1 +
+        ((completedQuestions - cumulativeQuestions.personality) /
+          (cumulativeQuestions.mbti - cumulativeQuestions.personality)) *
+          0.8
+      ); // 1 to 1.8
+    } else if (testType === "eq") {
+      completedQuestions = cumulativeQuestions.mbti + currentEqQuestion;
+      return (
+        2 +
+        ((completedQuestions - cumulativeQuestions.mbti) /
+          (cumulativeQuestions.eq - cumulativeQuestions.mbti)) *
+          0.8
+      ); // 2 to 2.8
+    } else if (testType === "holland") {
+      completedQuestions =
+        cumulativeQuestions.eq +
+        currentHollandCategory * 11 +
+        currentHollandQuestion;
+      return (
+        3 +
+        ((completedQuestions - cumulativeQuestions.eq) /
+          (cumulativeQuestions.holland - cumulativeQuestions.eq)) *
+          0.8
+      ); // 3 to 3.8
+    } else if (testType === "result") {
+      return 4; // 4
+    }
+
+    return 0; // Default
+  };
+
+  const stepIdx = Math.round(calculateStepIdx());
 
   // Add this function before the useEffect
   const calculateRecommendedTests = (
@@ -457,18 +497,6 @@ const TestPage = () => {
       .slice(0, 5)
       .map((rec) => rec.test);
 
-    // Log the top 5 profession names with detailed information
-    console.log("=== Top 5 Recommended Professions ===");
-    top5Tests.forEach((test, index) => {
-      console.log(`### ${index + 1}. **${test}**`);
-      console.log(`**Шалтгаан:** ${getProfessionReason(test, mbtiType)}`);
-      console.log(`**Шаардлагатай ур чадвар:** ${getRequiredSkills(test)}`);
-      console.log(`**Цалин:** ${getSalaryRange(test)}`);
-      console.log(`**Өсөх боломж:** ${getGrowthOpportunities(test)}`);
-      console.log(""); // Add empty line between professions
-    });
-    console.log("===================================");
-
     return top5Tests;
   };
 
@@ -491,17 +519,6 @@ const TestPage = () => {
       setRecommendedTests(recommendations);
       queryParams.set("recommendations", JSON.stringify(recommendations));
 
-      // Log final test results summary
-      console.log("=== Final Test Results ===");
-      console.log("Big Five Scores:", bigFiveScores);
-      console.log("MBTI Type:", getMBTIType(mbtiAnswers));
-      console.log("MBTI Scores:", mbtiAnswers);
-      console.log("EQ Scores:", calculateEQScore(eqAnswers));
-      console.log("Holland Code:", getHollandCode(hollandAnswers));
-      console.log("Holland Scores:", hollandAnswers);
-      console.log("Recommended Tests:", recommendations);
-      console.log("========================");
-
       router.push(`/test/result?${queryParams.toString()}`);
     }
   }, [
@@ -520,9 +537,7 @@ const TestPage = () => {
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
-        // Calculate Big Five scores when personality test is completed
         const calculateBigFiveScores = (answers: Record<number, number>) => {
-          // Initialize scores
           let scores = {
             Neuroticism: 0,
             Extraversion: 0,
@@ -531,17 +546,13 @@ const TestPage = () => {
             Conscientiousness: 0,
           };
 
-          // Calculate scores based on answers
           Object.entries(answers).forEach(([questionId, answer]) => {
             const question = questions.find((q) => q.id === Number(questionId));
             if (!question) return;
 
-            // Convert answer (1-5) to percentage (0-100)
-            // For reverse questions, invert the score
             const rawScore = question.reverse ? 6 - answer : answer;
             const percentage = ((rawScore - 1) / 4) * 100;
 
-            // Add to appropriate category
             switch (question.category) {
               case "Neuroticism":
                 scores.Neuroticism += percentage;
@@ -561,7 +572,6 @@ const TestPage = () => {
             }
           });
 
-          // Calculate averages
           const questionCounts = {
             Neuroticism: questions.filter((q) => q.category === "Neuroticism")
               .length,
@@ -576,7 +586,6 @@ const TestPage = () => {
             ).length,
           };
 
-          // Calculate final scores as percentages
           Object.keys(scores).forEach((trait) => {
             if (questionCounts[trait as keyof typeof questionCounts] > 0) {
               scores[trait as keyof typeof scores] = Math.round(
@@ -589,11 +598,8 @@ const TestPage = () => {
           return scores;
         };
 
-        // Set Big Five scores
         const bigFiveResults = calculateBigFiveScores(newAnswers);
         setBigFiveScores(bigFiveResults);
-        console.log("Big Five Scores Calculated:", bigFiveResults);
-
         setTestType("mbti");
         setCurrentMbtiCategory(0);
         setCurrentMbtiQuestion(0);
@@ -602,12 +608,11 @@ const TestPage = () => {
       const categoryIndex = currentMbtiCategory;
       const category = mbtiCategoryOrder[categoryIndex] as MBTICategory;
 
-      // Зөвхөн 2 сонголттой (A, B) MBTI-д оноо нэмэх логик
       setMbtiAnswers((prev) => {
         const updated = { ...prev };
         if (category === "E_I") {
-          if (score === 1) updated.E_I.E += 1; // A сонголт (Тийм) - E
-          else if (score === 2) updated.E_I.I += 1; // B сонголт (Үгүй) - I
+          if (score === 1) updated.E_I.E += 1;
+          else if (score === 2) updated.E_I.I += 1;
         }
         if (category === "S_N") {
           if (score === 1) updated.S_N.S += 1;
@@ -633,10 +638,8 @@ const TestPage = () => {
           setCurrentMbtiCategory(nextCategoryIdx);
           setCurrentMbtiQuestion(0);
         } else {
-          setTimeout(() => {
-            setTestType("eq");
-            setCurrentEqQuestion(0);
-          }, 0);
+          setTestType("eq");
+          setCurrentEqQuestion(0);
         }
       }
     } else if (testType === "eq") {
@@ -648,8 +651,7 @@ const TestPage = () => {
         setCurrentHollandCategory(0);
         setCurrentHollandQuestion(0);
       }
-    } else {
-      // Holland Code
+    } else if (testType === "holland") {
       const categories = Object.keys(hollandQuestions) as HollandCategory[];
       const currentCategory = categories[currentHollandCategory];
       setHollandAnswers((prev) => ({
@@ -666,11 +668,11 @@ const TestPage = () => {
         setCurrentHollandQuestion(0);
       } else {
         setShowResults(true);
+        setTestType("result");
       }
     }
   };
 
-  // Helper functions for final results
   const getMBTIType = (mbti: MBTIScores) => {
     let type = "";
     type += mbti.E_I.E >= mbti.E_I.I ? "E" : "I";
@@ -679,11 +681,6 @@ const TestPage = () => {
     type += mbti.J_P.J >= mbti.J_P.P ? "J" : "P";
     return type;
   };
-
-  useEffect(() => {
-    console.log("MBTI онооны өөрчлөлт:", mbtiAnswers);
-    console.log("MBTI төрлийн хариу:", getMBTIType(mbtiAnswers));
-  }, [mbtiAnswers]);
 
   const getHollandCode = (holland: typeof hollandAnswers) => {
     const scores = Object.entries(holland)
@@ -706,20 +703,22 @@ const TestPage = () => {
     };
   };
 
-  const progress =
+  const progress = Math.round(
     testType === "personality"
-      ? ((currentQuestion + 1) / questions.length) * 100
+      ? (currentQuestion / questions.length) * 100
       : testType === "mbti"
-      ? ((currentMbtiCategory * 5 + currentMbtiQuestion + 1) /
+      ? ((currentMbtiCategory * 5 + currentMbtiQuestion) /
           (mbtiCategoryOrder.length * 5)) *
         100
       : testType === "eq"
-      ? ((currentEqQuestion + 1) / eqQuestions.length) * 100
-      : ((currentHollandCategory * 11 + currentHollandQuestion + 1) /
+      ? (currentEqQuestion / eqQuestions.length) * 100
+      : testType === "holland"
+      ? ((currentHollandCategory * 11 + currentHollandQuestion) /
           (Object.keys(hollandQuestions).length * 11)) *
-        100;
+        100
+      : 100
+  );
 
-  // Helper functions for profession details
   const getProfessionReason = (profession: string, mbtiType: string) => {
     const reasons: { [key: string]: string } = {
       "Leadership Skills Assessment": `${mbtiType} төрлийн хүмүүс зохион байгуулалт, шийдвэр гаргах чадвараараа алдартай бөгөөд энэ нь захиргааны менежерын үүрэгт тохирно. Тэд багийн ажил, стратегийн төлөвлөлтийг сайн удирдах чадвартай.`,
@@ -833,59 +832,51 @@ const TestPage = () => {
       {/* START UP logo/button top left */}
       <button
         onClick={() => router.push("/")}
-        className="fixed top-10 left-10 z-50 text-black px-6 py-3 text-lg font-extrabold tracking-widest transition-all duration-200"
-        style={{ letterSpacing: "0.1em" }}
+        className="fixed top-10 left-10 z-50 text-black px-12 py-6 text-4xl font-extrabold tracking-widest transition-all duration-200 hover:scale-110"
+        style={{ letterSpacing: "0.2em" }}
       >
         START UP
       </button>
       {/* Main test area */}
       <div className="flex-1 flex flex-col items-center justify-center w-full">
-        {/* Progress Bar */}
-        <div className="w-full max-w-md mx-auto mb-8 px-4">
-          <div className="text-center mb-4">
-            <span className="text-lg font-semibold text-[#B04B2F]">
-              {testType === "personality"
-                ? "Таны зан чанарын хэв маягийг тодорхойлох"
-                : testType === "mbti"
-                ? "MBTI Тест"
-                : testType === "eq"
-                ? "EQ Тест"
-                : "Holland Code Тест"}
-            </span>
-          </div>
-          <div className="flex justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">
-              Тестийн явц
-            </span>
-            <span className="text-sm font-medium text-gray-700">
-              {Math.round(progress)}%
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
-            <div
-              className="bg-[#B04B2F] h-2.5 rounded-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-        </div>
-        <div className="mt-8 mb-6 text-center">
-          <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-8 leading-tight">
-            {currentQuestionText}
-          </h2>
-        </div>
-        <div className="flex flex-col gap-4 w-full max-w-md mx-auto">
-          {currentOptions.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswer(index + 1)}
-              className="flex items-center gap-4 w-full p-4 bg-white border border-gray-300 rounded-2xl shadow text-gray-900 text-base font-semibold transition-all duration-200 hover:bg-gray-100 hover:border-gray-500 hover:shadow-lg group min-h-[48px]"
-            >
-              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-500 text-white font-bold text-base group-hover:bg-white group-hover:text-gray-500 border-2 border-gray-500 transition-all">
-                {index + 1}
-              </span>
-              {option}
-            </button>
-          ))}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentQuestion}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="mt-8 mb-6 text-center w-full max-w-2xl mx-auto px-4"
+          >
+            <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-8 leading-tight">
+              {currentQuestionText}
+            </h2>
+          </motion.div>
+        </AnimatePresence>
+        <div className="flex flex-col gap-4 w-full max-w-md mx-auto px-4">
+          <AnimatePresence mode="wait">
+            {currentOptions.map((option, index) => (
+              <motion.button
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                onClick={() => handleAnswer(index + 1)}
+                className="flex items-center gap-4 w-full p-4 bg-white border border-gray-300 rounded-2xl shadow text-gray-900 text-base font-semibold transition-all duration-200 hover:bg-gray-100 hover:border-gray-500 hover:shadow-lg group min-h-[48px]"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <motion.span
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-white font-bold text-base group-hover:bg-white group-hover:text-gray-700 border-2 border-gray-700 transition-all"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  {index + 1}
+                </motion.span>
+                {option}
+              </motion.button>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
       {/* Timeline */}
@@ -894,7 +885,7 @@ const TestPage = () => {
           steps={steps}
           currentStep={stepIdx}
           onStart={() => setShowWelcome(true)}
-          className="w-full h-full max-w-none min-h-screen rounded-none"
+          className="hidden md:flex flex-col justify-between min-h-screen w-80 bg-white rounded-3xl p-8 ml-12"
         />
       </div>
     </div>
