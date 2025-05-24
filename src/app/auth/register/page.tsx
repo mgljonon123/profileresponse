@@ -74,7 +74,7 @@ const Register: React.FC = () => {
                   className="w-full px-4 py-2 border rounded-lg bg-gray-100"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="Neo"
+                  placeholder="Fullname"
                   required
                 />
               </div>
@@ -87,7 +87,7 @@ const Register: React.FC = () => {
                   className="w-full px-4 py-2 border rounded-lg bg-gray-100"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  placeholder="G7"
+                  placeholder="Nickname"
                   required
                 />
               </div>
@@ -98,7 +98,7 @@ const Register: React.FC = () => {
               className="w-full mb-4 px-4 py-2 border rounded-lg bg-gray-100"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="neoisneo07@gmail.com"
+              placeholder="example@gmail.com"
               required
             />
             <label className="block text-sm font-medium mb-1">Нууц үг</label>

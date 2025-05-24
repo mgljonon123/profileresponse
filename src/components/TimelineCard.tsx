@@ -16,7 +16,9 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
   className,
 }) => (
   <div
-    className={`bg-gray-50 rounded-xl pt-15 pb-80 px-3 flex flex-col items-center w-full max-w-xs min-h-[350px] relative shadow-2xl border border-gray-300 justify-between ${className || ""}`}
+    className={`bg-gray-50 rounded-xl pt-15 pb-80 px-3 flex flex-col items-center w-full max-w-xs min-h-[350px] relative shadow-2xl border border-gray-300 justify-between ${
+      className || ""
+    }`}
   >
     {/* Top bar: Тест эхлэх + Profile icon */}
     <div className="flex flex-row items-center justify-end w-full px-10 mb-25 gap-10">
@@ -52,7 +54,10 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
         {/* Vertical line */}
         <div className="absolute left-7.5 top-4 w-1 h-[calc(100%-32px)] bg-gradient-to-b from-gray-400 via-gray-200 to-gray-400 rounded-full z-0"></div>
         {steps.map((step, idx) => (
-          <div key={idx} className="flex flex-row items-center z-10 mb-30 last:mb-0 min-h-[48px]">
+          <div
+            key={idx}
+            className="flex flex-row items-center z-10 mb-30 last:mb-0 min-h-[48px]"
+          >
             {/* Step circle */}
             <div
               className={`w-9 h-9 flex items-center justify-center rounded-full border-2 transition-all duration-200 shadow-md mr-8 relative z-10
@@ -62,7 +67,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
                     : "bg-white border-gray-300 text-gray-500"
                 }
               `}
-              style={{ marginLeft: '16px' }}
+              style={{ marginLeft: "16px" }}
             >
               {idx === currentStep ? (
                 <svg
@@ -84,7 +89,11 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
             </div>
             {/* Step label */}
             <div
-              className={`flex-1 ${idx === currentStep ? "font-extrabold text-lg md:text-xl text-gray-900" : "font-medium text-base md:text-lg text-gray-700"}`}
+              className={`flex-1 ${
+                idx === currentStep
+                  ? "font-extrabold text-lg md:text-xl text-gray-900"
+                  : "font-medium text-base md:text-lg text-gray-700"
+              }`}
             >
               {step}
             </div>
@@ -95,4 +104,4 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
   </div>
 );
 
-export default TimelineCard; 
+export default TimelineCard;

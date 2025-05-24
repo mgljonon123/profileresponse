@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import {
   LineChart,
   Line,
@@ -13,141 +13,154 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const testScores = {
-  mbti: {
-    E: 65,
-    I: 35,
-    S: 40,
-    N: 60,
-    T: 55,
-    F: 45,
-    J: 70,
-    P: 30,
-  },
-  holland: {
-    R: 75,
-    I: 85,
-    A: 45,
-    S: 60,
-    E: 40,
-    C: 65,
-  },
-  eq: {
-    selfAwareness: 82,
-    selfRegulation: 78,
-    motivation: 85,
-    empathy: 80,
-    socialSkills: 75,
-  },
-  bigFive: {
-    openness: 90,
-    conscientiousness: 85,
-    extraversion: 75,
-    agreeableness: 88,
-    neuroticism: 65,
-  },
-};
+interface TestResult {
+  career: string;
+  match: number;
+  tests: {
+    mbti: string;
+    holland: string;
+    bigFive: {
+      openness: number;
+      conscientiousness: number;
+      extraversion: number;
+      agreeableness: number;
+      neuroticism: number;
+    };
+    eq: number;
+  };
+  takenAt: string;
+}
 
-const getChartData = (testType: string) => {
-  switch (testType) {
+const getChartData = (testResult: TestResult, selectedTest: string) => {
+  switch (selectedTest) {
     case "MBTI":
       return [
-        { name: "E/I", score: testScores.mbti.E },
-        { name: "S/N", score: testScores.mbti.N },
-        { name: "T/F", score: testScores.mbti.T },
-        { name: "J/P", score: testScores.mbti.J },
+        { name: "E/I", score: 65 }, // These would come from your database
+        { name: "S/N", score: 60 },
+        { name: "T/F", score: 55 },
+        { name: "J/P", score: 70 },
       ];
     case "Holland":
       return [
-        { name: "Realistic", score: testScores.holland.R },
-        { name: "Investigative", score: testScores.holland.I },
-        { name: "Artistic", score: testScores.holland.A },
-        { name: "Social", score: testScores.holland.S },
-        { name: "Enterprising", score: testScores.holland.E },
-        { name: "Conventional", score: testScores.holland.C },
+        { name: "Realistic", score: 75 },
+        { name: "Investigative", score: 85 },
+        { name: "Artistic", score: 45 },
+        { name: "Social", score: 60 },
+        { name: "Enterprising", score: 40 },
+        { name: "Conventional", score: 65 },
       ];
     case "EQ":
       return [
-        { name: "Self Awareness", score: testScores.eq.selfAwareness },
-        { name: "Self Regulation", score: testScores.eq.selfRegulation },
-        { name: "Motivation", score: testScores.eq.motivation },
-        { name: "Empathy", score: testScores.eq.empathy },
-        { name: "Social Skills", score: testScores.eq.socialSkills },
+        { name: "Self Awareness", score: 82 },
+        { name: "Self Regulation", score: 78 },
+        { name: "Motivation", score: 85 },
+        { name: "Empathy", score: 80 },
+        { name: "Social Skills", score: 75 },
       ];
     case "Big Five":
       return [
-        { name: "Openness", score: testScores.bigFive.openness },
+        { name: "Openness", score: testResult.tests.bigFive.openness },
         {
           name: "Conscientiousness",
-          score: testScores.bigFive.conscientiousness,
+          score: testResult.tests.bigFive.conscientiousness,
         },
-        { name: "Extraversion", score: testScores.bigFive.extraversion },
-        { name: " Agreeableness", score: testScores.bigFive.agreeableness },
-        { name: "Neuroticism", score: testScores.bigFive.neuroticism },
+        { name: "Extraversion", score: testResult.tests.bigFive.extraversion },
+        {
+          name: "Agreeableness",
+          score: testResult.tests.bigFive.agreeableness,
+        },
+        { name: "Neuroticism", score: testResult.tests.bigFive.neuroticism },
       ];
     default:
       return [];
   }
 };
 
-const projects = [
-  {
-    name: "Software Developer",
-    date: "2024-03-15",
-    percent: 85,
-    status: "маш сайн",
-  },
-  {
-    name: "Data Scientist",
-    date: "2024-03-14",
-    percent: 82,
-    status: "маш сайн",
-  },
-  { name: "UX Designer", date: "2024-03-13", percent: 78, status: "сайн" },
-  { name: "Project Manager", date: "2024-03-12", percent: 75, status: "сайн" },
-  { name: "Research Analyst", date: "2024-03-11", percent: 72, status: "сайн" },
-  { name: "Business Analyst", date: "2024-03-10", percent: 68, status: "дунд" },
-  {
-    name: "Marketing Specialist",
-    date: "2024-03-09",
-    percent: 65,
-    status: "дунд",
-  },
-  { name: "Content Writer", date: "2024-03-08", percent: 62, status: "дунд" },
-  {
-    name: "Sales Representative",
-    date: "2024-03-07",
-    percent: 58,
-    status: "дунд",
-  },
-  { name: "Customer Service", date: "2024-03-06", percent: 55, status: "дунд" },
-];
-
-const statusColor: { [key: string]: string } = {
-  "маш сайн": "bg-[#ffffff] text-[#F59E0B]",
-  сайн: "bg-[#ffffff] text-[#F59E0B]",
-  дунд: "bg-[#ffffff] text-[#F59E0B]",
-  муу: "bg-[#ffffff] text-[#F59E0B]",
-};
-
-export default function AnalyticsPage() {
-  const [selectedTest, setSelectedTest] = useState("MBTI");
+export default function TestDetailsPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const [nickName, setNickName] = useState("Neo");
   const [profilePic, setProfilePic] = useState("/profile.jpg");
+  const [testResult, setTestResult] = useState<TestResult | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [selectedTest, setSelectedTest] = useState("Big Five");
   const router = useRouter();
 
-  // localStorage-ээс хоч нэр, зургийг ачаалах
+  // Fetch test result from API
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedNickName = localStorage.getItem("nickName") || "Neo";
+    const fetchTestResult = async () => {
+      try {
+        const response = await fetch(`/api/profile/test/${params.id}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to fetch test result");
+        }
+
+        setTestResult(data.data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestResult();
+  }, [params.id]);
+
+  // Fetch profile image and nickname from API
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch("/api/profile/settings");
+        const data = await response.json();
+        if (data.success) {
+          setNickName(data.data.nickname || "Neo");
+          setProfilePic(data.data.profilePicture || "/profile.jpg");
+          return;
+        }
+      } catch {}
+      // fallback to localStorage or default
+      const storedNickName =
+        typeof window !== "undefined" ? localStorage.getItem("nickName") : null;
       const storedProfilePic =
-        localStorage.getItem("profilePic") || "/profile.jpg";
-      setNickName(storedNickName);
-      setProfilePic(storedProfilePic);
-    }
+        typeof window !== "undefined"
+          ? localStorage.getItem("profilePic")
+          : null;
+      setNickName(storedNickName || "Neo");
+      setProfilePic(storedProfilePic || "/profile.jpg");
+    };
+    fetchProfile();
   }, []);
 
-  const chartData = getChartData(selectedTest);
+  if (loading) {
+    return (
+      <div className="w-full max-w-none mx-auto px-0 py-8 flex justify-center items-center min-h-screen">
+        <div className="text-xl text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full max-w-none mx-auto px-0 py-8 flex justify-center items-center min-h-screen">
+        <div className="text-xl text-red-500">{error}</div>
+      </div>
+    );
+  }
+
+  if (!testResult) {
+    return (
+      <div className="w-full max-w-none mx-auto px-0 py-8 flex justify-center items-center min-h-screen">
+        <div className="text-xl text-gray-600">Test result not found</div>
+      </div>
+    );
+  }
+
+  const chartData = getChartData(testResult, selectedTest);
 
   return (
     <div className="max-w-6xl mx-auto mt-8">
@@ -157,20 +170,27 @@ export default function AnalyticsPage() {
           <h1 className="text-2xl font-bold text-[#232360]">
             Сайн Байна уу? <span className="text-[#F59E0B]">{nickName}</span>
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Mon, 25 May 2025</p>
+          <p className="text-gray-500 text-sm mt-1">
+            {new Date().toLocaleDateString("en-US", {
+              weekday: "short",
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
+          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm aspect-square">
             <Image
               src={profilePic}
               alt="profile"
               width={48}
               height={48}
-              className="object-cover"
+              className="object-cover w-full h-full aspect-square"
             />
           </div>
           <button
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/profile")}
             className="bg-white p-3 rounded-full shadow hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
           >
             <svg
@@ -204,15 +224,7 @@ export default function AnalyticsPage() {
             <ul className="menu">
               <li className="item">
                 <a href="#" className="link">
-                  {selectedTest === "All"
-                    ? "All Tests"
-                    : selectedTest === "MBTI"
-                    ? "MBTI Test"
-                    : selectedTest === "Holland"
-                    ? "Holland Test"
-                    : selectedTest === "EQ"
-                    ? "EQ Test"
-                    : "Big Five Test"}
+                  {selectedTest}
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M7 10l5 5 5-5z" />
                   </svg>
@@ -224,7 +236,7 @@ export default function AnalyticsPage() {
                       className="submenu-link"
                       onClick={() => setSelectedTest("MBTI")}
                     >
-                      Mbti Test
+                      MBTI Test
                     </a>
                   </li>
                   <li className="submenu-item">
@@ -432,7 +444,7 @@ export default function AnalyticsPage() {
                     backgroundColor: "white",
                     border: "1px solid #f0f0f0",
                     borderRadius: "8px",
-                    boxShadow: "0 2px 4px rgba(0,0 estando,0.1)",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                   }}
                 />
                 <Line
@@ -454,48 +466,40 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
-      {/* Projects Table */}
+      {/* Test Details */}
       <div className="bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
         <div className="text-[#F59E0B] font-semibold mb-6 text-xl">
-          Projects
+          Test Details
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left rounded-xl">
-            <thead>
-              <tr className="bg-[#f7f7fa] text-gray-500 text-base">
-                <th className="py-4 px-6 font-semibold">Мэргэжил</th>
-                <th className="py-4 px-6 font-semibold">Огноо</th>
-                <th className="py-4 px-6 font-semibold">хувь.%</th>
-                <th className="py-4 px-6 font-semibold">тайлбар</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects.map((p, i) => (
-                <tr
-                  key={i}
-                  className="border-b last:border-b-0 hover:bg-[#f7f7fa] transition text-base"
-                >
-                  <td className="py-4 px-6 flex items-center gap-2 font-semibold">
-                    <span className="inline-block w-7 h-7 rounded-full bg-[#e6f7fa] flex items-center justify-center text-[#F59E0B] font-bold">
-                      ✦
-                    </span>{" "}
-                    {p.name}
-                  </td>
-                  <td className="py-4 px-6">{p.date}</td>
-                  <td className="py-4 px-6 font-bold">{p.percent}%</td>
-                  <td className="py-4 px-6">
-                    <span
-                      className={`px-4 py-2 rounded-lg text-base font-semibold ${
-                        statusColor[p.status]
-                      }`}
-                    >
-                      {p.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="bg-gray-50 p-4 rounded-xl">
+            <h3 className="font-semibold text-gray-700 mb-2">MBTI</h3>
+            <p className="text-xl font-bold text-[#F59E0B]">
+              {testResult.tests.mbti}
+            </p>
+          </div>
+          <div className="bg-gray-50 p-4 rounded-xl">
+            <h3 className="font-semibold text-gray-700 mb-2">Holland Code</h3>
+            <p className="text-xl font-bold text-[#F59E0B]">
+              {testResult.tests.holland}
+            </p>
+          </div>
+          <div className="bg-gray-50 p-4 rounded-xl">
+            <h3 className="font-semibold text-gray-700 mb-2">EQ Score</h3>
+            <p className="text-xl font-bold text-[#F59E0B]">
+              {testResult.tests.eq}/200
+            </p>
+          </div>
+          <div className="bg-gray-50 p-4 rounded-xl">
+            <h3 className="font-semibold text-gray-700 mb-2">Test Date</h3>
+            <p className="text-xl font-bold text-[#F59E0B]">
+              {new Date(testResult.takenAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+          </div>
         </div>
       </div>
     </div>

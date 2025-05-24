@@ -10,7 +10,7 @@ datasource db {
 enum SubscriptionTier {
   FREE
   MEDIUM
-  PRO
+  PLUS
 }
 
 model User {
@@ -164,6 +164,8 @@ model PersonalityTestResult {
   empathy               Int      // Өрөвдөх сэтгэл (0-40)
   socialSkills          Int      // Нийгмийн ур чадвар (0-40)
   totalEQScore          Int      // Нийт оноо (0-200)
+
+  progress              Float    @default(0) // Test progress as a percentage (0-100)
   
   user                  User     @relation(fields: [userId], references: [id])
 }

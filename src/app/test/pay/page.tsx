@@ -54,7 +54,6 @@ const steps = [
 const PayPage = () => {
   const router = useRouter();
   return (
-
     <div className="min-h-screen bg-[#232221] flex flex-col md:flex-row relative">
       {/* Top Right: Test Start Button */}
       <div className="absolute top-6 right-8 z-20">

@@ -3,6 +3,9 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import useSWR from "swr";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 interface Message {
   role: "user" | "assistant";
@@ -34,19 +37,11 @@ export default function MessagesPage() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [nickName, setNickName] = useState("Neo");
-  const [profilePic, setProfilePic] = useState("/profile.jpg");
 
-  // localStorage-ээс хоч нэр, зургийг ачаалах
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedNickName = localStorage.getItem("nickName") || "Neo";
-      const storedProfilePic =
-        localStorage.getItem("profilePic") || "/profile.jpg";
-      setNickName(storedNickName);
-      setProfilePic(storedProfilePic);
-    }
-  }, []);
+  // SWR for user info
+  const { data: userData } = useSWR("/api/profile/settings", fetcher);
+  const nickName = userData?.data?.nickname || "Neo";
+  const profilePic = userData?.data?.profilePicture || "/profile.jpg";
 
   const scrollToBottom = () => {
     if (messagesEndRef.current && messages) {
@@ -135,13 +130,13 @@ export default function MessagesPage() {
           </p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
+          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm aspect-square">
             <Image
               src={profilePic}
               alt="профайл"
               width={48}
               height={48}
-              className="object-cover"
+              className="object-cover w-full h-full aspect-square"
             />
           </div>
           <button

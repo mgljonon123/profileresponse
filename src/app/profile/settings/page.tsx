@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function SettingsPage() {
-  const [emails, setEmails] = useState([
-    { email: "neoisneo07@gmail.com", added: "1 сарын өмнө" },
-  ]);
+  const [emails, setEmails] = useState([{ email: "", added: "" }]);
   const [form, setForm] = useState({
     fullName: "",
     nickName: "",
@@ -18,25 +19,60 @@ export default function SettingsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tempNickName, setTempNickName] = useState(form.nickName);
   const [tempProfilePic, setTempProfilePic] = useState(profilePic);
-  const [isImageZoomed, setIsImageZoomed] = useState(false); // Зургийн томруулалтын төлөв
+  const [isImageZoomed, setIsImageZoomed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [newEmail, setNewEmail] = useState("");
+  const [emailChangeLoading, setEmailChangeLoading] = useState(false);
+  const [emailChangeError, setEmailChangeError] = useState<string | null>(null);
+  const [emailChangeSuccess, setEmailChangeSuccess] = useState<string | null>(
+    null
+  );
   const router = useRouter();
 
-  // localStorage-ээс хоч нэр, профайлын зургийг ачаалах
+  // SWR for user info
+  const { data: userData, error: userError } = useSWR(
+    "/api/profile/settings",
+    fetcher
+  );
+
+  // Set form and profilePic when userData is loaded
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (userData && userData.success) {
+      setForm((prev) => ({
+        ...prev,
+        fullName: userData.data.fullname || "",
+        nickName: userData.data.nickname || "",
+      }));
+      setProfilePic(userData.data.profilePicture || "/profile.jpg");
+      setEmails([{ email: userData.data.email, added: "" }]);
+    }
+  }, [userData]);
+
+  // localStorage-ээс хоч нэр, профайлын зургийг ачаалах (fallback)
+  useEffect(() => {
+    if (!userData && typeof window !== "undefined") {
       const storedNickName = localStorage.getItem("nickName") || "Neo";
-      const storedProfilePic = localStorage.getItem("profilePic") || "/profile.jpg";
+      const storedProfilePic =
+        localStorage.getItem("profilePic") || "/profile.jpg";
       setForm((prev) => ({ ...prev, nickName: storedNickName }));
       setProfilePic(storedProfilePic);
       setTempNickName(storedNickName);
       setTempProfilePic(storedProfilePic);
     }
-  }, []);
+  }, [userData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    // Update tempNickName when nickname changes
+    if (name === "nickName") {
+      setTempNickName(value);
+    }
   };
 
   const addEmail = () => {
@@ -51,14 +87,50 @@ export default function SettingsPage() {
     }
   };
 
-  const saveProfileChanges = () => {
-    setForm({ ...form, nickName: tempNickName });
-    setProfilePic(tempProfilePic);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("nickName", tempNickName);
-      localStorage.setItem("profilePic", tempProfilePic);
+  const saveProfileChanges = async () => {
+    setIsLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("fullname", form.fullName);
+      formData.append("nickname", form.nickName); // Use form.nickName instead of tempNickName
+
+      // Get the file from the input
+      const fileInput = document.querySelector(
+        'input[type="file"]'
+      ) as HTMLInputElement;
+      if (fileInput?.files?.[0]) {
+        formData.append("profilePicture", fileInput.files[0]);
+      }
+
+      const response = await fetch("/api/profile/settings", {
+        method: "PUT",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to update profile");
+      }
+
+      setForm({ ...form, nickName: form.nickName }); // Update with form.nickName
+      setProfilePic(data.data.profilePicture || profilePic);
+      setSuccess("Профайл амжилттай шинэчлэгдлээ");
+      setIsModalOpen(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update profile");
+    } finally {
+      setIsLoading(false);
     }
-    setIsModalOpen(false);
+  };
+
+  // Submit handler for saving changes
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await saveProfileChanges();
   };
 
   // Зургийг томруулах/жижгэрүүлэх
@@ -140,13 +212,14 @@ export default function SettingsPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-[#232360]">
-            Сайн Байна уу? <span className="text-[#F59E0B]">{form.nickName}</span>
+            Сайн Байна уу?{" "}
+            <span className="text-[#F59E0B]">{form.nickName}</span>
           </h1>
           <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div>
           <button
-            onClick={() => router.push("/")}
+            onClick={() => router.back()}
             className="bg-white p-3 rounded-full shadow hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
           >
             <svg
@@ -167,24 +240,45 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      {error && (
+        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">{error}</div>
+      )}
+
+      {success && (
+        <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">
+          {success}
+        </div>
+      )}
+
       {/* Gradient Banner */}
       <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-8 py-4 shadow-sm animate-fadeIn">
-        
-        <h2 className="text-2xl font-bold text-white mb-4">Таны профайлын тохиргоо</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">
+          Таны профайлын тохиргоо
+        </h2>
       </div>
 
       <div className="flex gap-10 items-start">
         {/* Profile Picture & Name */}
         <div className="flex flex-col items-center w-64 bg-[#f7f7fa] rounded-2xl p-6 shadow-sm border border-[#f0f0f5] animate-fadeIn">
           <div
-            className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#F59E0B]/20 mb-4 shadow transition-transform hover:scale-105 cursor-pointer"
+            className="w-40 h-40 aspect-square rounded-full overflow-hidden border-4 border-[#F59E0B]/20 mb-4 shadow flex items-center justify-center bg-white transition-transform hover:scale-105 cursor-pointer"
             onClick={toggleImageZoom}
           >
-            <Image src={profilePic} alt="profile" width={128} height={128} className="object-cover" />
+            <Image
+              src={profilePic}
+              alt="profile"
+              width={160}
+              height={160}
+              className="object-cover aspect-square"
+            />
           </div>
           <div className="text-center">
-            <div className="font-bold text-xl text-[#232360]">{form.nickName}</div>
-            <div className="text-gray-400 text-sm mb-3">neoisneo07@gmail.com</div>
+            <div className="font-bold text-xl text-[#232360]">
+              {form.nickName}
+            </div>
+            <div className="text-gray-400 text-sm mb-3">
+              {emails[0]?.email || ""}
+            </div>
             <button
               onClick={() => setIsModalOpen(true)}
               className="bg-[#F59E0B] text-white px-6 py-2 rounded-lg shadow hover:bg-[#F59E0B] hover:scale-105 transition-all duration-300 font-semibold"
@@ -195,7 +289,10 @@ export default function SettingsPage() {
         </div>
 
         {/* Form Section */}
-        <form className="flex-1 grid grid-cols-2 gap-8 bg-white rounded-2xl p-8 shadow-lg border border-[#f0f0f5] animate-fadeIn">
+        <form
+          className="flex-1 grid grid-cols-2 gap-8 bg-white rounded-2xl p-8 shadow-lg border border-[#f0f0f5] animate-fadeIn"
+          onSubmit={handleSubmit}
+        >
           <div>
             <label className="block mb-2 font-semibold text-[#232360]">
               Бүтэн нэр
@@ -252,13 +349,21 @@ export default function SettingsPage() {
               <option value="us">АНУ</option>
             </select>
           </div>
+          <div className="col-span-2 flex justify-end mt-4">
+            <button
+              type="submit"
+              className="bg-[#F59E0B] text-white px-8 py-3 rounded-lg shadow hover:bg-[#F59E0B]/90 transition-all duration-300 font-semibold"
+            >
+              Хадгалах
+            </button>
+          </div>
         </form>
       </div>
 
       {/* Email Section */}
       <div className="mt-10 bg-[#f7f7fa] rounded-2xl p-8 border border-[#f0f0f5] shadow-sm animate-fadeIn">
         <div className="font-semibold mb-4 text-[#232360] text-lg">
-          Миний имэйл хаягууд
+          Миний Имэйл
         </div>
         <div className="flex flex-col gap-4">
           {emails.map((e, i) => (
@@ -273,14 +378,72 @@ export default function SettingsPage() {
               <div className="text-gray-400 text-sm">{e.added}</div>
             </div>
           ))}
-          <button
-            onClick={addEmail}
-            className="mt-2 text-[#232360] px-5 py-2 rounded-lg font-semibold shadow hover:bg-[#F59E0B]/20 hover:text-[#F59E0B] hover:scale-105 transition-all duration-300 w-fit"
->
-            + Имэйл хаяг нэмэх
-          </button>
+          {showEmailInput ? (
+            <div className="flex flex-col sm:flex-row gap-2 mt-2 items-start sm:items-center">
+              <input
+                type="email"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
+                className="border border-[#e0e0e7] rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360] placeholder-gray-400"
+                placeholder="Шинэ имэйл хаяг"
+              />
+              <button
+                onClick={async () => {
+                  setEmailChangeLoading(true);
+                  setEmailChangeError(null);
+                  setEmailChangeSuccess(null);
+                  try {
+                    const res = await fetch("/api/profile/settings", {
+                      method: "PUT",
+                      headers: {},
+                      body: (() => {
+                        const formData = new FormData();
+                        formData.append("email", newEmail);
+                        return formData;
+                      })(),
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || "Алдаа гарлаа");
+                    setEmails([{ email: newEmail, added: "" }]);
+                    setEmailChangeSuccess("Имэйл амжилттай солигдлоо");
+                    setShowEmailInput(false);
+                  } catch (err) {
+                    setEmailChangeError(
+                      err instanceof Error ? err.message : "Алдаа гарлаа"
+                    );
+                  } finally {
+                    setEmailChangeLoading(false);
+                  }
+                }}
+                className="bg-[#F59E0B] text-white px-4 py-2 rounded-lg shadow hover:bg-[#F59E0B]/90 transition-all duration-300 font-semibold"
+                disabled={emailChangeLoading}
+              >
+                Хадгалах
+              </button>
+              <button
+                onClick={() => setShowEmailInput(false)}
+                className="ml-2 text-gray-500 hover:text-[#F59E0B]"
+                disabled={emailChangeLoading}
+              >
+                Болих
+              </button>
+              {emailChangeError && (
+                <div className="text-red-500 mt-2">{emailChangeError}</div>
+              )}
+              {emailChangeSuccess && (
+                <div className="text-green-600 mt-2">{emailChangeSuccess}</div>
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowEmailInput(true)}
+              className="mt-2 text-[#232360] px-5 py-2 rounded-lg font-semibold shadow hover:bg-[#F59E0B]/20 hover:text-[#F59E0B] hover:scale-105 transition-all duration-300 w-fit"
+            >
+              Имэйл хаяг өөрчлөх
+            </button>
+          )}
         </div>
-      </div>  
+      </div>
 
       {/* Modal for Editing Profile */}
       {isModalOpen && (
@@ -348,14 +511,14 @@ export default function SettingsPage() {
         >
           <div
             className="relative w-[80vw] max-w-[500px] h-[80vw] max-h-[500px] rounded-full overflow-hidden border-8 border-[#4f46e5]/30 shadow-2xl transition-transform hover:scale-105"
-            onClick={(e) => e.stopPropagation()} 
+            onClick={(e) => e.stopPropagation()}
           >
             <Image
               src={profilePic}
               alt="Zoomed profile"
               fill
-              className="object-cover"
-              onClick={toggleImageZoom} 
+              className="object-cover aspect-square"
+              onClick={toggleImageZoom}
             />
           </div>
         </div>

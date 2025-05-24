@@ -1,155 +1,105 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import useSWR from "swr";
 import { useRouter } from "next/navigation";
 
-export default function Profile() {
-  const [emails, setEmails] = useState([
-    { email: "neoisneo07@gmail.com", added: "1 сарын өмнө" },
-  ]);
-  const [form, setForm] = useState({
-    fullName: "",
-    nickName: "",
-    gender: "",
-    country: "",
-    language: "",
-    timeZone: "",
-  });
-  const [nickName, setNickName] = useState("Neo");
-  const [profilePic, setProfilePic] = useState("/profile.jpg");
+interface TestResult {
+  id: string;
+  career: string;
+  match: number;
+  tests: {
+    mbti: string;
+    holland: string;
+    bigFive: {
+      openness: number;
+      conscientiousness: number;
+      extraversion: number;
+      agreeableness: number;
+      neuroticism: number;
+    };
+    eq: number;
+  };
+  takenAt: string;
+}
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export default function ProfilePage() {
   const router = useRouter();
+  const { data: userData, error: userError } = useSWR(
+    "/api/profile/settings",
+    fetcher
+  );
+  const {
+    data: testData,
+    error: testError,
+    mutate,
+  } = useSWR("/api/profile", fetcher);
 
-  // localStorage-ээс хоч нэр, зургийг ачаалах
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedNickName = localStorage.getItem("nickName") || "Neo";
-      const storedProfilePic = localStorage.getItem("profilePic") || "/profile.jpg";
-      setNickName(storedNickName);
-      setProfilePic(storedProfilePic);
-      setForm((prev) => ({ ...prev, nickName: storedNickName }));
+  if (userError || testError) {
+    return (
+      <div className="w-full max-w-none mx-auto px-0 py-8 flex justify-center items-center min-h-screen">
+        <div className="text-xl text-red-500">
+          {userError?.message || testError?.message || "Failed to load profile"}
+        </div>
+      </div>
+    );
+  }
+
+  if (!userData || !testData) {
+    return (
+      <div className="w-full max-w-none mx-auto px-0 py-8 flex justify-center items-center min-h-screen">
+        <div className="text-xl text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
+  const nickName = userData.data?.nickname || "";
+  const profilePicture = userData.data?.profilePicture || "/profile.jpg";
+  const testScores: TestResult[] = testData.data || [];
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Та энэ тестийг устгахдаа итгэлтэй байна уу?")) return;
+    try {
+      const res = await fetch(`/api/profile/test/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete test");
+      await mutate(); // Refresh test list
+    } catch (err) {
+      alert("Тест устгах үед алдаа гарлаа.");
     }
-  }, []);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
   };
-
-  const addEmail = () => {
-    setEmails([...emails, { email: "", added: "шинэ" }]);
-  };
-
-  const testScores = [
-    {
-      career: "Software Developer",
-      match: 85,
-      tests: {
-        mbti: "INTJ",
-        holland: "IRE",
-        bigFive: {
-          openness: 85,
-          conscientiousness: 90,
-          extraversion: 45,
-          agreeableness: 70,
-          neuroticism: 30,
-        },
-        eq: 78,
-      },
-    },
-    {
-      career: "Data Scientist",
-      match: 75,
-      tests: {
-        mbti: "INTP",
-        holland: "IRE",
-        bigFive: {
-          openness: 90,
-          conscientiousness: 85,
-          extraversion: 40,
-          agreeableness: 65,
-          neuroticism: 35,
-        },
-        eq: 72,
-      },
-    },
-    {
-      career: "UX Designer",
-      match: 70,
-      tests: {
-        mbti: "ENFP",
-        holland: "AIS",
-        bigFive: {
-          openness: 95,
-          conscientiousness: 75,
-          extraversion: 80,
-          agreeableness: 85,
-          neuroticism: 40,
-        },
-        eq: 85,
-      },
-      
-    },
-    {
-      career: "UX Designer",
-      match: 70,
-      tests: {
-        mbti: "ENFP",
-        holland: "AIS",
-        bigFive: {
-          openness: 95,
-          conscientiousness: 75,
-          extraversion: 80,
-          agreeableness: 85,
-          neuroticism: 40,
-        },
-        eq: 85,
-      },
-      
-    },
-    {
-      career: "Data Scientist",
-      match: 75,
-      tests: {
-        mbti: "INTP",
-        holland: "IRE",
-        bigFive: {
-          openness: 90,
-          conscientiousness: 85,
-          extraversion: 40,
-          agreeableness: 65,
-          neuroticism: 35,
-        },
-        eq: 72,
-      },
-    },
-  ];
 
   return (
-    <div className="w-full max-w-none mx-auto px-0 py-8">
+    <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-10 mt-8 border border-[#f0f0f5] animate-fadeIn">
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out;
+        }
+      `}</style>
+
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
+      <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#232360]">
             Сайн Байна уу? <span className="text-[#F59E0B]">{nickName}</span>
           </h1>
-          <p className="text-gray-400 text-base mt-2">Mon, 25 May 2025</p>
+          <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
         </div>
-        <div className="flex items-center gap-4 sm:gap-6">
-          <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
-            <Image
-              src={profilePic}
-              alt="profile"
-              fill
-              sizes="(max-width: 768px) 56px, 56px"
-              className="object-cover"
-              priority
-            />
-          </div>
+        <div>
           <button
-            onClick={() => router.push("/")}
-            className="bg-white p-3 sm:p-3.5 rounded-full shadow-md hover:shadow-lg hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
+            onClick={() => router.push("/profile/settings")}
+            className="bg-white p-3 rounded-full shadow hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -157,12 +107,12 @@ export default function Profile() {
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 group-hover:text-[#E94A1F] transition-colors duration-300"
+              className="w-6 h-6 text-[#232360] group-hover:text-[#E94A1F] transition-colors duration-300"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
               />
             </svg>
           </button>
@@ -180,12 +130,19 @@ export default function Profile() {
             {testScores.map((career, i) => (
               <div
                 key={i}
-                className="flex flex-col sm:flex-row items-start bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 sm:p-8 border border-[#E6E6F2] gap-4 sm:gap-8 w-full"
+                className="flex flex-col sm:flex-row items-start bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 sm:p-8 border border-[#E6E6F2] gap-4 sm:gap-8 w-full cursor-pointer"
+                onClick={() => {
+                  if (!career.id) {
+                    console.error("Test result ID is missing");
+                    return;
+                  }
+                  router.push(`/profile/test/${career.id}`);
+                }}
               >
                 <div className="flex flex-col items-center w-full sm:w-auto">
-                  <div className="relative w-40 h-30 rounded-xl overflow-hidden shadow-md">
+                  <div className="relative w-40 h-40 rounded-xl overflow-hidden shadow-md">
                     <Image
-                      src={profilePic}
+                      src={profilePicture}
                       alt="cert"
                       fill
                       sizes="(max-width: 768px) 160px, 160px"
@@ -195,33 +152,22 @@ export default function Profile() {
                 </div>
                 <div className="w-full">
                   <div className="font-semibold text-xl sm:text-2xl text-[#232360] mb-4">
-                    {career.career}
+                    {new Date(career.takenAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
                   </div>
-
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-32 sm:w-40 bg-gray-200 rounded-full h-8 sm:h-10 relative flex items-center">
-                      <div
-                        className="bg-[#7fdaf4] h-8 sm:h-10 rounded-full"
-                        style={{ width: `${career.match}%` }}
-                      ></div>
-                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm sm:text-base text-black font-bold">
-                        {career.match}%
-                      </span>
-                    </div>
-                    <button className="p-2 sm:p-2.5 rounded-lg hover:bg-gray-100 border border-gray-200 transition-colors duration-300">
-                      <svg
-                        width="20"
-                        height="20"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M15.232 5.232l3.536 3.536M9 13l6.071-6.071a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.94l-3.535 1.178 1.178-3.535a4 4 0 01.94-1.414z" />
-                      </svg>
-                    </button>
-                  </div>
-
+                  {/* Delete Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(career.id);
+                    }}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg mb-4"
+                  >
+                    Устгах
+                  </button>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
                       <h3 className="font-semibold text-gray-700 mb-2">MBTI</h3>
@@ -242,42 +188,52 @@ export default function Profile() {
                         EQ Score
                       </h3>
                       <p className="text-xl sm:text-2xl font-bold text-[#F59E0B]">
-                        {career.tests.eq}/100
+                        {career.tests.eq}/200
                       </p>
                     </div>
                     <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
                       <h3 className="font-semibold text-gray-700 mb-2">
-                        Огноо
+                        Big Five
                       </h3>
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">
-                            Тест өгсөн
+                            Openness
                           </span>
                           <span className="font-medium text-base">
-                            <span className="text-[#232360] font-bold">2025</span>.
-                            <span className="text-[#F59E0B] font-bold">05</span>.
-                            <span className="text-gray-600">12</span>
+                            {career.tests.bigFive.openness}%
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">
-                            Дараагийн тест
+                            Conscientiousness
                           </span>
                           <span className="font-medium text-base">
-                            <span className="text-[#232360] font-bold">2025</span>.
-                            <span className="text-[#F59E0B] font-bold">11</span>.
-                            <span className="text-gray-600">12</span>
+                            {career.tests.bigFive.conscientiousness}%
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">
-                            Хугацаа дуусах
+                            Extraversion
                           </span>
                           <span className="font-medium text-base">
-                            <span className="text-[#232360] font-bold">2026</span>.
-                            <span className="text-[#F59E0B] font-bold">05</span>.
-                            <span className="text-gray-600">12</span>
+                            {career.tests.bigFive.extraversion}%
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">
+                            Agreeableness
+                          </span>
+                          <span className="font-medium text-base">
+                            {career.tests.bigFive.agreeableness}%
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">
+                            Neuroticism
+                          </span>
+                          <span className="font-medium text-base">
+                            {career.tests.bigFive.neuroticism}%
                           </span>
                         </div>
                       </div>
