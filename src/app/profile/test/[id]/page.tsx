@@ -53,11 +53,11 @@ const getChartData = (testResult: TestResult, selectedTest: string) => {
       ];
     case "EQ":
       return [
-        { name: "Self Awareness", score: 82 },
-        { name: "Self Regulation", score: 78 },
-        { name: "Motivation", score: 85 },
-        { name: "Empathy", score: 80 },
-        { name: "Social Skills", score: 75 },
+        { name: "Өөрийгөө Мэдэх", score: 82 },
+        { name: "Өөрийгөө Удирдах", score: 78 },
+        { name: "Урам Зориг", score: 85 },
+        { name: "Энэрэл Хайр", score: 80 },
+        { name: "Нийгмийн Ур чадвар", score: 75 },
       ];
     case "Big Five":
       return [
@@ -233,7 +233,7 @@ export default function TestDetailsPage({
         <div className="bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
           <div className="flex justify-between items-center mb-10">
             <h2 className="text-xl font-semibold text-[#232360]">
-              Test Scores Analysis
+              Тестийн Дүнгийн Шинжилгээ
             </h2>
             <ul className="menu">
               <li className="item">
@@ -250,7 +250,7 @@ export default function TestDetailsPage({
                       className="submenu-link"
                       onClick={() => setSelectedTest("MBTI")}
                     >
-                      MBTI Test
+                      MBTI Тест
                     </a>
                   </li>
                   <li className="submenu-item">
@@ -259,7 +259,7 @@ export default function TestDetailsPage({
                       className="submenu-link"
                       onClick={() => setSelectedTest("Holland")}
                     >
-                      Holland Code
+                      Холландын Код
                     </a>
                   </li>
                   <li className="submenu-item">
@@ -268,7 +268,7 @@ export default function TestDetailsPage({
                       className="submenu-link"
                       onClick={() => setSelectedTest("EQ")}
                     >
-                      EQ Test
+                      EQ Тест
                     </a>
                   </li>
                   <li className="submenu-item">
@@ -277,7 +277,7 @@ export default function TestDetailsPage({
                       className="submenu-link"
                       onClick={() => setSelectedTest("Big Five")}
                     >
-                      Big Five Test
+                      Big Five Тест
                     </a>
                   </li>
                 </ul>
@@ -447,7 +447,7 @@ export default function TestDetailsPage({
                   domain={[0, 100]}
                   tick={{ fill: "#666" }}
                   label={{
-                    value: "Score (%)",
+                    value: "Оноо (%)",
                     angle: -90,
                     position: "insideLeft",
                     fill: "#666",
@@ -483,7 +483,7 @@ export default function TestDetailsPage({
       {/* Test Details */}
       <div className="bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
         <div className="text-[#F59E0B] font-semibold mb-6 text-xl">
-          Test Details
+          Тестийн Дэлгэрэнгүй
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="bg-gray-50 p-4 rounded-xl">
@@ -493,24 +493,26 @@ export default function TestDetailsPage({
             </p>
           </div>
           <div className="bg-gray-50 p-4 rounded-xl">
-            <h3 className="font-semibold text-gray-700 mb-2">Holland Code</h3>
+            <h3 className="font-semibold text-gray-700 mb-2">Холландын Код</h3>
             <p className="text-xl font-bold text-[#F59E0B]">
               {testResult.tests.holland}
             </p>
           </div>
           <div className="bg-gray-50 p-4 rounded-xl">
-            <h3 className="font-semibold text-gray-700 mb-2">EQ Score</h3>
+            <h3 className="font-semibold text-gray-700 mb-2">EQ Оноо</h3>
             <p className="text-xl font-bold text-[#F59E0B]">
               {testResult.tests.eq}/200
             </p>
           </div>
           <div className="bg-gray-50 p-4 rounded-xl">
-            <h3 className="font-semibold text-gray-700 mb-2">Test Date</h3>
+            <h3 className="font-semibold text-gray-700 mb-2">Тестийн Огноо</h3>
             <p className="text-xl font-bold text-[#F59E0B]">
-              {new Date(testResult.takenAt).toLocaleDateString("en-US", {
+              {new Date(testResult.takenAt).toLocaleDateString("mn-MN", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
               })}
             </p>
           </div>

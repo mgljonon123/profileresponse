@@ -331,38 +331,6 @@ export default function SettingsPage() {
                   placeholder="Таны хоч нэр"
                 />
               </div>
-              <div className="sm:col-span-2 lg:col-span-1">
-                <label className="block mb-2 font-semibold text-[#232360] text-sm sm:text-base">
-                  Хүйс
-                </label>
-                <select
-                  name="gender"
-                  value={form.gender}
-                  onChange={handleChange}
-                  className="w-full border border-[#e0e0e7] rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360] text-sm sm:text-base touch-manipulation"
-                >
-                  <option value="">Хүйс сонгоно уу</option>
-                  <option value="male">Эрэгтэй</option>
-                  <option value="female">Эмэгтэй</option>
-                  <option value="other">Бусад</option>
-                </select>
-              </div>
-              <div className="sm:col-span-2 lg:col-span-1">
-                <label className="block mb-2 font-semibold text-[#232360] text-sm sm:text-base">
-                  Улс
-                </label>
-                <select
-                  name="country"
-                  value={form.country}
-                  onChange={handleChange}
-                  className="w-full border border-[#e0e0e7] rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360] text-sm sm:text-base touch-manipulation"
-                >
-                  <option value="">Улс сонгоно уу</option>
-                  <option value="mn">Монгол</option>
-                  <option value="fr">Франц</option>
-                  <option value="us">АНУ</option>
-                </select>
-              </div>
             </div>
             <div className="flex justify-center sm:justify-end mt-4 sm:mt-6">
               <button

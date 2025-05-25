@@ -50,7 +50,7 @@ export default function RoadmapPage() {
         method: "POST",
         headers: {
           Authorization:
-            "Bearer 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",
+            "Bearer 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",
           "HTTP-Referer": "<YOUR_SITE_URL>", // өөрийн сайт URL-ээ оруулна уу
           "X-Title": "<YOUR_SITE_NAME>", // сайт нэрээ оруулна уу
           "Content-Type": "application/json",
@@ -228,14 +228,17 @@ export default function RoadmapPage() {
                   return (
                     <h3
                       key={index}
-                      className="text-lg sm:text-xl font-semibold mt-4 mb-2 text-[#232360]"
+                      className="text-xl sm:text-2xl font-bold mt-6 mb-3 text-[#232360]"
                     >
                       {line.substring(3)}
                     </h3>
                   );
                 } else if (line.startsWith("- ") || line.startsWith("* ")) {
                   return (
-                    <li key={index} className="ml-4 list-disc text-gray-700">
+                    <li
+                      key={index}
+                      className="ml-6 mt-1 text-gray-700 list-disc"
+                    >
                       {line.substring(2).trim()}
                     </li>
                   );
@@ -245,7 +248,7 @@ export default function RoadmapPage() {
                     return (
                       <li
                         key={index}
-                        className="ml-4 list-decimal text-gray-700"
+                        className="ml-6 mt-1 text-gray-700 list-decimal"
                       >
                         {parts[2].trim()}
                       </li>
@@ -253,7 +256,7 @@ export default function RoadmapPage() {
                   }
                 }
                 return line.trim() ? (
-                  <p key={index} className="mb-2 last:mb-0">
+                  <p key={index} className="mb-2 text-gray-700 leading-relaxed">
                     {line}
                   </p>
                 ) : null;
