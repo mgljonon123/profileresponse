@@ -221,12 +221,14 @@ export async function POST(request: Request) {
 
         // Create recommendation with test result ID
         console.log("Creating recommendation for career:", careerRecord.id);
+        console.log("AI Response to be saved:", aiRecommendations);
         await prisma.careerRecommendation.create({
           data: {
             userId: userId,
             recommendedCareerId: careerRecord.id,
             testResultId: testResult.id, // Link to the test result
             confidenceScore: 0.8,
+            aiResponse: aiRecommendations, // Add the AI response
           },
         });
       }

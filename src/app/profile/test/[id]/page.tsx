@@ -29,6 +29,7 @@ interface TestResult {
     eq: number;
   };
   takenAt: string;
+  aiResponse?: string;
 }
 
 const getChartData = (testResult: TestResult, selectedTest: string) => {
@@ -502,6 +503,22 @@ export default function TestDetailsPage({
           </div>
         </div>
       </div>
+
+      {/* AI Recommendations Section */}
+      {testResult.aiResponse && (
+        <div className="mt-8 bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
+          <div className="text-[#F59E0B] font-semibold mb-6 text-xl">
+            AI Мэргэжлийн Зөвлөмж
+          </div>
+          <div className="bg-gray-50 p-6 rounded-xl">
+            <div className="prose max-w-none">
+              <p className="text-gray-700 whitespace-pre-wrap font-mongolian">
+                {testResult.aiResponse}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

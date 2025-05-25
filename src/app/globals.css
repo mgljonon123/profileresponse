@@ -1,2 +1,12 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .font-mongolian {
+    font-family: 'Roboto', 'Noto Sans Mongolian', sans-serif;
+  }
+}
+

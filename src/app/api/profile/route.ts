@@ -58,7 +58,7 @@ export async function GET() {
       });
 
       // Format the data
-      const formattedResults = personalityResults.map((result, index) => {
+      const formattedResults = personalityResults.map((result: any, index: number) => {
         const recommendation = careerRecommendations[index];
         return {
           id: result.id,
@@ -77,6 +77,7 @@ export async function GET() {
             eq: result.totalEQScore,
           },
           takenAt: result.takenAt,
+          aiResponse: recommendation?.aiResponse || null,
         };
       });
 

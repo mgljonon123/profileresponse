@@ -27,6 +27,9 @@ module.exports = {
           '100%': { opacity: 1, transform: 'translateY(0)' },
         },
       },
+      fontFamily: {
+        mongolian: ['Roboto', 'Noto Sans Mongolian', 'sans-serif'],
+      },
     },
   },
   plugins: [],

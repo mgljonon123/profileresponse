@@ -58,9 +58,20 @@ export async function GET(
         );
       }
 
+      // Get the career recommendation with AI response
+      const careerRecommendation = await prisma.careerRecommendation.findFirst({
+        where: {
+          userId: payload.userId,
+          testResultId: testResult.id,
+        },
+        include: {
+          career: true,
+        },
+      });
+
       // Format the data
       const formattedResult = {
-        career: "Test Result", // You can modify this based on your needs
+        career: careerRecommendation?.career?.title || "Test Result",
         match: Math.round((testResult.totalEQScore / 200) * 100),
         tests: {
           mbti: testResult.mbtiType,
@@ -75,6 +86,7 @@ export async function GET(
           eq: testResult.totalEQScore,
         },
         takenAt: testResult.takenAt,
+        aiResponse: careerRecommendation?.aiResponse || null,
       };
 
       return NextResponse.json({
