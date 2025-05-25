@@ -22,21 +22,6 @@ const icons = [
     ),
   },
   {
-    href: "/profile/analytics",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-        className="w-10 h-10"
-      >
-        <path d="M3 17v-6a2 2 0 012-2h2a2 2 0 012 2v6M13 17v-2a2 2 0 012-2h2a2 2 0 012 2v2M17 17V7a2 2 0 00-2-2h-2a2 2 0 00-2 2v10" />
-      </svg>
-    ),
-  },
-  {
     href: "/profile/messages",
     icon: (
       <svg
@@ -95,7 +80,9 @@ export default function ProfileLayout({
     <div className="bg-[#F7F7FA] min-h-screen flex flex-col">
       {/* Main Content */}
       <main className="flex-1 ml-0 sm:ml-16 md:ml-20 lg:ml-24 min-h-screen pb-16 sm:pb-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 sm:py-6 md:py-8">{children}</div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 sm:py-6 md:py-8">
+          {children}
+        </div>
       </main>
 
       {/* Sidebar - Desktop */}
