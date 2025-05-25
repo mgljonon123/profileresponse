@@ -6,7 +6,8 @@ import { FaBars } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import "./styles/buttons.css";
+import RiveRobot from "./components/RiverRobot";
 
 export default function Home() {
   const [showScroll, setShowScroll] = useState(false);
@@ -47,450 +48,278 @@ export default function Home() {
   };
 
   return (
-    <> 
-      <header className="top-8 py-10 bg-[#f1f1f1] left-12 w-full z-10 transition-all duration-300" id="header">
-        <nav className="flex items-center justify-between container px-20 py-4">
-          <a href="#" className="text-black text-4xl font-semibold uppercase">Start Up</a>
-         
-          <button onClick={() => router.push("/auth/login")} className="ml-auto mr-[-1350px] font-bold w-30 text-black py-2 px-5 rounded-full relative after:content-[''] after:absolute after:bottom-0 after:left-[18px] after:right-[15px] after:h-[1px] after:bg-black text-sm">LET'S TALK</button>
+    <>
+      {/* Header - Desktop хуучин дизайн хадгалсан, mobile сайжруулсан */}
+      <header className="py-3 sm:py-4 lg:py-6 bg-[#f1f1f1] w-full z-10 transition-all duration-300" id="header">
+        <nav className="flex items-center justify-between container mx-auto px-4 sm:px-6 md:px-8 lg:px-20 py-2 sm:py-3 lg:py-4">
+          <a href="#" className="text-black text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold uppercase">Start Up</a>
           
-          <a  onClick={navigateToProfile} href="#" className="ml-auto font-bolds mr-[-365px] w-20 bg-black  text-white py-2 px-4.5 rounded-full">Profile</a>
+          {/* Mobile menu button - сайжруулсан */}
+          <div className="lg:hidden">
+            <button 
+              onClick={toggleMenu}
+              className="p-2 rounded-md hover:bg-gray-200 transition-colors"
+            >
+              <FaBars size={20} />
+            </button>
+          </div>
+          
+          {/* Desktop navigation - хуучин дизайн */}
+          <div className="hidden lg:flex items-center space-x-2 sm:space-x-4 lg:space-x-8">
+            <button 
+              onClick={() => router.push("/auth/login")}
+              className="font-bold text-black py-1.5 px-3 sm:py-2 sm:px-4 lg:py-2 lg:px-5 rounded-full relative after:content-[''] after:absolute after:bottom-0 after:left-[12px] sm:after:left-[15px] lg:after:left-[18px] after:right-[10px] sm:after:right-[12px] lg:after:right-[15px] after:h-[1px] after:bg-black text-xs sm:text-sm"
+            >
+              LET'S TALK
+            </button>
+            <a  
+              onClick={navigateToProfile} 
+              href="#" 
+              className="font-bold bg-black text-white py-1.5 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm"
+            >
+              Profile
+            </a>
+          </div>
         </nav>
+        
+        {/* Mobile menu - сайжруулсан */}
+        {isMenuOpen && (
+          <div className="lg:hidden px-4 py-3 space-y-2 bg-white shadow-md border-t">
+            <button 
+              onClick={() => {
+                router.push("/auth/login");
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-left text-black font-bold py-2 px-2 rounded-md hover:bg-gray-100 transition-colors"
+            >
+              LET'S TALK
+            </button>
+            <button 
+              onClick={() => {
+                navigateToProfile();
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-left bg-black text-white font-bold px-3 py-2 rounded-md hover:bg-gray-800 transition-colors"
+            >
+              Profile
+            </button>
+          </div>
+        )}
       </header>
-      
 
- 
-      
       <main className="relative overflow-x-hidden w-full">
-        <section className="py-55 bg-[#f1f1f1] text-white relative">
-          <div className="container    grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="text-center  lg:pr-32 w-full">
-              <div className="flex  flex-col items-end w-full    ">
-                <h1 className="text-right font-bold text-black leading-tight pt-2 max-w-3xl text-3xl md:text-6xl ml-auto md:mr-[-238px]">
-                Ирээдүйд хүрэх таны
+        {/* Section 1 - Hero Section - Desktop дизайн хадгалсан */}
+        <section className="py-8 sm:py-12 md:py-16 lg:py-24 xl:py-32 bg-[#f1f1f1] text-black relative min-h-[90vh] sm:min-h-screen flex items-center">
+          <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12 items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20">
+            <div className="text-center lg:text-left w-full order-2 lg:order-1">
+              <div className="flex flex-col items-center lg:items-start w-full">
+                <h1 className="text-center lg:text-left font-bold leading-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-2 sm:mb-3 lg:mb-4">
+                  Ирээдүйд хүрэх таны
                 </h1>
-                <h1 className="text-right font-bold text-black leading-tight pt-2 max-w-3xl text-3xl md:text-6xl ml-auto md:mr-[-150px]">
-                 зам эндээс эхлэнэ.
+                <h1 className="text-center lg:text-left font-bold leading-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6 lg:mb-8">
+                  зам эндээс эхлэнэ
                 </h1>
-
-                <p className="text-lg pt-10 text-black max-w-3xl ml-auto md:mr-[-38px] mt-0 text-justify">
-                   Карьерийн зөвлөгөө өгч, өөрийгөө илүү сайн <br /> таньж, ирээдүйгээ төлөвлө" гэх нь таны амжилттай<br /> ирээдүйг бүтээх, өөрийн мэргэжлийн замыг <br /> тодорхойлж, хүсэл мөрөөдлөө биелүүлэхэд туслан.
+                <p className="text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed text-center lg:text-left max-w-2xl px-2 lg:px-0">
+                  Карьерийн зөвлөгөө өгч, өөрийгөө илүү сайн таньж, ирээдүйгээ төлөвлө гэх нь таны амжилттай ирээдүйг бүтээх, өөрийн мэргэжлийн замыг тодорхойлж, хүсэл мөрөөдлөө биелүүлэхэд туслан.
                 </p>
               </div>
-
-              <button className="learn-more ml-auto mr-[-38px] mt-10" onClick={() => router.push("/auth/login")}>
+              <button className="learn-more mt-6 sm:mt-8 lg:mt-10" onClick={() => router.push("/auth/login")}> 
                 <span className="circle" aria-hidden="true">
                   <span className="icon arrow"></span>
                 </span>
-                <span className="button-text">Хариултаа олох</span>
+                <span className="button-text text-sm sm:text-base">Хариултаа олох</span>
               </button>
             </div>
 
-            
-            <div className="absolute top-40 left-310 w-130 h-120">
-              <div className="relative w-full h-full">
-                {/* Removed SplineViewer */}
+            <div className="flex justify-center items-center w-full order-1 lg:order-2">
+              <div className="relative w-full max-w-[250px] sm:max-w-[300px] md:max-w-[400px] lg:max-w-[500px] aspect-square">
+                <RiveRobot src='/robot_bouncing.riv' />
               </div>
             </div>
           </div>
         </section>
-
-
-        <section id="section2" className="relative h-screen bg-[#ffffff] flex items-center justify-center px-4 md:px-32">
-         <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
-            Λ
-          </div>
-          <h2 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[60px] md:text-[220px] font-bold text-gray-300 opacity-20 select-none animate-letter-spacing z-0 pointer-events-none whitespace-nowrap">
-            МЭРГЭЖИЛ
-          </h2>
-          <div className="absolute top-70 left-10 md:left-75 z-10">
-            <h4 className="text-base md:text-lg font-medium md:text-[20px] text-black">ЯМАР МЭРГЭЖИЛ</h4>
-          </div>
-          <div className="flex flex-row items-center w-full z-10">
-
-
-
-            <div className="flex-1 flex justify-center">
+      
+        {/* Section 2 - Desktop дизайн хадгалсан */}
+        <section id="section2" className="relative min-h-screen bg-white flex items-center justify-center px-4 md:px-32">
+          <div className="container grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center py-20">
+            {/* Left: Poster Image */}
+            <div className="flex justify-center items-center">
               <img
-                src="/top-view-career-written-note-with-stickers-notepad-white-background-job-office-copybook-salary-college-business-color.jpg"
-                alt="career card"
-                className="w-72 md:w-[400px] md:h-[550px] rounded-xl shadow-xl rotate-[20deg] mx-auto"
+                src="/pexels-thirdman-5582867.jpg"
+                alt="Best in Business Poster"
+                className="w-[280px] sm:w-[350px] md:w-[420px] rounded-2xl shadow-xl object-cover"
               />
             </div>
-
-
-            
-            <div className="absolute top-120 left-310 flex-1 flex flex-col items-center ml-0 md:ml-10">
-              <p className="text-[20px] max-w-lg text-gray-600 leading-relaxed mb-10 text-justify mt-32">
-                Та ямар мэргэжил, карьерын<br /> замыг сонгохыг хүсэж байна вэ?
+            {/* Right: Title, Description, Button */}
+            <div className="flex flex-col justify-center items-start text-center md:text-left md:pl-16">
+              <h1 className="text-black font-bold text-3xl sm:text-4xl md:text-6xl leading-tight mb-6">
+                Ирээдүйгээ зөв<br />төлөвлө<br />Мэргэжлээ ухаалгаар сонгоорой
+              </h1>
+              <p className="text-gray-700 text-base md:text-lg mb-8 max-w-md px-4 md:px-0">
+                "Чиний авьяас, сонирхол, чадвар, мөн ирээдүйн зорилгод нийцсэн мэргэжлийг тодорхойлоход бид тусална. Бидний систем чиний хувийн онцлог, давуу тал, хүсэл тэмүүлэлд тулгуурлан хамгийн тохиромжтой чиглэлийг санал болгоно."
               </p>
-
-
-              <button onClick={() => router.push("/auth/login")}
-                className="px-8 py-3  md:mr-[130px]  border border-gray-400 rounded-full font-medium text-sm uppercase tracking-wider hover:bg-black hover:text-white transition flex items-center ml-4 text-black">
-                Route Map
-                <span className="ml-2">+</span>
-              </button>
-
-
-
-              
             </div>
           </div>
-          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
-            <div className="w-px h-10 bg-gray-600"></div>
-            <span className="mt-2 text-xs tracking-widest transform rotate-90">
-              SCROLL
-            </span>
-          </div>
-        </section>
-
-
-
-        <section id="section3" className="h-screen bg-[#f1f1f1] text-white flex items-center justify-center px-10 md:px-32 text-center relative">
+          {/* Scroll to top button */}
           <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
             Λ
           </div>
-          <div className="max-w-5xl mx-auto px-4 relative">
-            <h3 className="absolute top-[-10px] left-[-30px] text-[20px] text-black tracking-[0.2em] font-bold">АМЖИЛТЫН ТҮЛХҮҮР</h3>
-            <p className="mt-20 text-[36px] tracking-[0.0em] text-black leading-relaxed font-bold text-justify">
-              Мэргэжил гэдэг бол хүний хүсэл мөрөөдөл авьяас чадвар үнэт зүйлсийн уулзвар цэг.  
-              Бид танд сонголт нь зөвхөн ашигтай бус зорилготой үнэ цэнтэй амьдралтай байхад тусална.
-            </p>
+        </section>
+
+        {/* Marquee Animation - desktop дизайн хадгалсан */}
+        <div className="relative w-full bg-[#f0f9ff] overflow-hidden py-4 sm:py-7 border-y border-blue-200">
+          <div className="absolute top-1/2 left-0 w-full transform -translate-y-1/2">
+            <div className="animate-marquee whitespace-nowrap flex">
+              {[...Array(2)].map((_, i) => (
+                <div className="flex" key={i}>
+                  <span className="font-semibold text-blue-800 px-3 sm:px-4 text-sm sm:text-base">Бүх тест үнэгүй</span>
+                  <span className="text-lg sm:text-xl px-1">🚀</span>
+                  <span className="text-gray-700 px-3 sm:px-4 text-sm sm:text-base">Өөрийн карьерын замыг олцгооё</span>
+                  <span className="font-semibold text-blue-800 px-3 sm:px-4 text-sm sm:text-base">Сонголтоо баталгаажуул</span>
+                  <span className="text-lg sm:text-xl px-1">🎯</span>
+                  <span className="text-gray-700 px-3 sm:px-4 text-sm sm:text-base">AI туслахтай мэргэжлээ ол!</span>
+                  <span className="font-semibold text-blue-800 px-3 sm:px-4 text-sm sm:text-base">Өөрийгөө нээх аяллаа эхлүүл</span>
+                  <span className="text-lg sm:text-xl px-1">✨</span>
+                  <span className="text-gray-700 px-3 sm:px-4 text-sm sm:text-base">Манай платформд үнэгүй нэгдээрэй</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-300">
-            <div className="w-px h-10 bg-gray-300"></div>
+
+          <style jsx>{`
+            .animate-marquee {
+              animation: marquee 25s linear infinite;
+            }
+            @keyframes marquee {
+              0% { transform: translateX(0%); }
+              100% { transform: translateX(-50%); }
+            }
+          `}</style>
+        </div>
+
+        {/* Section 3 - FAQ - mobile responsive сайжруулсан */}
+        <section id="section3" className="min-h-screen bg-white flex items-center justify-center px-2 sm:px-4 md:px-6 lg:px-8 text-center relative py-8 md:py-0">
+          <div className="absolute top-4 sm:top-6 md:top-10 left-4 sm:left-6 md:left-10 w-8 h-8 sm:w-10 sm:h-10 border-2 border-black rounded-full flex items-center justify-center text-xl sm:text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
+            Λ
+          </div>
+          <div className="w-full max-w-6xl mx-auto bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-20 border border-gray-200">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-black mb-6 sm:mb-8 md:mb-12 lg:mb-14 text-center">Түгээмэл асуулт, хариулт</h2>
+            <div className="space-y-3 sm:space-y-4 md:space-y-6">
+              {/* FAQ Items - mobile responsive сайжруулсан */}
+              <details className="group bg-transparent rounded-xl border border-gray-200 transition">
+                <summary className="flex items-center min-h-[40px] sm:min-h-[48px] md:min-h-[56px] gap-2 sm:gap-3 md:gap-4 cursor-pointer py-2 sm:py-3 md:py-0 px-3 sm:px-4 md:px-6 text-sm sm:text-base md:text-lg font-medium text-black group-open:text-[#222] justify-between">
+                  <span className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 text-left">
+                    <span className="inline-block w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 text-base sm:text-lg md:text-2xl flex-shrink-0">📈</span>
+                    <span className="break-words">MBTI (Myers-Briggs Type Indicator)</span>
+                  </span>
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </summary>
+                <div className="px-3 sm:px-4 md:px-14 pb-2 sm:pb-3 md:pb-4 text-left text-gray-600 text-xs sm:text-sm md:text-base">Хувь хүний сэтгэлзүйн төрөл, мэдээлэл боловсруулах, шийдвэр гаргах хэв маягийг тодорхойлдог. 16 төрлийн зан чанарын ангилалтай.  <br /> Жишээ: ENFP – урам зоригтай, бүтээлч сэтгэлгээтэй хүн.</div>
+              </details>
+
+              <details className="group bg-transparent rounded-xl border border-gray-200 transition">
+                <summary className="flex items-center min-h-[40px] sm:min-h-[48px] md:min-h-[56px] gap-2 sm:gap-3 md:gap-4 cursor-pointer py-2 sm:py-3 md:py-0 px-3 sm:px-4 md:px-6 text-sm sm:text-base md:text-lg font-medium text-black group-open:text-[#222] justify-between">
+                  <span className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 text-left">
+                    <span className="inline-block w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 text-base sm:text-lg md:text-2xl flex-shrink-0">🖥️</span>
+                    <span className="break-words">Holland Code (RIASEC)</span>
+                  </span>
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </summary>
+                <div className="px-3 sm:px-4 md:px-14 pb-2 sm:pb-3 md:pb-4 text-left text-gray-600 text-xs sm:text-sm md:text-base">Мэргэжлийн сонирхол, ажлын орчинтой хэр нийцэж байгааг хэмждэг. 6 үндсэн төрөлтэй: Realistic, Investigative, Artistic, Social, Enterprising, Conventional. <br /> Жишээ: Artistic – бүтээлч, уран сайхны мэргэжилд тохиромжтой.</div>
+              </details>
+
+              <details className="group bg-transparent rounded-xl border border-gray-200 transition">
+                <summary className="flex items-center min-h-[40px] sm:min-h-[48px] md:min-h-[56px] gap-2 sm:gap-3 md:gap-4 cursor-pointer py-2 sm:py-3 md:py-0 px-3 sm:px-4 md:px-6 text-sm sm:text-base md:text-lg font-medium text-black group-open:text-[#222] justify-between">
+                  <span className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 text-left">
+                    <span className="inline-block w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 text-base sm:text-lg md:text-2xl flex-shrink-0">📜</span>
+                    <span className="break-words">Big Five Personality Test</span>
+                  </span>
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </summary>
+                <div className="px-3 sm:px-4 md:px-14 pb-2 sm:pb-3 md:pb-4 text-left text-gray-600 text-xs sm:text-sm md:text-base">Хүний зан төлөвийг 5 гол хэмжүүрээр үнэлдэг: нээлттэй байдал, хариуцлагатай байдал, гадагш чиглэсэн байдал, эв найртай байдал, мэдрэмжийн тогтвортой байдал.  <br />
+                 Илүү гүн гүнзгий зан чанарын дүн шинжилгээ.</div>
+              </details>
+
+              <details className="group bg-transparent rounded-xl border border-gray-200 transition">
+                <summary className="flex items-center min-h-[40px] sm:min-h-[48px] md:min-h-[56px] gap-2 sm:gap-3 md:gap-4 cursor-pointer py-2 sm:py-3 md:py-0 px-3 sm:px-4 md:px-6 text-sm sm:text-base md:text-lg font-medium text-black group-open:text-[#222] justify-between">
+                  <span className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 text-left">
+                    <span className="inline-block w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 text-base sm:text-lg md:text-2xl flex-shrink-0">👨‍🏫</span>
+                    <span className="break-words">EQ Test (Emotional Intelligence)</span>
+                  </span>
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </summary>
+                <div className="px-3 sm:px-4 md:px-14 pb-2 sm:pb-3 md:pb-4 text-left text-gray-600 text-xs sm:text-sm md:text-base">Өөрийн болон бусдын сэтгэл хөдлөлийг ойлгож, удирдах чадварыг үнэлдэг. <br/>
+                       Харилцаа, багийн ажил, стрессийн менежментэд чухал үүрэгтэй.</div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4 - Pricing - mobile responsive сайжруулсан */}
+        <section id="section4" className="min-h-screen bg-white flex flex-col items-center justify-center px-4 sm:px-6 md:px-32 relative py-8 md:py-0">
+          <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
+            Λ
+          </div>
+          
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-8 sm:mb-12 md:mb-18 text-center">Багцын Үнийн Санал</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl w-full">
+            <div className="bg-[#1A1A1A] text-white p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl sm:rounded-3xl shadow-lg flex flex-col items-center w-full cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A]">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold tracking-wide">Free</h3>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-semibold mt-2 sm:mt-3 md:mt-4">$0/mo</p>
+              <ul className="text-xs sm:text-sm md:text-base mt-4 sm:mt-6 md:mt-8 space-y-2 sm:space-y-3 md:space-y-4 text-gray-300">
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>Хязгаарлагдмал тест</li>
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>MBTI, BigFive, Holland Code тест</li>
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>Карьерын зөвлөмж</li>
+              </ul>
+              <button className="button-free mt-auto pt-6 sm:pt-8 md:pt-12 lg:pt-[160px]">GET STARTED</button>
+            </div>
+            
+            <div className="bg-[#1A1A1A] text-white p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl sm:rounded-3xl shadow-lg flex flex-col items-center w-full cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A] md:col-span-2 lg:col-span-1">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold tracking-wide">Pro</h3>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-semibold mt-2 sm:mt-3 md:mt-4">$5/mo</p>
+              <ul className="text-xs sm:text-sm md:text-base mt-4 sm:mt-6 md:mt-8 space-y-2 sm:space-y-3 md:space-y-4 text-gray-300">
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>Карьерын зөвлөгөө</li>
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>Авьяас даалбар, Priorities</li>
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>10 тест</li>
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>Бүтээмжин зөвлөмж</li>
+              </ul>
+              <button className="button-pro mt-auto pt-6 sm:pt-8 md:pt-10 lg:pt-[120px]">GET STARTED</button>
+            </div>
+            
+            <div className="bg-[#1A1A1A] text-white p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl sm:rounded-3xl shadow-lg flex flex-col items-center w-full cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A] md:col-start-1 md:col-end-3 lg:col-start-auto lg:col-end-auto">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold tracking-wide">Plas</h3>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-semibold mt-2 sm:mt-3 md:mt-4">$10/mo</p>
+              <ul className="text-xs sm:text-sm md:text-base mt-4 sm:mt-6 md:mt-8 space-y-2 sm:space-y-3 md:space-y-4 text-gray-300">
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>Хязгааргүй тест</li>
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>Roadmap зам</li>
+                <li className="flex items-center"><span className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center text-xs sm:text-sm">✓</span>Voice messages anywhere</li>
+              </ul>
+              <button className="button-plas mt-auto pt-6 sm:pt-8 md:pt-12 lg:pt-[160px]">GET STARTED</button>
+            </div>
+          </div>
+          
+          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
+            <div className="w-px h-10 bg-gray-600"></div>
             <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
           </div>
         </section>
 
-
-        <section id="section4" className="h-screen bg-white flex flex-col items-center justify-center px-6 md:px-32 relative">
-          <div className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition" onClick={scrollToTop}>
-            Λ
-          </div>
-          <h2 className="text-3xl text-black md:text-5xl font-extrabold mb-18">Багцын Үнийн Санал</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl">
-            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A]">
-              <h3 className="text-2xl font-bold tracking-wide">Free</h3>
-              <p className="text-4xl font-semibold mt-4">$0/mo</p>
-              <ul className="text-base mt-8 space-y-4 text-gray-300">
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Хязгаарлагдмал тест</li>
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>MBTI, BigFive, Holland Code тест</li>
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Карьерын зөвлөмж</li>
-              </ul>
-              <button className="button-free mt-[160px]">GET STARTED</button>
-            </div>
-            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A]">
-              <h3 className="text-2xl font-bold tracking-wide">Pro</h3>
-              <p className="text-4xl font-semibold mt-4">$5/mo</p>
-              <ul className="text-base mt-8 space-y-4 text-gray-300">
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Карьерын зөвлөгөө</li>
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Авьяас даалбар, Priorities</li>
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>10 тест</li>
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Бүтээмжин зөвлөмж</li>
-              </ul>
-              <button className="button-pro mt-[120px]">GET STARTED</button>
-            </div>
-            <div className="bg-[#1A1A1A] text-white p-10 rounded-3xl shadow-lg flex flex-col items-center w-full max-w-sm cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A]">
-              <h3 className="text-2xl font-bold tracking-wide">Plas</h3>
-              <p className="text-4xl font-semibold mt-4">$10/mo</p>
-              <ul className="text-base mt-8 space-y-4 text-gray-300">
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Хязгааргүй тест</li>
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Roadmap зам</li>
-                <li className="flex items-center"><span className="w-6 h-6 mr-2 border-2 border-white rounded-full flex items-center justify-center">✓</span>Voice messages anywhere</li>
-              </ul>
-              <button className="button-plas mt-[160px]">GET STARTED</button>
-            </div>
-          </div>
-          <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
-            <div className="w-px h-10 bg-gray-600"></div>
-            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
-          </div>
-        </section>
+        {/* Mobile-only floating scroll button */}
+        {showScroll && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-4 right-4 w-12 h-12 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300 z-50 flex items-center justify-center md:hidden"
+            aria-label="Scroll to top"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+          </button>
+        )}
       </main>
+      
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <Footer />
-
-      <style jsx>{`
-        button.learn-more {
-          width: 12rem;
-          height: auto;
-          position: relative;
-          display: inline-block;
-          cursor: pointer;
-          outline: none;
-          border: 0;
-          vertical-align: middle;
-          text-decoration: none;
-          background: transparent;
-          padding: 0;
-          font-size: inherit;
-          font-family: inherit;
-        }
-
-        button.learn-more .circle {
-          transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-          position: relative;
-          display: block;
-          margin: 0;
-          width: 3rem;
-          height: 3rem;
-          background: #282936;
-          border-radius: 1.625rem;
-        }
-
-        button.learn-more:hover .circle {
-          width: 240px;
-          border-radius: 1.625rem;
-          background: #000;
-        }
-
-        button.learn-more .circle .icon {
-          transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          margin: auto;
-          background: #fff;
-        }
-
-        button.learn-more .circle .icon.arrow {
-          transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-          left: 0.625rem;
-          width: 1.125rem;
-          height: 0.125rem;
-          background: none;
-        }
-
-        button.learn-more .circle .icon.arrow::before {
-          position: absolute;
-          content: "";
-          top: -0.29rem;
-          right: 0.0625rem;
-          width: 0.625rem;
-          height: 0.625rem;
-          border-top: 0.125rem solid #fff;
-          border-right: 0.125rem solid #fff;
-          transform: rotate(45deg);
-        }
-
-        button.learn-more .button-text {
-          transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-          position: absolute;
-          top: 0;
-          left: 30;
-          right: 0;
-          bottom: 0;
-          padding: 0.75rem 0;
-          margin: 0 0 0 1.85rem;
-          color: #282936;
-          font-weight: 700;
-          line-height: 1.6;
-          text-align: left;
-          text-transform: uppercase;
-          white-space: nowrap;
-        }
-
-        button:hover .circle {
-          width: 100%;
-        }
-
-        button:hover .circle .icon.arrow {
-          background: #fff;
-          transform: translate(1rem, 0);
-        }
-
-        button:hover .button-text {
-          color: #fff;
-        }
-
-        .button-free {
-          width: 170px;
-          display: inline-block;
-          padding: 8px 20px;
-          border: 2px solid #4f4f4f;
-          border-radius: 6px;
-          transition: all 0.2s ease-in;
-          position: relative;
-          overflow: hidden;
-          font-size: 17px;
-          cursor: pointer;
-          color: white;
-          z-index: 1;
-        }
-
-        .button-free:before {
-          content: "";
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%) scaleY(1) scaleX(1.25);
-          top: 100%;
-          width: 140%;
-          height: 180%;
-          background-color: rgba(0, 0, 0, 0.05);
-          border-radius: 50%;
-          display: block;
-          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-          z-index: -1;
-        }
-
-        .button-free:after {
-          content: "";
-          position: absolute;
-          left: 55%;
-          transform: translateX(-50%) scaleY(1) scaleX(1.45);
-          top: 180%;
-          width: 160%;
-          height: 190%;
-          background-color: #E94A1F;
-          border-radius: 50%;
-          display: block;
-          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-          z-index: -1;
-        }
-
-        .button-free:hover {
-          color: #ffffff;
-          border: 1px solid #E94A1F;
-        }
-
-        .button-free:hover:before {
-          top: -35%;
-          background-color: #E94A1F;
-          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
-        }
-
-        .button-free:hover:after {
-          top: -45%;
-          background-color: #E94A1F;
-          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
-        }
-
-        .button-pro {
-          width: 170px;
-          display: inline-block;
-          padding: 8px 20px;  
-          border: 2px solid #4f4f4f;
-          border-radius: 6px;
-          transition: all 0.2s ease-in;
-          position: relative;
-          overflow: hidden;
-          font-size: 17px;
-          cursor: pointer;
-          color: white;
-          z-index: 1;
-        }
-
-        .button-pro:before {
-          content: "";
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%) scaleY(1) scaleX(1.25);
-          top: 100%;
-          width: 140%;
-          height: 180%;
-          background-color: rgba(0, 0, 0, 0.05);
-          border-radius: 50%;
-          display: block;
-          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-          z-index: -1;
-        }
-
-        .button-pro:after {
-          content: "";
-          position: absolute;
-          left: 55%;
-          transform: translateX(-50%) scaleY(1) scaleX(1.45);
-          top: 180%;
-          width: 160%;
-          height: 190%;
-          background-color: #E94A1F;
-          border-radius: 50%;
-          display: block;
-          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-          z-index: -1;
-        }
-
-        .button-pro:hover {
-          color: #ffffff;
-          border: 1px solid #E94A1F;
-        }
-
-        .button-pro:hover:before {
-          top: -35%;
-          background-color: #E94A1F;
-          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
-        }
-
-        .button-pro:hover:after {
-          top: -45%;
-          background-color: #E94A1F;
-          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
-        }
-
-        .button-plas {
-          width: 170px;
-          display: inline-block;
-          padding: 8px 20px;
-          border: 2px solid #4f4f4f;
-          border-radius: 6px;
-          transition: all 0.2s ease-in;
-          position: relative;
-          overflow: hidden;
-          font-size: 17px;
-          cursor: pointer;
-          color: white;
-          z-index: 1;
-        }
-
-        .button-plas:before {
-          content: "";
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%) scaleY(1) scaleX(1.25);
-          top: 100%;
-          width: 140%;
-          height: 180%;
-          background-color: rgba(0, 0, 0, 0.05);
-          border-radius: 50%;
-          display: block;
-          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-          z-index: -1;
-        }
-
-        .button-plas:after {
-          content: "";
-          position: absolute;
-          left: 55%;
-          transform: translateX(-50%) scaleY(1) scaleX(1.45);
-          top: 180%;
-          width: 160%;
-          height: 190%;
-          background-color: #E94A1F;
-          border-radius: 50%;
-          display: block;
-          transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-          z-index: -1;
-        }
-
-        .button-plas:hover {
-          color: #ffffff;
-          border: 1px solid #E94A1F;
-        }
-
-        .button-plas:hover:before {
-          top: -35%;
-          background-color: #E94A1F;
-          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
-        }
-
-        .button-plas:hover:after {
-          top: -45%;
-            background-color: #E94A1F;
-          transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
-        }
-      `}</style>
     </>
   );
 }

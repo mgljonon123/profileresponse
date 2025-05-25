@@ -66,7 +66,7 @@ export default function Footer() {
             <div className="text-white text-base font-medium text-center md:text-left flex flex-col space-y-2">
               <p className="flex items-center gap-2 inline-flex hover:text-[#7fdaf4] hover:font-bold transition-all duration-300 ">
                 <FaEnvelope size={18} className="mr-[10px]" />
-                neophub009@gmail.com
+                algodym@gmail.com
               </p>
               <p className="flex items-center gap-2  inline-flex hover:text-[#7fdaf4] hover:font-bold transition-all duration-300">
                 <FaPhone size={18} className="mr-[10px]" />
