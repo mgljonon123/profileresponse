@@ -10,15 +10,12 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1E1E20] text-white py-12 px-4 sm:px-8 lg:px-12">
+    <footer className="bg-[#1E1E20] text-white py-8 md:py-12 px-4 sm:px-8 lg:px-12">
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
         {/* Left Section - Moved Down */}
-        <div className="flex flex-col items-center md:items-start w-full md:w-1/2 space-y-4 mt-12">
+        <div className="flex flex-col items-center md:items-start w-full md:w-1/2 space-y-4 md:mt-12">
           <div className="flex flex-col space-y-4">
             <div className="text-4xl font-bold">
-              <div className="w-10 h-10 border-2 border-[#7fdaf4] rounded-full flex items-center justify-center text-2xl font-semibold text-[#7fdaf4]">
-                Λ
-              </div>
             </div>
             <p className="text-lg font-medium text-center md:text-left text-gray-200 leading-relaxed">
               Монголд  гайхалтай
@@ -58,7 +55,7 @@ export default function Footer() {
         </div>
 
         {/* Right Section */}
-        <div className="flex flex-col items-center md:items-start w-full md:w-1/2 space-y-8 ml-[30px]">
+        <div className="flex flex-col items-center md:items-start w-full md:w-1/2 space-y-8 mt-8 md:ml-[30px] md:mt-0">
           <div className="flex flex-col space-y-3">
             <h3 className="text-xl font-bold text-center md:text-left">
               Холбоо барих
@@ -75,10 +72,10 @@ export default function Footer() {
             </div>
           </div>
           <div className="flex flex-col space-y-1 mt-[20px]">
-            <h3 className="text-xl font-bold text-center md:text-left">
+            <h3 className="text-xl font-bold text-center md:text-left hidden md:block">
               Судлах
             </h3>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-base font-medium text-center md:text-left text-gray-200">
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-base font-medium text-center md:text-left text-gray-200 hidden md:block">
               <a href="#" className="hover:text-[#7fdaf4] transition-colors">
                 Газрын зураг
               </a>
@@ -90,7 +87,7 @@ export default function Footer() {
               </a>
             </div>
             <div className="text-gray-400 text-sm font-medium text-center md:text-left pt-8">
-              Чингэлтэй дүүрэг, 4-р хороо, Барилгачдын талбайн зүүн хойд.
+              Чингэлтэй дүүрэг, 4-р хороо,<br></br> Барилгачдын талбайн зүүн хойд.
             </div>
           </div>
         </div>
