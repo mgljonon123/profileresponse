@@ -69,7 +69,7 @@ export default function MessagesPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "deepseek/deepseek-chat:free",
+          model: "meta-llama/llama-4-maverick:free",
           messages: [
             {
               role: "system",
@@ -213,7 +213,9 @@ export default function MessagesPage() {
                         </svg>
                       </span>
                     </div>
-                    <div className="text-gray-500 text-sm sm:text-base">{topic.desc}</div>
+                    <div className="text-gray-500 text-sm sm:text-base">
+                      {topic.desc}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -259,7 +261,10 @@ export default function MessagesPage() {
         </div>
 
         {/* Input Bar */}
-        <form onSubmit={handleSubmit} className="p-3 sm:p-4 border-t border-gray-200">
+        <form
+          onSubmit={handleSubmit}
+          className="p-3 sm:p-4 border-t border-gray-200"
+        >
           <div className="flex items-center gap-3 sm:gap-4">
             <input
               type="text"

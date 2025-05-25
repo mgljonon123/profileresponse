@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import {
   LineChart,
@@ -80,8 +80,9 @@ const getChartData = (testResult: TestResult, selectedTest: string) => {
 export default function TestDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const resolvedParams = use(params);
   const [nickName, setNickName] = useState("Neo");
   const [profilePic, setProfilePic] = useState("/profile.jpg");
   const [testResult, setTestResult] = useState<TestResult | null>(null);
@@ -94,7 +95,7 @@ export default function TestDetailsPage({
   useEffect(() => {
     const fetchTestResult = async () => {
       try {
-        const response = await fetch(`/api/profile/test/${params.id}`);
+        const response = await fetch(`/api/profile/test/${resolvedParams.id}`);
         const data = await response.json();
 
         if (!response.ok) {
@@ -110,7 +111,7 @@ export default function TestDetailsPage({
     };
 
     fetchTestResult();
-  }, [params.id]);
+  }, [resolvedParams.id]);
 
   // Fetch profile image and nickname from API
   useEffect(() => {
@@ -505,20 +506,57 @@ export default function TestDetailsPage({
       </div>
 
       {/* AI Recommendations Section */}
-      {testResult.aiResponse && (
-        <div className="mt-8 bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
-          <div className="text-[#F59E0B] font-semibold mb-6 text-xl">
+      <div className="mt-8 bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
+        <div className="flex justify-between items-center mb-6">
+          <div className="text-[#F59E0B] font-semibold text-xl">
             AI Мэргэжлийн Зөвлөмж
           </div>
-          <div className="bg-gray-50 p-6 rounded-xl">
+          {!testResult.aiResponse && (
+            <button
+              onClick={async () => {
+                try {
+                  const response = await fetch(
+                    `/api/profile/test/${resolvedParams.id}/ai`,
+                    {
+                      method: "POST",
+                    }
+                  );
+                  const data = await response.json();
+                  if (data.success) {
+                    setTestResult((prev) =>
+                      prev
+                        ? {
+                            ...prev,
+                            aiResponse: data.data.aiResponse,
+                          }
+                        : null
+                    );
+                  }
+                } catch (error) {
+                  console.error("Failed to generate AI response:", error);
+                }
+              }}
+              className="px-4 py-2 bg-[#F59E0B] text-white rounded-lg hover:bg-[#D88A00] transition-colors"
+            >
+              Generate AI Response
+            </button>
+          )}
+        </div>
+        <div className="bg-gray-50 p-6 rounded-xl">
+          {testResult.aiResponse ? (
             <div className="prose max-w-none">
               <p className="text-gray-700 whitespace-pre-wrap font-mongolian">
                 {testResult.aiResponse}
               </p>
             </div>
-          </div>
+          ) : (
+            <div className="text-gray-500 text-center py-8">
+              No AI recommendation available yet. Click the button above to
+              generate one.
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

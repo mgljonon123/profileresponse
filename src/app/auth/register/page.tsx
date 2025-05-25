@@ -47,10 +47,9 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left Side - Register Form */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0">
-        <div className="flex flex-col items-center w-full max-w-md">
+    <div className="min-h-screen flex flex-col md:flex-row">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0 min-h-screen">
+        <div className="flex flex-col items-center w-full max-w-xs sm:max-w-sm md:max-w-md px-4 py-8 md:py-0">
           <h2 className="text-3xl font-bold mb-2 text-left w-full">
             Шинэ бүртгэл үүсгэх
           </h2>
@@ -64,8 +63,8 @@ const Register: React.FC = () => {
             </div>
           )}
           <form className="w-full" onSubmit={handleSubmit}>
-            <div className="flex gap-2 mb-4">
-              <div className="w-1/2">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-2 mb-4">
+              <div className="w-full sm:w-1/2">
                 <label className="block text-sm font-medium mb-1">
                   Бүтэн нэр
                 </label>
@@ -78,7 +77,7 @@ const Register: React.FC = () => {
                   required
                 />
               </div>
-              <div className="w-1/2">
+              <div className="w-full sm:w-1/2">
                 <label className="block text-sm font-medium mb-1 invisible">
                   Бүтэн нэр
                 </label>
@@ -111,9 +110,11 @@ const Register: React.FC = () => {
               required
               minLength={6}
             />
-            <div className="text-xs text-gray-500 mb-6">
-              Бүртгүүлснээр та Start Up.com-ийн үйлчилгээний нөхцөл ба нууцлалын
-              бодлогыг хүлээн зөвшөөрч байна
+            <div className="text-xs text-gray-500 mb-6 flex flex-col items-start sm:flex-row sm:items-center gap-2">
+              <span>
+                Бүртгүүлснээр та Start Up.com-ийн үйлчилгээний нөхцөл ба
+                нууцлалын бодлогыг хүлээн зөвшөөрч байна
+              </span>
             </div>
             <button
               type="submit"
@@ -122,6 +123,18 @@ const Register: React.FC = () => {
             >
               {isLoading ? "Бүртгэж байна..." : "Бүртгүүлэх"}
             </button>
+            <div className="text-center text-gray-500 mt-2 flex flex-col items-center">
+              <span>
+                Шууд нэвтрэх үү?
+                <button
+                  type="button"
+                  onClick={() => router.push("/auth/login")}
+                  className="text-black font-semibold  text-sm hover:text-gray-700 transition ml-1"
+                >
+                  Нэвтрэх
+                </button>
+              </span>
+            </div>
           </form>
         </div>
       </div>

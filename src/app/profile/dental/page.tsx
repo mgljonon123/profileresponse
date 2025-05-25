@@ -56,7 +56,7 @@ export default function RoadmapPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "deepseek/deepseek-chat-v3-0324:free",
+          model: "meta-llama/llama-4-maverick:free",
           messages: [
             {
               role: "user",
@@ -90,7 +90,9 @@ export default function RoadmapPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#1a1a2e]">Карьерын Зам</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1a1a2e]">
+            Карьерын Зам
+          </h1>
           <p className="text-[#4a4a6a] text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4">
@@ -127,7 +129,9 @@ export default function RoadmapPage() {
 
       {/* Gradient Banner */}
       <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-4 sm:px-6 md:px-8 shadow-md">
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Мэргэжлийн Зам</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
+          Мэргэжлийн Зам
+        </h2>
       </div>
 
       {/* Main Content */}
@@ -185,14 +189,20 @@ export default function RoadmapPage() {
           </button>
         </div>
 
-        {isLoading && <div className="mt-4 sm:mt-6 text-[#4a4a6a] text-sm sm:text-base">Уншиж байна...</div>}
+        {isLoading && (
+          <div className="mt-4 sm:mt-6 text-[#4a4a6a] text-sm sm:text-base">
+            Уншиж байна...
+          </div>
+        )}
 
         {aiResponse && (
           <div className="mt-4 sm:mt-6 bg-gray-50 p-4 sm:p-6 rounded-lg w-full">
             <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-[#1a1a2e]">
               AI Зөвлөгөө
             </h2>
-            <p className="text-gray-700 whitespace-pre-wrap text-sm sm:text-base">{aiResponse}</p>
+            <p className="text-gray-700 whitespace-pre-wrap text-sm sm:text-base">
+              {aiResponse}
+            </p>
           </div>
         )}
       </div>

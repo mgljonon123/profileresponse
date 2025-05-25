@@ -13,9 +13,26 @@ interface JWTPayload {
   exp: number;
 }
 
+interface CareerRecommendationWithCareer {
+  id: string;
+  userId: string;
+  recommendedCareerId: string;
+  testResultId: string | null;
+  confidenceScore: number;
+  recommendedAt: Date;
+  aiResponse: string | null;
+  career: {
+    id: string;
+    title: string;
+    description: string;
+    isTop10: boolean;
+    createdAt: Date;
+  };
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // Get token from cookies
@@ -43,10 +60,13 @@ export async function GET(
         );
       }
 
+      // Await params before using it
+      const { id } = await context.params;
+
       // Get the specific test result
       const testResult = await prisma.personalityTestResult.findUnique({
         where: {
-          id: params.id,
+          id: id,
           userId: payload.userId,
         },
       });
@@ -59,15 +79,17 @@ export async function GET(
       }
 
       // Get the career recommendation with AI response
-      const careerRecommendation = await prisma.careerRecommendation.findFirst({
-        where: {
-          userId: payload.userId,
-          testResultId: testResult.id,
-        },
-        include: {
-          career: true,
-        },
-      });
+      const careerRecommendation = (await prisma.careerRecommendation.findFirst(
+        {
+          where: {
+            userId: payload.userId,
+            testResultId: testResult.id,
+          },
+          include: {
+            career: true,
+          },
+        }
+      )) as CareerRecommendationWithCareer | null;
 
       // Format the data
       const formattedResult = {
@@ -87,6 +109,14 @@ export async function GET(
         },
         takenAt: testResult.takenAt,
         aiResponse: careerRecommendation?.aiResponse || null,
+        recommendation: careerRecommendation
+          ? {
+              id: careerRecommendation.id,
+              confidenceScore: careerRecommendation.confidenceScore,
+              recommendedAt: careerRecommendation.recommendedAt,
+              career: careerRecommendation.career,
+            }
+          : null,
       };
 
       return NextResponse.json({

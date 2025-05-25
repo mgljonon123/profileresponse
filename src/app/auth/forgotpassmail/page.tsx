@@ -4,10 +4,10 @@ import React from "react";
 
 const ForgotPassMail: React.FC = () => {
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col md:flex-row">
       {/* Left Side - Mail Sent Info */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0">
-        <div className="flex flex-col items-center w-full max-w-md">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0 min-h-screen">
+        <div className="flex flex-col items-center w-full max-w-xs sm:max-w-sm md:max-w-md px-4 py-8 md:py-0">
           <div className="bg-gray-200 rounded-xl w-12 h-12 flex items-center justify-center mb-8 text-2xl font-bold text-gray-700">
             N
           </div>

@@ -47,9 +47,9 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0">
-        <div className="flex flex-col items-center w-full max-w-md">
+    <div className="min-h-screen flex flex-col md:flex-row">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0 min-h-screen">
+        <div className="flex flex-col items-center w-full max-w-xs sm:max-w-sm md:max-w-md px-4 py-8 md:py-0">
           <h2 className="text-3xl font-bold mb-2 text-center">
             Өөрийн бүртгэл рүү нэвтрэх
           </h2>
