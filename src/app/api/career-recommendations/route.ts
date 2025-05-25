@@ -80,7 +80,13 @@ Please provide the recommendations in Mongolian language.`;
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json({
+      choices: [{
+        message: {
+          content: data.choices[0].message.content
+        }
+      }]
+    });
   } catch (error) {
     console.error("Error getting career recommendations:", error);
     return NextResponse.json(

@@ -79,8 +79,8 @@ model CareerRecommendation {
   testResultId      String?     @db.ObjectId
   confidenceScore   Float       
   recommendedAt     DateTime    @default(now())
+  aiResponse        String?     // New field for AI response (optional)
 
-  
   user              User        @relation("UserRecommendations", fields: [userId], references: [id])
   career            Career      @relation(fields: [recommendedCareerId], references: [id])
   testResult        TestResult? @relation(fields: [testResultId], references: [id])
@@ -170,16 +170,3 @@ model PersonalityTestResult {
   user                  User     @relation(fields: [userId], references: [id])
 }
 
-model CareerRecommendation {
-  id                   String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId               String      @db.ObjectId
-  recommendedCareerId  String      @db.ObjectId
-  testResultId         String?     @db.ObjectId
-  confidenceScore      Float
-  recommendedAt        DateTime    @default(now())
-  recommendationText   String?     // AI-generated recommendation or explanation
-
-  user                 User        @relation("UserRecommendations", fields: [userId], references: [id])
-  career               Career      @relation(fields: [recommendedCareerId], references: [id])
-  testResult           TestResult? @relation(fields: [testResultId], references: [id])
-}

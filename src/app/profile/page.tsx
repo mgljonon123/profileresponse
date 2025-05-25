@@ -21,6 +21,7 @@ interface TestResult {
     eq: number;
   };
   takenAt: string;
+  aiResponse?: string;
 }
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
