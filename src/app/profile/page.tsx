@@ -57,7 +57,9 @@ export default function ProfilePage() {
   }
 
   const nickName = userData.data?.nickname || "";
-  const profilePicture = userData.data?.profilePicture || "/profile.jpg";
+  const profilePicture =
+    userData.data?.profilePicture ||
+    "/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg";
   const testScores: TestResult[] = testData.data || [];
 
   const handleDelete = async (id: string) => {
@@ -87,46 +89,91 @@ export default function ProfilePage() {
         .animate-fadeIn {
           animation: fadeIn 0.6s ease-out;
         }
+        .uiverse-remove-btn {
+          background: #fff;
+          border: none;
+          padding: 10px 20px;
+          display: inline-block;
+          font-size: 15px;
+          font-weight: 600;
+          width: 120px;
+          text-transform: uppercase;
+          cursor: pointer;
+          transform: skew(-21deg);
+          position: relative;
+          overflow: hidden;
+          color: #232360;
+          transition: color 0.5s;
+        }
+        .uiverse-remove-btn span {
+          display: inline-block;
+          transform: skew(21deg);
+        }
+        .uiverse-remove-btn::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 100%;
+          left: 0;
+          background: #e53935;
+          opacity: 0;
+          z-index: -1;
+          transition: all 0.5s;
+        }
+        .uiverse-remove-btn:hover {
+          color: #fff;
+        }
+        .uiverse-remove-btn:hover::before {
+          left: 0;
+          right: 0;
+          opacity: 1;
+        }
       `}</style>
 
-      {/* Header */}
+      {/* Header with Test Again Button */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#232360]">
+          <h1 className="text-2xl font-bold text-[#232360]">
             Сайн Байна уу? <span className="text-[#F59E0B]">{nickName}</span>
           </h1>
-          <p className="text-gray-400 text-sm mt-1">Mon, 25 May 2025</p>
+          <p className="text-gray-500 text-sm mt-1">
+            {new Date().toLocaleDateString("en-US", {
+              weekday: "short",
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </p>
         </div>
-        <div>
+        <div className="flex items-center gap-4">
           <button
-            onClick={() => router.push("/profile/settings")}
-            className="bg-white p-3 rounded-full shadow hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
+            onClick={() => router.push("/test")}
+            className="bg-[#F59E0B] text-white px-6 py-3 rounded-lg shadow-md hover:bg-[#F59E0B]/90 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation cursor-pointer whitespace-nowrap"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6 text-[#232360] group-hover:text-[#E94A1F] transition-colors duration-300"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-              />
-            </svg>
+            Тест дахин өгөх
           </button>
+          <div
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm flex items-center justify-center cursor-pointer hover:shadow-lg transition flex-shrink-0"
+            onClick={() => router.push("/profile/settings")}
+          >
+            <Image
+              src={profilePicture}
+              alt="profile"
+              width={64}
+              height={64}
+              className="object-cover w-full h-full"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="w-full h-24 sm:h-32 rounded-2xl mb-8 sm:mb-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-6 sm:px-10 shadow-md" />
+      {/* Gradient Banner */}
+      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-8 shadow-sm" />
 
+      {/* Test Results Grid */}
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch w-full">
         <div className="w-full lg:flex-1 flex-grow basis-0">
-          <p className="mb-5 text-lg sm:text-xl text-[#232360]">
-            Таний <b>test</b> хариунд тохирох <b>5 мэргэжил</b>
-          </p>
           <div className="flex flex-col gap-6 sm:gap-8">
             {testScores.map((career, i) => (
               <div
@@ -153,21 +200,23 @@ export default function ProfilePage() {
                 </div>
                 <div className="w-full">
                   <div className="font-semibold text-xl sm:text-2xl text-[#232360] mb-4">
-                    {new Date(career.takenAt).toLocaleDateString("en-US", {
+                    {new Date(career.takenAt).toLocaleString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
                     })}
                   </div>
                   {/* Delete Button */}
                   <button
+                    className="uiverse-remove-btn mb-4"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDelete(career.id);
                     }}
-                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg mb-4"
                   >
-                    Устгах
+                    <span>Устгах</span>
                   </button>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-gray-50 p-3 sm:p-4 rounded-xl">
@@ -202,7 +251,7 @@ export default function ProfilePage() {
                             Openness
                           </span>
                           <span className="font-medium text-base">
-                            {career.tests.bigFive.openness}%
+                            {career.tests.bigFive.openness}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
@@ -210,7 +259,7 @@ export default function ProfilePage() {
                             Conscientiousness
                           </span>
                           <span className="font-medium text-base">
-                            {career.tests.bigFive.conscientiousness}%
+                            {career.tests.bigFive.conscientiousness}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
@@ -218,7 +267,7 @@ export default function ProfilePage() {
                             Extraversion
                           </span>
                           <span className="font-medium text-base">
-                            {career.tests.bigFive.extraversion}%
+                            {career.tests.bigFive.extraversion}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
@@ -226,7 +275,7 @@ export default function ProfilePage() {
                             Agreeableness
                           </span>
                           <span className="font-medium text-base">
-                            {career.tests.bigFive.agreeableness}%
+                            {career.tests.bigFive.agreeableness}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
@@ -234,7 +283,7 @@ export default function ProfilePage() {
                             Neuroticism
                           </span>
                           <span className="font-medium text-base">
-                            {career.tests.bigFive.neuroticism}%
+                            {career.tests.bigFive.neuroticism}
                           </span>
                         </div>
                       </div>

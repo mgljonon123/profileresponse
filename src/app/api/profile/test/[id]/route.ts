@@ -79,17 +79,31 @@ export async function GET(
       }
 
       // Get the career recommendation with AI response
-      const careerRecommendation = (await prisma.careerRecommendation.findFirst(
-        {
-          where: {
-            userId: payload.userId,
-            testResultId: testResult.id,
-          },
-          include: {
-            career: true,
-          },
-        }
-      )) as CareerRecommendationWithCareer | null;
+      let careerRecommendation = (await prisma.careerRecommendation.findFirst({
+        where: {
+          userId: payload.userId,
+          testResultId: testResult.id,
+        },
+        include: {
+          career: true,
+        },
+      })) as CareerRecommendationWithCareer | null;
+
+      // Fallback: get the latest recommendation for the user if not found
+      if (!careerRecommendation) {
+        careerRecommendation = (await prisma.careerRecommendation.findFirst({
+          where: { userId: payload.userId },
+          orderBy: { recommendedAt: "desc" },
+          include: { career: true },
+        })) as CareerRecommendationWithCareer | null;
+      }
+
+      // Debug output
+      console.log({
+        userId: payload.userId,
+        testResultId: testResult.id,
+        foundCareerRecommendation: careerRecommendation,
+      });
 
       // Format the data
       const formattedResult = {
@@ -147,7 +161,7 @@ export async function GET(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // Get token from cookies
@@ -175,10 +189,68 @@ export async function DELETE(
         );
       }
 
+      // Await params before using it
+      const { id } = await context.params;
+
+      // Debug log for delete parameters
+      console.log("Attempting to delete data for test result:", {
+        testResultId: id,
+        userId: payload.userId,
+      });
+
+      // --- Debugging: Fetch and log related records before deletion ---
+      const allUserRecommendations = await prisma.careerRecommendation.findMany(
+        {
+          where: { userId: payload.userId },
+          select: { id: true, testResultId: true },
+        }
+      );
+      console.log(
+        "All CareerRecommendations for user BEFORE delete:",
+        allUserRecommendations
+      );
+
+      const allUserChatHistory = await prisma.chatHistory.findMany({
+        where: { userId: payload.userId },
+        select: { id: true, testResultId: true },
+      });
+      console.log(
+        "All ChatHistory for user BEFORE delete:",
+        allUserChatHistory
+      );
+      // --- End Debugging ---
+
+      // Delete associated career recommendations
+      const deletedRecommendations =
+        await prisma.careerRecommendation.deleteMany({
+          where: {
+            userId: payload.userId,
+            OR: [
+              { testResultId: id }, // Delete recommendations linked to this test ID
+              { testResultId: null }, // Also delete recommendations with a null testResultId for this user
+            ],
+          },
+        });
+
+      console.log(
+        "Deleted recommendations count:",
+        deletedRecommendations.count
+      );
+
+      // Delete associated chat history entries
+      const deletedChatHistory = await prisma.chatHistory.deleteMany({
+        where: {
+          testResultId: id,
+          userId: payload.userId,
+        },
+      });
+
+      console.log("Deleted chat history count:", deletedChatHistory.count);
+
       // Delete the specific test result
       const deleted = await prisma.personalityTestResult.deleteMany({
         where: {
-          id: params.id,
+          id: id,
           userId: payload.userId,
         },
       });

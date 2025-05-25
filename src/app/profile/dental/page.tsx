@@ -50,7 +50,7 @@ export default function RoadmapPage() {
         method: "POST",
         headers: {
           Authorization:
-            "Bearer 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",
+            "Bearer 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",
           "HTTP-Referer": "<YOUR_SITE_URL>", // өөрийн сайт URL-ээ оруулна уу
           "X-Title": "<YOUR_SITE_NAME>", // сайт нэрээ оруулна уу
           "Content-Type": "application/json",
@@ -60,9 +60,25 @@ export default function RoadmapPage() {
           messages: [
             {
               role: "user",
-              content: `Миний сонгосон мэргэжил: ${selectedProfession}. 
-Энэ мэргэжлийг эзэмшихэд шаардлагатай ур чадваруудыг жагсааж өгөөч. 
-Мөн хаанаас, хэрхэн эхлэх, дундаж хугацаа хэр их шаардлагатай байдаг талаар дэлгэрэнгүй зөвлөгөө өгнө үү.`,
+              content: `Миний сонгосон мэргэжил: ${selectedProfession}.
+Та энэ мэргэжлийг эзэмшихэд шаардлагатай мэдээллийг дараах бүтэцтэйгээр, markdown форматаар дэлгэрэнгүй гаргаж өгнө үү:
+
+## Алхамууд
+
+Энэ мэргэжлийг эзэмших гол алхамуудыг жагсаана уу.
+
+## Шаардлагатай Ур Чадварууд
+
+Техник болон бусад шаардлагатай ур чадваруудыг жагсаана уу.
+
+## Хэрхэн Эхлэх ба Дундаж Хугацаа
+
+Хаанаас эхлэх, сурах арга замууд, болон энэ мэргэжлийг эзэмшихэд дундаж хэр хугацаа шаардлагатай талаар тайлбарлана уу.
+
+## Нэмэлт Нөөцүүд
+
+Суралцах боломжтой нэмэлт нөөцүүд (сургалт, ном, вэбсайт гэх мэт)-ийг дурдана уу.
+`,
             },
           ],
         }),
@@ -74,9 +90,15 @@ export default function RoadmapPage() {
       }
 
       const data = await res.json();
-      setAiResponse(
-        data.choices?.[0]?.message?.content || "AI-гаас хариу ирсэнгүй."
-      );
+
+      const assistantMessage = data.choices?.[0]?.message?.content;
+
+      if (!assistantMessage) {
+        // If no assistant message, set aiResponse to empty string
+        setAiResponse("");
+      } else {
+        setAiResponse(assistantMessage);
+      }
     } catch (err) {
       console.error("Error getting AI recommendation:", err);
       setAiResponse("AI-гаас зөвлөгөө авахад алдаа гарлаа.");
@@ -98,7 +120,7 @@ export default function RoadmapPage() {
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-[#e0e0e7] shadow-md bg-white">
             <Image
-              src="/images/default-avatar.png"
+              src="/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
               alt="profile"
               width={48}
               height={48}
@@ -128,8 +150,8 @@ export default function RoadmapPage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-4 sm:px-6 md:px-8 shadow-md">
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
+      <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-center justify-center px-4 sm:px-6 md:px-8 shadow-md">
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-0">
           Мэргэжлийн Зам
         </h2>
       </div>
@@ -200,9 +222,43 @@ export default function RoadmapPage() {
             <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-[#1a1a2e]">
               AI Зөвлөгөө
             </h2>
-            <p className="text-gray-700 whitespace-pre-wrap text-sm sm:text-base">
-              {aiResponse}
-            </p>
+            <div className="text-gray-700 text-sm sm:text-base leading-relaxed">
+              {aiResponse.split("\n").map((line, index) => {
+                if (line.startsWith("## ")) {
+                  return (
+                    <h3
+                      key={index}
+                      className="text-lg sm:text-xl font-semibold mt-4 mb-2 text-[#232360]"
+                    >
+                      {line.substring(3)}
+                    </h3>
+                  );
+                } else if (line.startsWith("- ") || line.startsWith("* ")) {
+                  return (
+                    <li key={index} className="ml-4 list-disc text-gray-700">
+                      {line.substring(2).trim()}
+                    </li>
+                  );
+                } else if (/^\d+\.\s/.test(line)) {
+                  const parts = line.match(/^(\d+)\.\s(.*)/);
+                  if (parts) {
+                    return (
+                      <li
+                        key={index}
+                        className="ml-4 list-decimal text-gray-700"
+                      >
+                        {parts[2].trim()}
+                      </li>
+                    );
+                  }
+                }
+                return line.trim() ? (
+                  <p key={index} className="mb-2 last:mb-0">
+                    {line}
+                  </p>
+                ) : null;
+              })}
+            </div>
           </div>
         )}
       </div>
