@@ -139,12 +139,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           </button>
         </div>
       </div>
-      <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
-        <div className="w-px h-10 bg-gray-600"></div>
-        <span className="mt-2 text-xs tracking-widest transform rotate-90">
-          SCROLL
-        </span>
-      </div>
     </section>
   );
 };

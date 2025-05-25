@@ -277,13 +277,20 @@ export default function SettingsPage() {
               className="w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 mx-auto aspect-square rounded-full overflow-hidden border-4 border-[#F59E0B]/20 mb-3 sm:mb-4 shadow flex items-center justify-center bg-white transition-transform hover:scale-105 cursor-pointer touch-manipulation"
               onClick={toggleImageZoom}
             >
-              <Image
-                src={profilePic}
-                alt="profile"
-                width={160}
-                height={160}
-                className="object-cover aspect-square"
-              />
+              {profilePic ===
+              "/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" ? (
+                <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-700 text-sm sm:text-base">
+                  Profile
+                </div>
+              ) : (
+                <Image
+                  src={profilePic}
+                  alt="profile"
+                  width={160}
+                  height={160}
+                  className="object-cover aspect-square"
+                />
+              )}
             </div>
             <div className="text-center">
               <div className="font-bold text-base sm:text-lg lg:text-xl text-[#232360] break-words">
