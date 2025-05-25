@@ -58,28 +58,30 @@ export async function GET() {
       });
 
       // Format the data
-      const formattedResults = personalityResults.map((result: any, index: number) => {
-        const recommendation = careerRecommendations[index];
-        return {
-          id: result.id,
-          career: recommendation?.career.title || "Career not found",
-          match: Math.round((result.totalEQScore / 200) * 100), // Convert EQ score to percentage
-          tests: {
-            mbti: result.mbtiType,
-            holland: result.hollandCode,
-            bigFive: {
-              openness: result.openness,
-              conscientiousness: result.conscientiousness,
-              extraversion: result.extraversion,
-              agreeableness: result.agreeableness,
-              neuroticism: result.emotionalStability,
+      const formattedResults = personalityResults.map(
+        (result: any, index: number) => {
+          const recommendation = careerRecommendations[index];
+          return {
+            id: result.id,
+            career: recommendation?.career.title || "Career not found",
+            match: Math.round((result.totalEQScore / 200) * 100), // Convert EQ score to percentage
+            tests: {
+              mbti: result.mbtiType,
+              holland: result.hollandCode,
+              bigFive: {
+                openness: result.openness,
+                conscientiousness: result.conscientiousness,
+                extraversion: result.extraversion,
+                agreeableness: result.agreeableness,
+                neuroticism: result.emotionalStability,
+              },
+              eq: result.totalEQScore,
             },
-            eq: result.totalEQScore,
-          },
-          takenAt: result.takenAt,
-          aiResponse: recommendation?.aiResponse || null,
-        };
-      });
+            takenAt: result.takenAt,
+            aiResponse: recommendation?.aiResponse || null,
+          };
+        }
+      );
 
       return NextResponse.json({
         success: true,

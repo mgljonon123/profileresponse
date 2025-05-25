@@ -15,7 +15,9 @@ export default function SettingsPage() {
     gender: "",
     country: "",
   });
-  const [profilePic, setProfilePic] = useState("/profile.jpg");
+  const [profilePic, setProfilePic] = useState(
+    "/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tempNickName, setTempNickName] = useState(form.nickName);
   const [tempProfilePic, setTempProfilePic] = useState(profilePic);
@@ -46,7 +48,10 @@ export default function SettingsPage() {
         fullName: userData.data.fullname || "",
         nickName: userData.data.nickname || "",
       }));
-      setProfilePic(userData.data.profilePicture || "/profile.jpg");
+      setProfilePic(
+        userData.data.profilePicture ||
+          "/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
+      );
       setEmails([{ email: userData.data.email, added: "" }]);
     }
   }, [userData]);
@@ -56,7 +61,8 @@ export default function SettingsPage() {
     if (!userData && typeof window !== "undefined") {
       const storedNickName = localStorage.getItem("nickName") || "Neo";
       const storedProfilePic =
-        localStorage.getItem("profilePic") || "/profile.jpg";
+        localStorage.getItem("profilePic") ||
+        "/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg";
       setForm((prev) => ({ ...prev, nickName: storedNickName }));
       setProfilePic(storedProfilePic);
       setTempNickName(storedNickName);
@@ -210,18 +216,22 @@ export default function SettingsPage() {
         `}</style>
 
         {/* Header */}
-        <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-3 xs:gap-4 mb-4 sm:mb-6 lg:mb-8">
+        <div className="flex flex-row justify-between items-center gap-3 xs:gap-4 mb-4 sm:mb-6 lg:mb-8">
           <div className="flex-1 min-w-0">
             <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#232360] truncate">
               Сайн Байна уу?{" "}
-              <span className="text-[#F59E0B] break-words">{form.nickName}</span>
+              <span className="text-[#F59E0B] break-words">
+                {form.nickName}
+              </span>
             </h1>
-            <p className="text-gray-400 text-xs sm:text-sm mt-1">Mon, 25 May 2025</p>
+            <p className="text-gray-400 text-xs sm:text-sm mt-1">
+              Mon, 25 May 2025
+            </p>
           </div>
           <div className="flex-shrink-0">
             <button
               onClick={() => router.back()}
-              className="bg-white p-2 sm:p-3 rounded-full shadow-md hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group touch-manipulation"
+              className="bg-white p-2 sm:p-3 rounded-full shadow-md hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group touch-manipulation cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -242,7 +252,9 @@ export default function SettingsPage() {
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">{error}</div>
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+            {error}
+          </div>
         )}
 
         {success && (
@@ -282,7 +294,7 @@ export default function SettingsPage() {
               </div>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-[#F59E0B] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg shadow-md hover:bg-[#F59E0B]/90 hover:scale-105 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation w-full sm:w-auto"
+                className="bg-[#F59E0B] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg shadow-md hover:bg-[#F59E0B]/90 hover:scale-105 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation w-full sm:w-auto cursor-pointer"
               >
                 Засах
               </button>
@@ -319,44 +331,12 @@ export default function SettingsPage() {
                   placeholder="Таны хоч нэр"
                 />
               </div>
-              <div className="sm:col-span-2 lg:col-span-1">
-                <label className="block mb-2 font-semibold text-[#232360] text-sm sm:text-base">
-                  Хүйс
-                </label>
-                <select
-                  name="gender"
-                  value={form.gender}
-                  onChange={handleChange}
-                  className="w-full border border-[#e0e0e7] rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360] text-sm sm:text-base touch-manipulation"
-                >
-                  <option value="">Хүйс сонгоно уу</option>
-                  <option value="male">Эрэгтэй</option>
-                  <option value="female">Эмэгтэй</option>
-                  <option value="other">Бусад</option>
-                </select>
-              </div>
-              <div className="sm:col-span-2 lg:col-span-1">
-                <label className="block mb-2 font-semibold text-[#232360] text-sm sm:text-base">
-                  Улс
-                </label>
-                <select
-                  name="country"
-                  value={form.country}
-                  onChange={handleChange}
-                  className="w-full border border-[#e0e0e7] rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-[#F59E0B] transition-all duration-300 text-[#232360] text-sm sm:text-base touch-manipulation"
-                >
-                  <option value="">Улс сонгоно уу</option>
-                  <option value="mn">Монгол</option>
-                  <option value="fr">Франц</option>
-                  <option value="us">АНУ</option>
-                </select>
-              </div>
             </div>
             <div className="flex justify-center sm:justify-end mt-4 sm:mt-6">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-[#F59E0B] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg shadow-md hover:bg-[#F59E0B]/90 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-[#F59E0B] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg shadow-md hover:bg-[#F59E0B]/90 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isLoading ? "Хадгалж байна..." : "Хадгалах"}
               </button>
@@ -381,7 +361,9 @@ export default function SettingsPage() {
                 <div className="font-medium text-[#232360] text-xs sm:text-sm lg:text-base break-all flex-1 min-w-0">
                   {e.email}
                 </div>
-                <div className="text-gray-400 text-xs sm:text-sm flex-shrink-0">{e.added}</div>
+                <div className="text-gray-400 text-xs sm:text-sm flex-shrink-0">
+                  {e.added}
+                </div>
               </div>
             ))}
             {showEmailInput ? (
@@ -410,7 +392,8 @@ export default function SettingsPage() {
                           })(),
                         });
                         const data = await res.json();
-                        if (!res.ok) throw new Error(data.error || "Алдаа гарлаа");
+                        if (!res.ok)
+                          throw new Error(data.error || "Алдаа гарлаа");
                         setEmails([{ email: newEmail, added: "" }]);
                         setEmailChangeSuccess("Имэйл амжилттай солигдлоо");
                         setShowEmailInput(false);
@@ -423,7 +406,7 @@ export default function SettingsPage() {
                         setEmailChangeLoading(false);
                       }
                     }}
-                    className="bg-[#F59E0B] text-white px-4 py-2.5 rounded-lg shadow-md hover:bg-[#F59E0B]/90 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation disabled:opacity-50"
+                    className="bg-[#F59E0B] text-white px-4 py-2.5 rounded-lg shadow-md hover:bg-[#F59E0B]/90 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation disabled:opacity-50 cursor-pointer"
                     disabled={emailChangeLoading || !newEmail.trim()}
                   >
                     {emailChangeLoading ? "Хадгалж байна..." : "Хадгалах"}
@@ -435,23 +418,27 @@ export default function SettingsPage() {
                       setEmailChangeError(null);
                       setEmailChangeSuccess(null);
                     }}
-                    className="text-gray-500 hover:text-[#F59E0B] px-4 py-2.5 rounded-lg transition-colors duration-300 text-sm sm:text-base touch-manipulation"
+                    className="text-gray-500 hover:text-[#F59E0B] px-4 py-2.5 rounded-lg transition-colors duration-300 text-sm sm:text-base touch-manipulation cursor-pointer"
                     disabled={emailChangeLoading}
                   >
                     Болих
                   </button>
                 </div>
                 {emailChangeError && (
-                  <div className="text-red-500 text-sm bg-red-50 p-2 rounded-lg">{emailChangeError}</div>
+                  <div className="text-red-500 text-sm bg-red-50 p-2 rounded-lg">
+                    {emailChangeError}
+                  </div>
                 )}
                 {emailChangeSuccess && (
-                  <div className="text-green-600 text-sm bg-green-50 p-2 rounded-lg">{emailChangeSuccess}</div>
+                  <div className="text-green-600 text-sm bg-green-50 p-2 rounded-lg">
+                    {emailChangeSuccess}
+                  </div>
                 )}
               </div>
             ) : (
               <button
                 onClick={() => setShowEmailInput(true)}
-                className="mt-2 text-[#232360] px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-semibold shadow-sm hover:bg-[#F59E0B]/20 hover:text-[#F59E0B] hover:scale-105 transition-all duration-300 w-full sm:w-fit text-sm sm:text-base touch-manipulation"
+                className="mt-2 text-[#232360] px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-semibold shadow-sm hover:bg-[#F59E0B]/20 hover:text-[#F59E0B] hover:scale-105 transition-all duration-300 w-full sm:w-fit text-sm sm:text-base touch-manipulation cursor-pointer"
               >
                 Имэйл хаяг өөрчлөх
               </button>
@@ -502,14 +489,14 @@ export default function SettingsPage() {
               <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 lg:gap-4">
                 <button
                   onClick={() => setIsModalOpen(false)}
-                  className="bg-[#f7f7fa] text-[#232360] px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg shadow-sm hover:bg-gray-200 hover:scale-105 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation"
+                  className="bg-[#f7f7fa] text-[#232360] px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg shadow-sm hover:bg-gray-200 hover:scale-105 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation cursor-pointer"
                   disabled={isLoading}
                 >
                   Болих
                 </button>
                 <button
                   onClick={saveProfileChanges}
-                  className="bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation disabled:opacity-50"
+                  className="bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold text-sm sm:text-base touch-manipulation disabled:opacity-50 cursor-pointer"
                   disabled={isLoading}
                 >
                   {isLoading ? "Хадгалж байна..." : "Хадгалах"}
@@ -522,7 +509,7 @@ export default function SettingsPage() {
         {/* Томруулсан зургийн харагдац */}
         {isImageZoomed && (
           <div
-            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 animate-zoomIn p-4"
+            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 animate-zoomIn p-4 cursor-pointer"
             onClick={toggleImageZoom}
           >
             <div

@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import WelcomeScreen from "../../components/WelcomeScreen";
 import TimelineCard from "../../components/TimelineCard";
 import { motion, AnimatePresence } from "framer-motion";
+import RiveRobot from "../components/Robot";
 
-// Holland Code test questions
 const hollandQuestions = {
   R: [
     "Та мужааны дамжаанд суралцан төгсөхөд сонирхолтой юу?",
@@ -39,7 +39,7 @@ const hollandQuestions = {
     "Та хөгжим тоглохыг сонирхдог уу?",
     "Та сонин, сэтгүүлд материал бичиж өгөхөд сонирхолтой юу?",
     "Та өгүүллэг, уран сайхны санаанд тулгуурлан жүжгийн зохиол туурвихаар сонирхолтой юу?",
-    "Та чуулга, найрал хөгжим, цөөхүүлийн бүрэлдэхүүнд тоглохад сонирхолтой юу?",
+    "Та чуулга, найрал хөгжим, цөөхүүлийн бүрэлдэхүүнд тоглоход сонирхолтой юу?",
     "Та модон эдлэл эсвэл хувцас, хунарын загвар зохиохад сонирхолтой юу?",
     "Та хөрөг найруулал бичих юм уу, гэрэл зураг авахад сонирхолтой юу?",
     "Та дизайны сургалтанд оролцохдоо сонирхолтой юу?",
@@ -719,7 +719,7 @@ const TestPage = () => {
         "Зохион байгуулалт, харилцааны ур чадвар, стратеги төлөвлөлт, мэдээлэл технологийн мэдлэг.",
       "Техникийн Ур Чадварын Үнэлгээ":
         "Инженерийн мэдлэг, техникийн асуудлыг шийдвэрлэх чадвар, зохион байгуулалт, тооцооллын ур чадвар.",
-      "Судалгааны Ур Чадваryn Тест":
+      "Судалгааны Ур Чадварын Тест":
         "Хууль зүйн мэдлэг, харилцааны ур чадвар, шийдвэр гаргах чадвар, стрессийг удирдах чадвар.",
       "Санхүүгийн шинжилгээ":
         "Санхүүгийн мэдлэг, аналитик сэтгэлгээ, тооцооллын ур чадвар, стратеги төлөвлөлт.",
@@ -735,8 +735,8 @@ const TestPage = () => {
   const getSalaryRange = (profession: string) => {
     const salaries: { [key: string]: string } = {
       "Стресс Менежментийн Тест": "20,000,000 - 40,000,000 MNT сард.",
-      "Техникийн Ур Чадваryn Үнэлгээ": "25,000,000 - 50,000,000 MNT сард.",
-      "Судалгааны Ур Чадваryn Тест": "15,000,000 - 30,000,000 MNT сард.",
+      "Техникийн Ур Чадварын Үнэлгээ": "25,000,000 - 50,000,000 MNT сард.",
+      "Судалгааны Ур Чадварын Тест": "15,000,000 - 30,000,000 MNT сард.",
       "Санхүүгийн шинжилгээ": "30,000,000 - 60,000,000 MNT сард.",
       "Боловсролын Менежмент": "20,000,000 - 40,000,000 MNT сард.",
     };
@@ -747,9 +747,9 @@ const TestPage = () => {
     const opportunities: { [key: string]: string } = {
       "Стресс Менежментийн Тест":
         "Дээд удирдах албан тушаалд дэвших, илүү том байгууллагад ажиллах.",
-      "Техникийн Ур Чадваryn Үнэлгээ":
+      "Техникийн Ур Чадварын Үнэлгээ":
         "Аж үйлдвэрийн салбарт дээд удирдах албан тушаалд дэвших, төсөл менежер болох.",
-      "Судалгааны Ур Чадваryn Тест":
+      "Судалгааны Ур Чадварын Тест":
         "Дээд албан тушаалд дэвших, илүү том ажлыг удирдах.",
       "Санхүүгийн шинжилгээ":
         "Дээд удирдах албан тушаалд дэвших, санхүүгийн менежер болох.",
@@ -812,60 +812,83 @@ const TestPage = () => {
       {/* START UP лого/товч эхний зүүн талд */}
       <button
         onClick={() => router.push("/")}
-        className="fixed top-10 left-10 z-50 text-black px-12 py-6 text-4xl font-extrabold tracking-widest transition-all duration-200 hover:scale-110"
+        className="fixed top-4 left-4 z-50 text-black px-4 py-2 text-lg sm:text-xl md:text-4xl font-extrabold tracking-widest transition-all duration-200 hover:scale-110"
         style={{ letterSpacing: "0.2em" }}
       >
         START UP
       </button>
       {/* Гол тестийн талбар */}
-      <div className="flex-1 flex flex-col items-center justify-center w-full">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentQuestion}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="mt-8 mb-6 text-center w-full max-w-2xl mx-auto px-4"
-          >
-            <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 text-center mb-8 leading-tight">
-              {currentQuestionText}
-            </h2>
-          </motion.div>
-        </AnimatePresence>
-        <div className="flex flex-col gap-4 w-full max-w-md mx-auto px-4">
+      <div className="flex-1 flex flex-row items-center justify-center w-full relative">
+        {/* Зүүн доод талд жижиг робот - зөвхөн md-ээс дээш */}
+        <div className="hidden md:block absolute left-0 bottom-0 mb-6 ml-6">
+          <div style={{ width: 100, height: 100 }}>
+            <RiveRobot />
+          </div>
+        </div>
+        {/* Голд асуулт, сонголтууд */}
+        <div className="flex flex-col items-center justify-center w-full">
+          {/* Profile товчийг голд байрлуулах */}
+          <div className="w-full flex justify-center mb-2">
+          </div>
           <AnimatePresence mode="wait">
-            {currentOptions.map((option, index) => (
-              <motion.button
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                onClick={() => handleAnswer(index + 1)}
-                className="flex items-center gap-4 w-full p-4 bg-white border border-gray-300 rounded-2xl shadow text-gray-900 text-base font-semibold transition-all duration-200 hover:bg-gray-100 hover:border-gray-500 hover:shadow-lg group min-h-[48px]"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <motion.span
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-white font-bold text-base group-hover:bg-white group-hover:text-gray-700 border-2 border-gray-700 transition-all"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  {index + 1}
-                </motion.span>
-                {option}
-              </motion.button>
-            ))}
+            <motion.div
+              key={currentQuestion}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="mb-2 text-center w-full max-w-xs sm:max-w-md mx-auto px-2"
+            >
+              <h2 className="text-xs sm:text-sm md:text-lg font-bold text-gray-900 text-center mb-2 leading-tight">
+                {currentQuestionText}
+              </h2>
+            </motion.div>
           </AnimatePresence>
+          <div className="flex flex-col gap-2 w-full max-w-xs sm:max-w-md md:max-w-lg mx-auto px-2">
+            <AnimatePresence mode="wait">
+              {currentOptions.map((option, index) => (
+                <motion.button
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  onClick={() => handleAnswer(index + 1)}
+                  className="flex items-center gap-2 w-full p-2 md:p-4 bg-white border border-gray-300 rounded-xl shadow text-gray-900 text-xs sm:text-sm md:text-base font-semibold transition-all duration-200 hover:bg-gray-100 hover:border-gray-500 hover:shadow-lg group min-h-[28px] sm:min-h-[36px] md:min-h-[44px]"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <motion.span
+                    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full bg-gray-700 text-white font-bold text-xs sm:text-sm md:text-base group-hover:bg-white group-hover:text-gray-700 border-2 border-gray-700 transition-all"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    {index + 1}
+                  </motion.span>
+                  {option}
+                </motion.button>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+        {/* Утас/tablet-д timeline зөвхөн баруун талд, бүх дугаарууд харагдахуйц, overflow-scroll */}
+        <div className="fixed right-1 top-1/4 z-30 md:hidden flex flex-col items-end h-[38vh]">
+          <div className="w-10 sm:w-14 h-full flex items-center">
+            <TimelineCard
+              steps={steps}
+              currentStep={stepIdx}
+              onStart={() => setShowWelcome(true)}
+              className="w-full p-0 bg-white rounded-xl shadow overflow-visible"
+            />
+          </div>
         </div>
       </div>
-      {/* Түүхэн мөр */}
+      {/* Түүхэн мөр - desktop-д баруун талд хэвээрээ */}
       <div className="hidden md:flex flex-col items-center justify-center h-screen mr-0">
         <TimelineCard
           steps={steps}
           currentStep={stepIdx}
           onStart={() => setShowWelcome(true)}
-          className="hidden md:flex flex-col justify-between min-h-screen w-80 bg-white rounded-3xl p-8 ml-12"
+          className="hidden md:flex flex-col justify-between min-h-screen w-60 bg-white rounded-2xl p-4 ml-4"
         />
       </div>
     </div>

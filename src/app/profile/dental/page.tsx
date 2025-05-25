@@ -50,19 +50,35 @@ export default function RoadmapPage() {
         method: "POST",
         headers: {
           Authorization:
-            "Bearer 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",
+            "Bearer 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",
           "HTTP-Referer": "<YOUR_SITE_URL>", // өөрийн сайт URL-ээ оруулна уу
           "X-Title": "<YOUR_SITE_NAME>", // сайт нэрээ оруулна уу
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "deepseek/deepseek-chat-v3-0324:free",
+          model: "meta-llama/llama-4-maverick:free",
           messages: [
             {
               role: "user",
-              content: `Миний сонгосон мэргэжил: ${selectedProfession}. 
-Энэ мэргэжлийг эзэмшихэд шаардлагатай ур чадваруудыг жагсааж өгөөч. 
-Мөн хаанаас, хэрхэн эхлэх, дундаж хугацаа хэр их шаардлагатай байдаг талаар дэлгэрэнгүй зөвлөгөө өгнө үү.`,
+              content: `Миний сонгосон мэргэжил: ${selectedProfession}.
+Та энэ мэргэжлийг эзэмшихэд шаардлагатай мэдээллийг дараах бүтэцтэйгээр, markdown форматаар дэлгэрэнгүй гаргаж өгнө үү:
+
+## Алхамууд
+
+Энэ мэргэжлийг эзэмших гол алхамуудыг жагсаана уу.
+
+## Шаардлагатай Ур Чадварууд
+
+Техник болон бусад шаардлагатай ур чадваруудыг жагсаана уу.
+
+## Хэрхэн Эхлэх ба Дундаж Хугацаа
+
+Хаанаас эхлэх, сурах арга замууд, болон энэ мэргэжлийг эзэмшихэд дундаж хэр хугацаа шаардлагатай талаар тайлбарлана уу.
+
+## Нэмэлт Нөөцүүд
+
+Суралцах боломжтой нэмэлт нөөцүүд (сургалт, ном, вэбсайт гэх мэт)-ийг дурдана уу.
+`,
             },
           ],
         }),
@@ -74,9 +90,15 @@ export default function RoadmapPage() {
       }
 
       const data = await res.json();
-      setAiResponse(
-        data.choices?.[0]?.message?.content || "AI-гаас хариу ирсэнгүй."
-      );
+
+      const assistantMessage = data.choices?.[0]?.message?.content;
+
+      if (!assistantMessage) {
+        // If no assistant message, set aiResponse to empty string
+        setAiResponse("");
+      } else {
+        setAiResponse(assistantMessage);
+      }
     } catch (err) {
       console.error("Error getting AI recommendation:", err);
       setAiResponse("AI-гаас зөвлөгөө авахад алдаа гарлаа.");
@@ -90,13 +112,15 @@ export default function RoadmapPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#1a1a2e]">Карьерын Зам</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1a1a2e]">
+            Карьерын Зам
+          </h1>
           <p className="text-[#4a4a6a] text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-[#e0e0e7] shadow-md bg-white">
             <Image
-              src="/images/default-avatar.png"
+              src="/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
               alt="profile"
               width={48}
               height={48}
@@ -126,8 +150,10 @@ export default function RoadmapPage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-4 sm:px-6 md:px-8 shadow-md">
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Мэргэжлийн Зам</h2>
+      <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-center justify-center px-4 sm:px-6 md:px-8 shadow-md">
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-0">
+          Мэргэжлийн Зам
+        </h2>
       </div>
 
       {/* Main Content */}
@@ -185,14 +211,57 @@ export default function RoadmapPage() {
           </button>
         </div>
 
-        {isLoading && <div className="mt-4 sm:mt-6 text-[#4a4a6a] text-sm sm:text-base">Уншиж байна...</div>}
+        {isLoading && (
+          <div className="mt-4 sm:mt-6 text-[#4a4a6a] text-sm sm:text-base">
+            Уншиж байна...
+          </div>
+        )}
 
         {aiResponse && (
           <div className="mt-4 sm:mt-6 bg-gray-50 p-4 sm:p-6 rounded-lg w-full">
             <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-[#1a1a2e]">
               AI Зөвлөгөө
             </h2>
-            <p className="text-gray-700 whitespace-pre-wrap text-sm sm:text-base">{aiResponse}</p>
+            <div className="text-gray-700 text-sm sm:text-base leading-relaxed">
+              {aiResponse.split("\n").map((line, index) => {
+                if (line.startsWith("## ")) {
+                  return (
+                    <h3
+                      key={index}
+                      className="text-xl sm:text-2xl font-bold mt-6 mb-3 text-[#232360]"
+                    >
+                      {line.substring(3)}
+                    </h3>
+                  );
+                } else if (line.startsWith("- ") || line.startsWith("* ")) {
+                  return (
+                    <li
+                      key={index}
+                      className="ml-6 mt-1 text-gray-700 list-disc"
+                    >
+                      {line.substring(2).trim()}
+                    </li>
+                  );
+                } else if (/^\d+\.\s/.test(line)) {
+                  const parts = line.match(/^(\d+)\.\s(.*)/);
+                  if (parts) {
+                    return (
+                      <li
+                        key={index}
+                        className="ml-6 mt-1 text-gray-700 list-decimal"
+                      >
+                        {parts[2].trim()}
+                      </li>
+                    );
+                  }
+                }
+                return line.trim() ? (
+                  <p key={index} className="mb-2 text-gray-700 leading-relaxed">
+                    {line}
+                  </p>
+                ) : null;
+              })}
+            </div>
           </div>
         )}
       </div>

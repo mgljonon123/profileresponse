@@ -7,10 +7,10 @@ const ForgotPass: React.FC = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-col md:flex-row">
       {/* Left Side - Forgot Password Form */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0">
-        <div className="flex flex-col items-center w-full max-w-md">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-0 min-h-screen">
+        <div className="flex flex-col items-center w-full max-w-xs sm:max-w-sm md:max-w-md px-4 py-8 md:py-0">
           <h2 className="text-3xl font-bold mb-2 text-left w-full">
             Нууц үгээ мартсан уу?
           </h2>
@@ -52,8 +52,7 @@ const ForgotPass: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 text-white p-10 flex flex-col justify-end h-full">
-        </div>
+        <div className="relative z-10 text-white p-10 flex flex-col justify-end h-full"></div>
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ export default function Home() {
   ];
 
   const navigateToProfile = () => {
-    router.push('/profile');
+    router.push("/profile");
   };
 
   const toggleMenu = () => {
@@ -50,42 +50,50 @@ export default function Home() {
   return (
     <>
       {/* Header - Desktop хуучин дизайн хадгалсан, mobile сайжруулсан */}
-      <header className="py-3 sm:py-4 lg:py-6 bg-[#f1f1f1] w-full z-10 transition-all duration-300" id="header">
+      <header
+        className="py-3 sm:py-4 lg:py-6 bg-[#f1f1f1] w-full z-10 transition-all duration-300"
+        id="header"
+      >
         <nav className="flex items-center justify-between container mx-auto px-4 sm:px-6 md:px-8 lg:px-20 py-2 sm:py-3 lg:py-4">
-          <a href="#" className="text-black text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold uppercase">Start Up</a>
-          
+          <a
+            href="#"
+            className="text-black text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold uppercase"
+          >
+            Start Up
+          </a>
+
           {/* Mobile menu button - сайжруулсан */}
           <div className="lg:hidden">
-            <button 
+            <button
               onClick={toggleMenu}
               className="p-2 rounded-md hover:bg-gray-200 transition-colors"
             >
               <FaBars size={20} />
             </button>
           </div>
-          
+
           {/* Desktop navigation - хуучин дизайн */}
           <div className="hidden lg:flex items-center space-x-2 sm:space-x-4 lg:space-x-8">
-            <button 
+            <button
               onClick={() => router.push("/auth/login")}
               className="font-bold text-black py-1.5 px-3 sm:py-2 sm:px-4 lg:py-2 lg:px-5 rounded-full relative after:content-[''] after:absolute after:bottom-0 after:left-[12px] sm:after:left-[15px] lg:after:left-[18px] after:right-[10px] sm:after:right-[12px] lg:after:right-[15px] after:h-[1px] after:bg-black text-xs sm:text-sm"
             >
               LET'S TALK
             </button>
-            <a  
-              onClick={navigateToProfile} 
-              href="#" 
+            <a
+              onClick={navigateToProfile}
+              href="#"
               className="font-bold bg-black text-white py-1.5 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm"
             >
               Profile
             </a>
           </div>
         </nav>
-        
+
         {/* Mobile menu - сайжруулсан */}
         {isMenuOpen && (
           <div className="lg:hidden px-4 py-3 space-y-2 bg-white shadow-md border-t">
-            <button 
+            <button
               onClick={() => {
                 router.push("/auth/login");
                 setIsMenuOpen(false);
@@ -94,7 +102,7 @@ export default function Home() {
             >
               LET'S TALK
             </button>
-            <button 
+            <button
               onClick={() => {
                 navigateToProfile();
                 setIsMenuOpen(false);
@@ -194,8 +202,12 @@ export default function Home() {
               animation: marquee 25s linear infinite;
             }
             @keyframes marquee {
-              0% { transform: translateX(0%); }
-              100% { transform: translateX(-50%); }
+              0% {
+                transform: translateX(0%);
+              }
+              100% {
+                transform: translateX(-50%);
+              }
             }
           `}</style>
         </div>
@@ -215,7 +227,19 @@ export default function Home() {
                     <span className="inline-block w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-8 lg:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 text-base sm:text-lg md:text-2xl lg:text-2xl flex-shrink-0">📈</span>
                     <span className="break-words">MBTI (Myers-Briggs Type Indicator)</span>
                   </span>
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                  <svg
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </summary>
                 <div className="px-2 sm:px-4 md:px-14 lg:px-14 pb-2 sm:pb-3 md:pb-4 lg:pb-4 text-left text-gray-600 text-xs sm:text-sm md:text-base">Хувь хүний сэтгэлзүйн төрөл, мэдээлэл боловсруулах, шийдвэр гаргах хэв маягийг тодорхойлдог. 16 төрлийн зан чанарын ангилалтай.  <br /> Жишээ: ENFP – урам зоригтой, бүтээлч сэтгэлгээтэй хүн.</div>
               </details>
@@ -226,7 +250,19 @@ export default function Home() {
                     <span className="inline-block w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-8 lg:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 text-base sm:text-lg md:text-2xl lg:text-2xl flex-shrink-0">🖥️</span>
                     <span className="break-words">Holland Code (RIASEC)</span>
                   </span>
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                  <svg
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </summary>
                 <div className="px-2 sm:px-4 md:px-14 lg:px-14 pb-2 sm:pb-3 md:pb-4 lg:pb-4 text-left text-gray-600 text-xs sm:text-sm md:text-base">Мэргэжлийн сонирхол, ажлын орчинтой хэр нийцэж байгааг хэмждэг. 6 үндсэн төрөлтэй: Realistic, Investigative, Artistic, Social, Enterprising, Conventional. <br /> Жишээ: Artistic – бүтээлч, уран сайхны мэргэжилд тохиромжтой.</div>
               </details>
@@ -237,7 +273,19 @@ export default function Home() {
                     <span className="inline-block w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-8 lg:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 text-base sm:text-lg md:text-2xl lg:text-2xl flex-shrink-0">📜</span>
                     <span className="break-words">Big Five Personality Test</span>
                   </span>
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                  <svg
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </summary>
                 <div className="px-2 sm:px-4 md:px-14 lg:px-14 pb-2 sm:pb-3 md:pb-4 lg:pb-4 text-left text-gray-600 text-xs sm:text-sm md:text-base">Хүний зан төлөвийг 5 гол хэмжүүрээр үнэлдэг: нээлттэй байдал, хариуцлагатай байдал, гадагш чиглэсэн байдал, эв найртай байдал, мэдрэмжийн тогтвортой байдал.  <br />
                  Илүү гүн гүнзгий зан чанарын дүн шинжилгээ.</div>
@@ -249,7 +297,19 @@ export default function Home() {
                     <span className="inline-block w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-8 lg:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 text-base sm:text-lg md:text-2xl lg:text-2xl flex-shrink-0">👨‍🏫</span>
                     <span className="break-words">EQ Test (Emotional Intelligence)</span>
                   </span>
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                  <svg
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-400 transition-transform duration-300 group-open:rotate-180 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </summary>
                 <div className="px-2 sm:px-4 md:px-14 lg:px-14 pb-2 sm:pb-3 md:pb-4 lg:pb-4 text-left text-gray-600 text-xs sm:text-sm md:text-base">Өөрийн болон бусдын сэтгэл хөдлөлийг ойлгож, удирдах чадварыг үнэлдэг. <br/>
                        Харилцаа, багийн ажил, стрессийн менежментэд чухал үүрэгтэй.</div>
@@ -296,10 +356,12 @@ export default function Home() {
               <button className="button-plas mt-[160px]">GET STARTED</button>
             </div>
           </div>
-          
+
           <div className="absolute bottom-10 right-10 flex flex-col items-center text-gray-600">
             <div className="w-px h-10 bg-gray-600"></div>
-            <span className="mt-2 text-xs tracking-widest transform rotate-90">SCROLL</span>
+            <span className="mt-2 text-xs tracking-widest transform rotate-90">
+              SCROLL
+            </span>
           </div>
         </section>
 
@@ -310,13 +372,23 @@ export default function Home() {
             className="fixed bottom-4 right-4 w-12 h-12 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300 z-50 flex items-center justify-center md:hidden"
             aria-label="Scroll to top"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 10l7-7m0 0l7 7m-7-7v18"
+              />
             </svg>
           </button>
         )}
       </main>
-      
+
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <Footer />
     </>
