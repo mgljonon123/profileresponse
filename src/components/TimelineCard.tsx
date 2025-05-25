@@ -8,11 +8,6 @@ interface TimelineCardProps {
   className?: string;
 }
 
-const getProgressPercent = (currentStep: number, stepsLength: number) => {
-  if (stepsLength <= 1) return 0;
-  return (currentStep / (stepsLength - 1)) * 100;
-};
-
 const TimelineCard: React.FC<TimelineCardProps> = ({
   steps,
   currentStep,
@@ -20,7 +15,15 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
   onProfileClick,
   className,
 }) => {
-  const progressPercent = getProgressPercent(currentStep, steps.length);
+  const progressPercent = (currentStep / (steps.length - 1)) * 100;
+
+  // Adjust highlighting to ensure we don't round up too early
+  const getHighlightedStep = (stepIdx: number) => {
+    // Only move to the next step if we've fully passed the current step's threshold
+    return Math.floor(stepIdx);
+  };
+
+  const highlightedStep = getHighlightedStep(currentStep);
 
   return (
     <div
@@ -75,13 +78,13 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
               <div
                 className={`w-9 h-9 flex items-center justify-center rounded-full border-2 transition-all duration-200 shadow-md mr-8 relative z-10
                   ${
-                    idx === currentStep
+                    highlightedStep === idx
                       ? "bg-gray-700 border-gray-700 text-white scale-110"
                       : "bg-white border-gray-300 text-gray-700"
                   }`}
                 style={{ marginLeft: "16px" }}
               >
-                {idx === currentStep ? (
+                {highlightedStep === idx ? (
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -102,7 +105,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
               {/* Step label */}
               <div
                 className={`flex-1 ${
-                  idx === currentStep
+                  highlightedStep === idx
                     ? "font-extrabold text-lg md:text-xl text-gray-900"
                     : "font-medium text-base md:text-lg text-gray-700"
                 }`}

@@ -30,7 +30,7 @@ const hollandQuestions = {
     "Та шинжлэх ухааны ном, хэвлэл, сэтгүүлүүд уншихад сонирхолтой юу?",
     "Та нарийн төвөгтэй асуудлын шийдвэрлэлийг олоход сонирхолтой юу?",
     "Та эрдэм шинжилгээний музей үзэхэд сонирхолтой юу?",
-    "Та янз бүрийн асуудлаар өгөгдөхүүнийг ангилах, системчлэхэд сонирхолтой юу?",
+    "Та янз бүрийн асуудлаар өгөгдлийг ангилах, системчлэхэд сонирхолтой юу?",
     "Та статистикийн чиглэлээр дамжаа төгсөхөд сонирхолтой юу?",
     "Та асуудлыг задлан шинжлэхэд сонирхолтой юу?",
     "Та шинэ мэдлэг эзэмшихэд сонирхолтой юу?",
@@ -135,7 +135,7 @@ const mbtiQuestions = {
       text: "Лекц дээр:",
       optionA:
         "Тодорхой жишээ, алхам алхмаар тайлбарлахаас хамгийн сайн сурдаг.",
-      optionB: "Том зургаар, ирээдүйн хэрэглээгээр ойлгодог.",
+      optionB: "Том зураар, ирээдүйн хэрэглээгээр ойлгодог.",
     },
     {
       text: "Дадлага хийхээр төлөвлөхдөө:",
@@ -212,7 +212,7 @@ const eqQuestions = [
   "Миний сэтгэл санаа хичээл эсвэл ажилд минь хэрхэн нөлөөлж байгааг мэддэг.",
   "Миний сэтгэл хөдлөл (жишээ нь: баярлах, уурлах) шийдвэр гаргалтад минь хэрхэн нөлөөлж байгааг анзаардаг.",
   "Би дадлага хийхдээ өөрийн давуу болон сул талаа мэддэг.",
-  "Би анги дээр илтгэл тавихдаа хэт их сандарч байгаагаа мэдэрдэг.",
+  "Би анги дээр илтгэл тавихдаа хэт их сандарч байгаагаа мэдрэдэг.",
   "Би хамтрагчтайгаа маргалдсаны дараа сэтгэл хөдлөлөө эргэцүүлдэг.",
   "Шалгалтын улиралд өөрийгөө шатаахгүйн тулд амрах хэрэгтэйгээ мэддэг.",
   // Self-Regulation
@@ -221,36 +221,36 @@ const eqQuestions = [
   "Муу дүн авсан эсвэл дадлагад тэнцээгүй ч хурдан сэргэдэг.",
   "Шалгалтын болон клубын арга хэмжээ зэрэг завгүй үедээ стрессээ удирдаж чаддаг.",
   "Хэн нэгэнтэй маргалдах үедээ түргэн уурлахгүй байхыг хичээдэг.",
-  "Багийн төсөл төлөвлөсөн ёсоор явахгүй бол арга барилаа өөрчилдөг.",
+  "Багийн төсөл төлөвлөсөн ёсоор явжгүй бол аргыг өөрчилдөг.",
   "Ажлаа удаан хийж байхад тэвчээртэй байдаг.",
   "Чухал санаагаа хэлэхдээ сэтгэл хөдлөлөө хянаж чаддаг.",
   // Motivation
   "Хэцүү даалгавар байсан ч дуусгахын тулд өөрийгөө зоригжуулдаг.",
   "Хувийн зорилго тавьж, түүндээ хүрэхийн тулд хичээдэг.",
   "Шалгалтад унасан ч эсвэл ажлын боломж алдсан ч хурдан сэргэдэг.",
-  "Ирээдүйн карьераа бодож шинэ ур чадвар сурахдаа урам зоригтой байдаг.",
+  "Ирээдүйн карьераа бодож шинэ ур чадвар суръя гэж урам зоригтой байдаг.",
   "Хичээлдээ сайн байсан ч өөрийгөө улам хөгжүүлэхийг хичээдэг.",
   "Богино хугацааны бэрхшээл тулгарсан ч урт хугацааны зорилгоо мартдаггүй.",
-  "Клубын арга хэмжээ зохион байгуулахдаа амжилтад хүрэхэд баярладаг.",
+  "Клубын арга хэмжээ зохион байгуулж амжилтад хүрэхэд баярладаг.",
   "Сүлжээ үүсгэх, сайн дурын ажилд идэвхтэй оролцдог.",
   // Empathy
   "Ангидаа хэн нэгэн сэтгэл дундуур байгааг анзаардаг.",
   "Багийн маргааны үеэр бусдын байр суурийг ойлгохыг хичээдэг.",
   "Багийн ажилд бусдыг тухтай байлгахын тулд харилцаагаа өөрчилдөг.",
   "Найз эсвэл хамтрагч нь хичээл, ажилд стресстэж байвал туслахыг хичээдэг.",
-  "Багийн төсөл удааширч байхад багш яагаад уурлаж байгааг ойлгодог.",
-  "Багийн гишүүн ганцаардаж байгааг анзаарвал хамруулахыг хичээдэг.",
-  "Том илтгэлийн өмнө хэн нэгэнд урам өгөх хэрэгтэйг мэдэрдэг.",
+  "Багийн төсөл удаашраад байхад багш яагаад уурлаж байгааг ойлгодог.",
+  "Багийн гишүүн ганцаардахыг анзаарвал хамруулхаар хичээдэг.",
+  "Том илтгэлийн өмнө хэн нэгэнд урам өгөх хэрэгтэй гэж мэдрэдэг.",
   "Бусдад санал өгөхдөө тэдний сэтгэл санааг харгалздаг.",
   // Social Skills
   "Бүлгийн хэлэлцүүлэг, уулзалтын үеэр санаагаа тодорхой илэрхийлдэг.",
-  "Өөрөөсөө өөр хүмүүстэй ч эерэг харилцаа үүсгэдэг.",
-  "Судалгааны бүлэгт маргаан гарахад хурцадмал байдлыг намжаадаг.",
-  "Багийн гишүүдийг нэг зорилгын төлөө урамшуулж чаддаг.",
-  "Клубын үйл ажиллагаа, багийн төслийг удирдахад өөртөө итгэлтэй байдаг.",
-  "Хичээл, дадлагын орчинд өөрийгөө тохируулж чаддаг.",
-  "Бусдад урам өгөх, сайжруулах санал өгөхдөө эерэгээр ханддаг.",
-  "Карьeрын үзэсгэлэн, оюутны арга хэмжээнд сүлжээ үүсгэж чаддаг.",
+  "Өөр өөр хүмүүстэй ч эерэг харилцаа үүсгэдэг.",
+  "Суралгааны булт маргаан гарахад хурцадмал байдлыг намжаадаг.",
+  "Багийн гишүүдийг нэр зоригоороо урамшуулж чаддаг.",
+  "Клубын үйл ажиллагаа, багийн төслүүдийг удирдахдаа өөртөө итгэлтэй байдаг.",
+  "Хичээл, дадлага орчныд өөртөө тохирч чаддаг.",
+  "Бусдад урам өгөх, сайжруулах санал өгөхийг эрэгтэйгээр ханддаг.",
+  "Карьерийн үзэсгэлэн, оюутны арга хэмжээнд сүлжээ үүсгэж чаддаг.",
 ];
 
 type HollandCategory = keyof typeof hollandQuestions;
@@ -268,7 +268,7 @@ const steps = [
   "MBTI Тест",
   "EQ Тест",
   "Holland Code Тест",
-  "Баярлла",
+  "Баярлалаа",
 ];
 
 const TestPage = () => {
@@ -309,8 +309,9 @@ const TestPage = () => {
     Conscientiousness: number;
   } | null>(null);
   const [recommendedTests, setRecommendedTests] = useState<string[]>([]);
+  const [totalAnswered, setTotalAnswered] = useState(0); // Нийт хариулсан тоо
 
-  // Total questions per test
+  // Бүрэн асуултын тоо
   const totalQuestions = {
     personality: questions.length, // 25
     mbti: Object.values(mbtiQuestions).reduce(
@@ -328,65 +329,36 @@ const TestPage = () => {
     0
   ); // 151
 
-  // Cumulative question counts for each stage
-  const cumulativeQuestions = {
-    personality: totalQuestions.personality, // 25
-    mbti: totalQuestions.personality + totalQuestions.mbti, // 25 + 20 = 45
-    eq: totalQuestions.personality + totalQuestions.mbti + totalQuestions.eq, // 45 + 40 = 85
-    holland:
-      totalQuestions.personality +
-      totalQuestions.mbti +
-      totalQuestions.eq +
-      totalQuestions.holland, // 85 + 66 = 151
-  };
+  // Алхмуудын үе шатуудын тогтоол
+  const milestones = [
+    { questions: 0, stepIdx: 0 }, // Персоналитийн эхлэл
+    { questions: 25, stepIdx: 1 }, // Персоналитийн төгсгөл
+    { questions: 45, stepIdx: 2 }, // MBTI-ийн төгсгөл
+    { questions: 85, stepIdx: 3 }, // EQ-ийн төгсгөл
+    { questions: 151, stepIdx: 4 }, // Төгсгөл
+  ];
 
-  // Calculate stepIdx based on cumulative progress
+  // stepIdx-ийг тооцоолох
   const calculateStepIdx = () => {
-    let completedQuestions = 0;
-
-    if (testType === "personality") {
-      completedQuestions = currentQuestion;
-      return (completedQuestions / cumulativeQuestions.personality) * 0.8; // 0 to 0.8 of step 0
-    } else if (testType === "mbti") {
-      completedQuestions =
-        cumulativeQuestions.personality +
-        currentMbtiCategory * 5 +
-        currentMbtiQuestion;
-      return (
-        1 +
-        ((completedQuestions - cumulativeQuestions.personality) /
-          (cumulativeQuestions.mbti - cumulativeQuestions.personality)) *
-          0.8
-      ); // 1 to 1.8
-    } else if (testType === "eq") {
-      completedQuestions = cumulativeQuestions.mbti + currentEqQuestion;
-      return (
-        2 +
-        ((completedQuestions - cumulativeQuestions.mbti) /
-          (cumulativeQuestions.eq - cumulativeQuestions.mbti)) *
-          0.8
-      ); // 2 to 2.8
-    } else if (testType === "holland") {
-      completedQuestions =
-        cumulativeQuestions.eq +
-        currentHollandCategory * 11 +
-        currentHollandQuestion;
-      return (
-        3 +
-        ((completedQuestions - cumulativeQuestions.eq) /
-          (cumulativeQuestions.holland - cumulativeQuestions.eq)) *
-          0.8
-      ); // 3 to 3.8
-    } else if (testType === "result") {
-      return 4; // 4
+    const answered = totalAnswered;
+    for (let i = 0; i < milestones.length - 1; i++) {
+      const start = milestones[i];
+      const end = milestones[i + 1];
+      // Онцгой тогтоол хүртэл одоогийн алхамд үлдэнэ
+      if (answered >= start.questions && answered < end.questions) {
+        const fraction =
+          (answered - start.questions) / (end.questions - start.questions);
+        return start.stepIdx + fraction * (end.stepIdx - start.stepIdx);
+      } else if (answered === end.questions) {
+        return end.stepIdx; // Онцгой тогтоолд таарсан тохиолдол
+      }
     }
-
-    return 0; // Default
+    return 4; // Төгсгөлд хүрэх боломж
   };
 
-  const stepIdx = Math.round(calculateStepIdx());
+  const stepIdx = calculateStepIdx();
 
-  // Add this function before the useEffect
+  // Энэ функцыг useEffect-ээс өмнө нэмэх
   const calculateRecommendedTests = (
     bigFive: typeof bigFiveScores,
     mbti: MBTIScores,
@@ -395,103 +367,106 @@ const TestPage = () => {
   ) => {
     const recommendations: { test: string; score: number }[] = [];
 
-    // Analyze Big Five scores
+    // Big Five оноог шинжлэх
     if (bigFive) {
       if (bigFive.Neuroticism > 70) {
         recommendations.push({
-          test: "Stress Management Test",
+          test: "Стресс Менежментийн Тест",
           score: bigFive.Neuroticism,
         });
       }
       if (bigFive.Extraversion > 70) {
         recommendations.push({
-          test: "Leadership Skills Assessment",
+          test: "Удирдах Ур Чадварын Үнэлгээ",
           score: bigFive.Extraversion,
         });
       }
       if (bigFive.Openness > 70) {
         recommendations.push({
-          test: "Creativity Assessment",
+          test: "Бүтээлч Байдлын Үнэлгээ",
           score: bigFive.Openness,
         });
       }
       if (bigFive.Agreeableness > 70) {
         recommendations.push({
-          test: "Team Collaboration Assessment",
+          test: "Багийн Хамтын Ажиллагааны Үнэлгээ",
           score: bigFive.Agreeableness,
         });
       }
       if (bigFive.Conscientiousness > 70) {
         recommendations.push({
-          test: "Time Management Skills Test",
+          test: "Цагийн Менежментийн Ур Чадварын Тест",
           score: bigFive.Conscientiousness,
         });
       }
     }
 
-    // Analyze MBTI scores
+    // MBTI оноог шинжлэх
     const mbtiType = getMBTIType(mbti);
     if (mbtiType.includes("E")) {
-      recommendations.push({ test: "Public Speaking Assessment", score: 75 });
+      recommendations.push({ test: "Олон Нийтийн Ярианы Үнэлгээ", score: 75 });
     }
     if (mbtiType.includes("N")) {
-      recommendations.push({ test: "Strategic Thinking Test", score: 70 });
+      recommendations.push({ test: "Стратеги Төлөвлөлтийн Тест", score: 70 });
     }
     if (mbtiType.includes("F")) {
       recommendations.push({
-        test: "Emotional Intelligence Assessment",
+        test: "Сэтгэл Хөдлөлийн Оюун Ухааны Үнэлгээ",
         score: 80,
       });
     }
     if (mbtiType.includes("J")) {
       recommendations.push({
-        test: "Project Management Skills Test",
+        test: "Төсөл Менежментийн Ур Чадварын Тест",
         score: 75,
       });
     }
 
-    // Analyze EQ scores
+    // EQ оноог шинжлэх
     const eqScores = calculateEQScore(eq);
     if (eqScores) {
       if (eqScores.selfAwareness < 60) {
-        recommendations.push({ test: "Self-Awareness Assessment", score: 85 });
+        recommendations.push({ test: "Өөрийг Таниулгах Үнэлгээ", score: 85 });
       }
       if (eqScores.socialSkills < 60) {
         recommendations.push({
-          test: "Social Skills Development Test",
+          test: "Нийгмийн Ур Чадварын Хөгжлийн Тест",
           score: 80,
         });
       }
     }
 
-    // Analyze Holland Code
+    // Holland Code-ийг шинжлэх
     const hollandCode = getHollandCode(holland);
     if (hollandCode.includes("R")) {
-      recommendations.push({ test: "Technical Skills Assessment", score: 75 });
-    }
-    if (hollandCode.includes("I")) {
-      recommendations.push({ test: "Research Skills Test", score: 70 });
-    }
-    if (hollandCode.includes("A")) {
       recommendations.push({
-        test: "Artistic Expression Assessment",
+        test: "Техникийн Ур Чадварын Үнэлгээ",
         score: 75,
       });
     }
+    if (hollandCode.includes("I")) {
+      recommendations.push({ test: "Судалгааны Ур Чадварын Тест", score: 70 });
+    }
+    if (hollandCode.includes("A")) {
+      recommendations.push({ test: "Уран Бичгийн Үнэлгээ", score: 75 });
+    }
     if (hollandCode.includes("S")) {
-      recommendations.push({ test: "Interpersonal Skills Test", score: 70 });
+      recommendations.push({ test: "Харилцааны Ур Чадварын Тест", score: 70 });
     }
     if (hollandCode.includes("E")) {
       recommendations.push({
-        test: "Entrepreneurial Skills Assessment",
+        test: "Бизнес Эрхлэгчийн Ур Чадварын Үнэлгээ",
         score: 75,
       });
     }
     if (hollandCode.includes("C")) {
-      recommendations.push({ test: "Organizational Skills Test", score: 70 });
+      recommendations.push({
+        test: "Зохион Байгуулалтын Ур Чадварын Тест",
+        score: 70,
+      });
     }
 
-    // Sort by score and get top 5
+    // Оноогоор эрэмбэлж, тэргүүлэх 5-ыг авна
     const top5Tests = recommendations
       .sort((a, b) => b.score - a.score)
       .slice(0, 5)
@@ -509,7 +484,7 @@ const TestPage = () => {
       queryParams.set("eq", JSON.stringify(eqAnswers));
       queryParams.set("holland", JSON.stringify(hollandAnswers));
 
-      // Calculate recommended tests
+      // Зөвлөмжийг тооцоолох
       const recommendations = calculateRecommendedTests(
         bigFiveScores,
         mbtiAnswers,
@@ -531,6 +506,8 @@ const TestPage = () => {
   ]);
 
   const handleAnswer = (score: number) => {
+    setTotalAnswered((prev) => prev + 1); // Нийт хариулсан тоог нэмэгдүүлэх
+
     if (testType === "personality") {
       const newAnswers = { ...answers, [questions[currentQuestion].id]: score };
       setAnswers(newAnswers);
@@ -666,7 +643,10 @@ const TestPage = () => {
       } else if (currentHollandCategory < categories.length - 1) {
         setCurrentHollandCategory(currentHollandCategory + 1);
         setCurrentHollandQuestion(0);
-      } else {
+      } else if (
+        currentHollandCategory === categories.length - 1 &&
+        currentHollandQuestion === hollandQuestions[currentCategory].length - 1
+      ) {
         setShowResults(true);
         setTestType("result");
       }
@@ -721,11 +701,11 @@ const TestPage = () => {
 
   const getProfessionReason = (profession: string, mbtiType: string) => {
     const reasons: { [key: string]: string } = {
-      "Leadership Skills Assessment": `${mbtiType} төрлийн хүмүүс зохион байгуулалт, шийдвэр гаргах чадвараараа алдартай бөгөөд энэ нь захиргааны менежерын үүрэгт тохирно. Тэд багийн ажил, стратегийн төлөвлөлтийг сайн удирдах чадвартай.`,
-      "Technical Skills Assessment": `Энэ мэргэжил нь практик шийдвэр гаргах, техник асуудлыг шийдвэрлэх чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн хүчтэй тал болох зохион байгуулалт, ажлыг үр дүнтэй гүйцэтгэх чадварыг ашигладаг.`,
-      "Research Skills Test": `Хууль сахиулах ажил нь дүрэм журам, зохион байгуулалт, шийдвэр гаргах чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн сайн талыг ашигладаг. Энэ мэргэжил нь тэдний шударга байдал, зохион байгуулалтын чадварыг илэрхийлдэг.`,
-      "Financial Analysis": `Финансын аналитик нь тооцоолол, стратегийн төлөвлөлт, үр дүнтэй шийдвэр гаргах чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн сайн тал болох логик сэтгэлгээ, зохион байгуулалтын чадварыг ашигладаг.`,
-      "Educational Management": `Боловсролын менежер нь зохион байгуулалт, стратегийн төлөвлөлт, харилцааны ур чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн хүчтэй тал болох зохион байгуулалт, шийдвэр гаргах чадварыг ашигладаг.`,
+      "Стресс Менежментийн Тест": `${mbtiType} төрлийн хүмүүс зохион байгуулалт, шийдвэр гаргах чадваараа алдартай бөгөөд энэ нь захиргааны менежерын үүрэгт тохирно. Тэд багийн ажил, стратеги төлөвлөлтийг сайн удирдах чадвартай.`,
+      "Техникийн Ур Чадварын Үнэлгээ": `Энэ мэргэжил нь практик шийдвэр гаргах, техникийн асуудлыг шийдвэрлэх чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн хүчтэй тал болох зохион байгуулалт, ажлыг үр дүнтэй гүйцэтгэх чадварыг ашигладаг.`,
+      "Судалгааны Ур Чадварын Тест": `Хууль сахиулах ажил нь дүрэм журам, зохион байгуулалт, шийдвэр гаргах чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн сайн талыг ашигладаг. Энэ мэргэжил нь тэдний шудрага байдал, зохион байгуулалтын чадварыг илэрхийлдэг.`,
+      "Санхүүгийн шинжилгээ": `Финансын аналитик нь тооцоолол, стратеги төлөвлөлт, үр дүнтэй шийдвэр гаргах чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн сайн тал болох логик сэтгэлгээ, зохион байгуулалтын чадварыг ашигладаг.`,
+      "Боловсролын Менежмент": `Боловсролын менежер нь зохион байгуулалт, стратеги төлөвлөлт, харилцааны ур чадварыг шаарддаг бөгөөд ${mbtiType} хүмүүсийн хүчтэй тал болох зохион байгуулалт, шийдвэр гаргах чадварыг ашигладаг.`,
     };
     return (
       reasons[profession] ||
@@ -735,16 +715,16 @@ const TestPage = () => {
 
   const getRequiredSkills = (profession: string) => {
     const skills: { [key: string]: string } = {
-      "Leadership Skills Assessment":
-        "Зохион байгуулалт, харилцааны ур чадвар, стратегийн төлөвлөлт, мэдээлэл технологийн мэдлэг.",
-      "Technical Skills Assessment":
-        "Инженерийн мэдлэг, техник асуудлыг шийдвэрлэх чадвар, зохион байгуулалт, тооцооллын ур чадвар.",
-      "Research Skills Test":
+      "Стресс Менежментийн Тест":
+        "Зохион байгуулалт, харилцааны ур чадвар, стратеги төлөвлөлт, мэдээлэл технологийн мэдлэг.",
+      "Техникийн Ур Чадварын Үнэлгээ":
+        "Инженерийн мэдлэг, техникийн асуудлыг шийдвэрлэх чадвар, зохион байгуулалт, тооцооллын ур чадвар.",
+      "Судалгааны Ур Чадваryn Тест":
         "Хууль зүйн мэдлэг, харилцааны ур чадвар, шийдвэр гаргах чадвар, стрессийг удирдах чадвар.",
-      "Financial Analysis":
-        "Санхүүгийн мэдлэг, аналитик сэтгэлгээ, тооцооллын ур чадвар, стратегийн төлөвлөлт.",
-      "Educational Management":
-        "Харилцааны ур чадвар, зохион байгуулалт, стратегийн төлөвлөлт, боловсролын мэдлэг.",
+      "Санхүүгийн шинжилгээ":
+        "Санхүүгийн мэдлэг, аналитик сэтгэлгээ, тооцооллын ур чадвар, стратеги төлөвлөлт.",
+      "Боловсролын Менежмент":
+        "Харилцааны ур чадвар, зохион байгуулалт, стратеги төлөвлөлт, боловсролын мэдлэг.",
     };
     return (
       skills[profession] ||
@@ -754,31 +734,31 @@ const TestPage = () => {
 
   const getSalaryRange = (profession: string) => {
     const salaries: { [key: string]: string } = {
-      "Leadership Skills Assessment": "20,000,000 - 40,000,000 MNT сард.",
-      "Technical Skills Assessment": "25,000,000 - 50,000,000 MNT сард.",
-      "Research Skills Test": "15,000,000 - 30,000,000 MNT сард.",
-      "Financial Analysis": "30,000,000 - 60,000,000 MNT сард.",
-      "Educational Management": "20,000,000 - 40,000,000 MNT сард.",
+      "Стресс Менежментийн Тест": "20,000,000 - 40,000,000 MNT сард.",
+      "Техникийн Ур Чадваryn Үнэлгээ": "25,000,000 - 50,000,000 MNT сард.",
+      "Судалгааны Ур Чадваryn Тест": "15,000,000 - 30,000,000 MNT сард.",
+      "Санхүүгийн шинжилгээ": "30,000,000 - 60,000,000 MNT сард.",
+      "Боловсролын Менежмент": "20,000,000 - 40,000,000 MNT сард.",
     };
     return salaries[profession] || "15,000,000 - 35,000,000 MNT сард.";
   };
 
   const getGrowthOpportunities = (profession: string) => {
     const opportunities: { [key: string]: string } = {
-      "Leadership Skills Assessment":
-        "Дээд удирдлагын албан тушаалд дэвших, илүү том байгууллагад ажиллах.",
-      "Technical Skills Assessment":
-        "Аж үйлдвэрийн салбарт дээд удирдлагын албан тушаалд дэвших, төсөл менежер болох.",
-      "Research Skills Test":
-        "Дээд албан тушаалд дэвших, илүү төв ажлыг удирдах.",
-      "Financial Analysis":
-        "Дээд удирдлагын албан тушаалд дэвших, санхүүгийн менежер болох.",
-      "Educational Management":
-        "Дээд удирдлагын албан тушаалд дэвших, томоохон боловсролын байгууллагад ажиллах.",
+      "Стресс Менежментийн Тест":
+        "Дээд удирдах албан тушаалд дэвших, илүү том байгууллагад ажиллах.",
+      "Техникийн Ур Чадваryn Үнэлгээ":
+        "Аж үйлдвэрийн салбарт дээд удирдах албан тушаалд дэвших, төсөл менежер болох.",
+      "Судалгааны Ур Чадваryn Тест":
+        "Дээд албан тушаалд дэвших, илүү том ажлыг удирдах.",
+      "Санхүүгийн шинжилгээ":
+        "Дээд удирдах албан тушаалд дэвших, санхүүгийн менежер болох.",
+      "Боловсролын Менежмент":
+        "Дээд удирдах албан тушаалд дэвших, томоохон боловсролын байгууллагад ажиллах.",
     };
     return (
       opportunities[profession] ||
-      "Дээд удирдлагын албан тушаалд дэвших, илүү том байгууллагад ажиллах."
+      "Дээд удирдах албан тушаалд дэвших, илүү том байгууллагад ажиллах."
     );
   };
 
@@ -829,7 +809,7 @@ const TestPage = () => {
 
   return (
     <div className="min-h-screen h-screen overflow-hidden bg-white flex flex-col md:flex-row items-center justify-end p-0">
-      {/* START UP logo/button top left */}
+      {/* START UP лого/товч эхний зүүн талд */}
       <button
         onClick={() => router.push("/")}
         className="fixed top-10 left-10 z-50 text-black px-12 py-6 text-4xl font-extrabold tracking-widest transition-all duration-200 hover:scale-110"
@@ -837,7 +817,7 @@ const TestPage = () => {
       >
         START UP
       </button>
-      {/* Main test area */}
+      {/* Гол тестийн талбар */}
       <div className="flex-1 flex flex-col items-center justify-center w-full">
         <AnimatePresence mode="wait">
           <motion.div
@@ -879,7 +859,7 @@ const TestPage = () => {
           </AnimatePresence>
         </div>
       </div>
-      {/* Timeline */}
+      {/* Түүхэн мөр */}
       <div className="hidden md:flex flex-col items-center justify-center h-screen mr-0">
         <TimelineCard
           steps={steps}
