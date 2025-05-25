@@ -72,20 +72,6 @@ model Roadmap {
   career      Career   @relation(fields: [careerId], references: [id])
 }
 
-model CareerRecommendation {
-  id                String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String      @db.ObjectId
-  recommendedCareerId String     @db.ObjectId
-  testResultId      String?     @db.ObjectId
-  confidenceScore   Float       
-  recommendedAt     DateTime    @default(now())
-
-  
-  user              User        @relation("UserRecommendations", fields: [userId], references: [id])
-  career            Career      @relation(fields: [recommendedCareerId], references: [id])
-  testResult        TestResult? @relation(fields: [testResultId], references: [id])
-}
-
 model Career {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
@@ -96,6 +82,20 @@ model Career {
   
   roadmaps    Roadmap[]
   recommendations CareerRecommendation[]
+}
+
+model CareerRecommendation {
+  id                   String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId               String      @db.ObjectId
+  recommendedCareerId  String      @db.ObjectId
+  testResultId         String?     @db.ObjectId
+  confidenceScore      Float
+  recommendedAt        DateTime    @default(now())
+  recommendationText   String?     // AI-generated recommendation or explanation
+
+  user                 User        @relation("UserRecommendations", fields: [userId], references: [id])
+  career               Career      @relation(fields: [recommendedCareerId], references: [id])
+  testResult           TestResult? @relation(fields: [testResultId], references: [id])
 }
 
 model Subscription {
@@ -168,18 +168,4 @@ model PersonalityTestResult {
   progress              Float    @default(0) // Test progress as a percentage (0-100)
   
   user                  User     @relation(fields: [userId], references: [id])
-}
-
-model CareerRecommendation {
-  id                   String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId               String      @db.ObjectId
-  recommendedCareerId  String      @db.ObjectId
-  testResultId         String?     @db.ObjectId
-  confidenceScore      Float
-  recommendedAt        DateTime    @default(now())
-  recommendationText   String?     // AI-generated recommendation or explanation
-
-  user                 User        @relation("UserRecommendations", fields: [userId], references: [id])
-  career               Career      @relation(fields: [recommendedCareerId], references: [id])
-  testResult           TestResult? @relation(fields: [testResultId], references: [id])
 }

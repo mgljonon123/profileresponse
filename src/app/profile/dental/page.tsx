@@ -86,15 +86,15 @@ export default function RoadmapPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-8">
+    <div className="max-w-4xl mx-auto mt-4 sm:mt-6 md:mt-8">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-[#1a1a2e]">Карьерын Зам</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1a1a2e]">Карьерын Зам</h1>
           <p className="text-[#4a4a6a] text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#e0e0e7] shadow-md bg-white">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-[#e0e0e7] shadow-md bg-white">
             <Image
               src="/images/default-avatar.png"
               alt="profile"
@@ -105,7 +105,7 @@ export default function RoadmapPage() {
           </div>
           <button
             onClick={() => router.push("/")}
-            className="bg-white p-3 rounded-full shadow-md hover:bg-[#f8f9ff] transition-all duration-300 flex items-center justify-center group"
+            className="bg-white p-2 sm:p-3 rounded-full shadow-md hover:bg-[#f8f9ff] transition-all duration-300 flex items-center justify-center group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ export default function RoadmapPage() {
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="w-6 h-6 text-[#4a4a6a] group-hover:text-[#2563eb] transition-colors duration-300"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-[#4a4a6a] group-hover:text-[#2563eb] transition-colors duration-300"
             >
               <path
                 strokeLinecap="round"
@@ -126,26 +126,26 @@ export default function RoadmapPage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-8 shadow-md">
-        <h2 className="text-2xl font-bold text-white mb-4">Мэргэжлийн Зам</h2>
+      <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-4 sm:px-6 md:px-8 shadow-md">
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Мэргэжлийн Зам</h2>
       </div>
 
       {/* Main Content */}
-      <div className="bg-white rounded-2xl shadow-lg p-10 border border-[#f0f0f5] flex flex-col items-center justify-center min-h-[300px]">
-        <div className="text-2xl font-semibold text-[#1a1a2e] mb-4">
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 md:p-10 border border-[#f0f0f5] flex flex-col items-center justify-center min-h-[300px]">
+        <div className="text-xl sm:text-2xl font-semibold text-[#1a1a2e] mb-3 sm:mb-4">
           Мэргэжлийн Замын Зөвлөгөө
         </div>
-        <div className="text-[#4a4a6a] text-lg mb-6 text-center">
+        <div className="text-[#4a4a6a] text-base sm:text-lg mb-4 sm:mb-6 text-center">
           Өөрийн мэргэжлийн замыг тодорхойлж, шаардлагатай ур чадваруудыг
           хөгжүүлэхэд туслахаар бэлэн байна.
         </div>
 
         {/* Profession Selection */}
-        <div className="w-full max-w-md mb-6">
+        <div className="w-full max-w-md mb-4 sm:mb-6">
           <select
             value={selectedProfession}
             onChange={(e) => setSelectedProfession(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent"
+            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent text-sm sm:text-base"
           >
             <option value="">Мэргэжил сонгох</option>
             {professions.map((prof) => (
@@ -156,16 +156,16 @@ export default function RoadmapPage() {
           </select>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <button
             onClick={() => router.push("/profile")}
-            className="bg-[#F59E0B] text-white px-8 py-3 rounded-lg shadow-md hover:bg-[#F59E0B] transition font-semibold"
+            className="bg-[#F59E0B] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg shadow-md hover:bg-[#F59E0B] transition font-semibold text-sm sm:text-base"
           >
             Профайл руу буцах
           </button>
           <button
             onClick={getAIRecommendation}
-            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] text-white rounded-lg shadow-md hover:from-[#F59E0B] hover:to-[#F59E0B] transition-all duration-300 font-semibold"
+            className="flex items-center gap-2 px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] text-white rounded-lg shadow-md hover:from-[#F59E0B] hover:to-[#F59E0B] transition-all duration-300 font-semibold text-sm sm:text-base"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +173,7 @@ export default function RoadmapPage() {
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
             >
               <path
                 strokeLinecap="round"
@@ -185,14 +185,14 @@ export default function RoadmapPage() {
           </button>
         </div>
 
-        {isLoading && <div className="mt-6 text-[#4a4a6a]">Уншиж байна...</div>}
+        {isLoading && <div className="mt-4 sm:mt-6 text-[#4a4a6a] text-sm sm:text-base">Уншиж байна...</div>}
 
         {aiResponse && (
-          <div className="mt-6 bg-gray-50 p-6 rounded-lg w-full">
-            <h2 className="text-xl font-semibold mb-4 text-[#1a1a2e]">
+          <div className="mt-4 sm:mt-6 bg-gray-50 p-4 sm:p-6 rounded-lg w-full">
+            <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-[#1a1a2e]">
               AI Зөвлөгөө
             </h2>
-            <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
+            <p className="text-gray-700 whitespace-pre-wrap text-sm sm:text-base">{aiResponse}</p>
           </div>
         )}
       </div>

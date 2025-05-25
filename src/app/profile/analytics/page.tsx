@@ -150,17 +150,17 @@ export default function AnalyticsPage() {
   const chartData = getChartData(selectedTest);
 
   return (
-    <div className="max-w-6xl mx-auto mt-8">
+    <div className="max-w-6xl mx-auto mt-4 sm:mt-6 md:mt-8">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-[#232360]">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#232360]">
             Сайн Байна уу? <span className="text-[#F59E0B]">{nickName}</span>
           </h1>
           <p className="text-gray-500 text-sm mt-1">Mon, 25 May 2025</p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
             <Image
               src={profilePic}
               alt="profile"
@@ -171,7 +171,7 @@ export default function AnalyticsPage() {
           </div>
           <button
             onClick={() => router.push("/")}
-            className="bg-white p-3 rounded-full shadow hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
+            className="bg-white p-2 sm:p-3 rounded-full shadow hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +179,7 @@ export default function AnalyticsPage() {
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="w-6 h-6 text-gray-600 group-hover:text-[#E94A1F] transition-colors duration-300"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 group-hover:text-[#E94A1F] transition-colors duration-300"
             >
               <path
                 strokeLinecap="round"
@@ -192,13 +192,13 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-8 shadow-sm" />
+      <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-4 sm:px-6 md:px-8 shadow-sm" />
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 gap-8 mb-10">
-        <div className="bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="text-xl font-semibold text-[#232360]">
+      <div className="grid grid-cols-1 gap-6 sm:gap-8 mb-6 sm:mb-8 md:mb-10">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 border border-[#f0f0f5]">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6 sm:mb-10">
+            <h2 className="text-lg sm:text-xl font-semibold text-[#232360]">
               Test Scores Analysis
             </h2>
             <ul className="menu">
@@ -403,7 +403,7 @@ export default function AnalyticsPage() {
               }
             `}</style>
           </div>
-          <div className="h-[430px]">
+          <div className="h-[300px] sm:h-[350px] md:h-[430px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={chartData}
@@ -455,37 +455,37 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Projects Table */}
-      <div className="bg-white rounded-2xl shadow-lg p-8 border border-[#f0f0f5]">
-        <div className="text-[#F59E0B] font-semibold mb-6 text-xl">
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 border border-[#f0f0f5]">
+        <div className="text-[#F59E0B] font-semibold mb-4 sm:mb-6 text-lg sm:text-xl">
           Projects
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left rounded-xl">
             <thead>
-              <tr className="bg-[#f7f7fa] text-gray-500 text-base">
-                <th className="py-4 px-6 font-semibold">Мэргэжил</th>
-                <th className="py-4 px-6 font-semibold">Огноо</th>
-                <th className="py-4 px-6 font-semibold">хувь.%</th>
-                <th className="py-4 px-6 font-semibold">тайлбар</th>
+              <tr className="bg-[#f7f7fa] text-gray-500 text-sm sm:text-base">
+                <th className="py-3 sm:py-4 px-4 sm:px-6 font-semibold">Мэргэжил</th>
+                <th className="py-3 sm:py-4 px-4 sm:px-6 font-semibold">Огноо</th>
+                <th className="py-3 sm:py-4 px-4 sm:px-6 font-semibold">хувь.%</th>
+                <th className="py-3 sm:py-4 px-4 sm:px-6 font-semibold">тайлбар</th>
               </tr>
             </thead>
             <tbody>
               {projects.map((p, i) => (
                 <tr
                   key={i}
-                  className="border-b last:border-b-0 hover:bg-[#f7f7fa] transition text-base"
+                  className="border-b last:border-b-0 hover:bg-[#f7f7fa] transition text-sm sm:text-base"
                 >
-                  <td className="py-4 px-6 flex items-center gap-2 font-semibold">
-                    <span className="inline-block w-7 h-7 rounded-full bg-[#e6f7fa] flex items-center justify-center text-[#F59E0B] font-bold">
+                  <td className="py-3 sm:py-4 px-4 sm:px-6 flex items-center gap-2 font-semibold">
+                    <span className="inline-block w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#e6f7fa] flex items-center justify-center text-[#F59E0B] font-bold">
                       ✦
                     </span>{" "}
                     {p.name}
                   </td>
-                  <td className="py-4 px-6">{p.date}</td>
-                  <td className="py-4 px-6 font-bold">{p.percent}%</td>
-                  <td className="py-4 px-6">
+                  <td className="py-3 sm:py-4 px-4 sm:px-6">{p.date}</td>
+                  <td className="py-3 sm:py-4 px-4 sm:px-6 font-bold">{p.percent}%</td>
+                  <td className="py-3 sm:py-4 px-4 sm:px-6">
                     <span
-                      className={`px-4 py-2 rounded-lg text-base font-semibold ${
+                      className={`px-3 sm:px-4 py-1 sm:py-2 rounded-lg text-sm sm:text-base font-semibold ${
                         statusColor[p.status]
                       }`}
                     >

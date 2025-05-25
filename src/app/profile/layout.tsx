@@ -92,17 +92,22 @@ export default function ProfileLayout({
   const pathname = usePathname();
 
   return (
-    <div className="bg-[#F7F7FA] min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="fixed top-0 left-0 h-screen w-28 bg-white border-r flex flex-col items-center justify-center py-8 shadow-sm z-20">
-        <div className="flex flex-col items-center justify-center flex-1 gap-8">
+    <div className="bg-[#F7F7FA] min-h-screen flex flex-col">
+      {/* Main Content */}
+      <main className="flex-1 ml-0 sm:ml-16 md:ml-20 lg:ml-24 min-h-screen pb-16 sm:pb-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 sm:py-6 md:py-8">{children}</div>
+      </main>
+
+      {/* Sidebar - Desktop */}
+      <aside className="hidden sm:flex fixed top-0 left-0 h-screen w-16 md:w-20 lg:w-24 bg-white border-r flex-col items-center justify-center py-4 sm:py-6 md:py-8 shadow-sm z-20">
+        <div className="flex flex-col items-center justify-center flex-1 gap-4 sm:gap-6 md:gap-8">
           {icons.map((item, idx) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={idx}
                 href={item.href}
-                className={`flex items-center justify-center w-16 h-16 rounded-xl mb-2 transition ${
+                className={`flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl mb-2 transition ${
                   isActive
                     ? "text-[#F59E0B] bg-[#F2F6FF]"
                     : "text-[#B0B0B0] hover:text-[#F59E0B] hover:bg-[#F2F6FF]"
@@ -115,10 +120,25 @@ export default function ProfileLayout({
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 ml-20 min-h-screen">
-        <div className="max-w-7xl mx-auto px-8 py-8">{children}</div>
-      </main>
+      {/* Bottom Navigation - Mobile */}
+      <nav className="sm:hidden fixed bottom-0 left-0 right-0 h-16 bg-white border-t flex items-center justify-around px-2 z-20">
+        {icons.map((item, idx) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={idx}
+              href={item.href}
+              className={`flex items-center justify-center w-12 h-12 rounded-xl transition ${
+                isActive
+                  ? "text-[#F59E0B] bg-[#F2F6FF]"
+                  : "text-[#B0B0B0] hover:text-[#F59E0B] hover:bg-[#F2F6FF]"
+              }`}
+            >
+              {item.icon}
+            </Link>
+          );
+        })}
+      </nav>
     </div>
   );
 }
