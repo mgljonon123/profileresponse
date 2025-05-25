@@ -64,12 +64,22 @@ export default function Home() {
 
           {/* Mobile menu button - сайжруулсан */}
           <div className="lg:hidden">
-            <button
-              onClick={toggleMenu}
-              className="p-2 rounded-md hover:bg-gray-200 transition-colors"
+            {/* Profile picture button for mobile */}
+            <div
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm flex items-center justify-center cursor-pointer hover:shadow-lg transition flex-shrink-0"
+              onClick={() => router.push("/profile/settings")}
             >
-              <FaBars size={20} />
-            </button>
+              {/* Placeholder for profile image or icon */}
+              <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-700 text-sm sm:text-base">Profile</div>
+              {/* Replace with actual Image component if profile picture is available */}
+              {/* <Image
+                src={profilePicture} // profilePicture needs to be defined/fetched
+                alt="profile"
+                width={48}
+                height={48}
+                className="object-cover w-full h-full"
+              /> */}
+            </div>
           </div>
 
           {/* Desktop navigation - хуучин дизайн */}
