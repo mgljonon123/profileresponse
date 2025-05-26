@@ -194,13 +194,14 @@ const ResultPage = () => {
   const calculateEQScore = (eq: number[] | undefined) => {
     if (!eq) return null;
     const sum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
+    const overallScore = sum(eq);
     return {
       selfAwareness: sum(eq.slice(0, 8)),
       selfRegulation: sum(eq.slice(8, 16)),
       motivation: sum(eq.slice(16, 24)),
       empathy: sum(eq.slice(24, 32)),
       socialSkills: sum(eq.slice(32, 40)),
-      overall: sum(eq),
+      overall: Math.min(overallScore, 200),
     };
   };
 

@@ -299,7 +299,9 @@ const TestPage = () => {
   });
   const [currentHollandCategory, setCurrentHollandCategory] = useState(0);
   const [currentHollandQuestion, setCurrentHollandQuestion] = useState(0);
-  const [eqAnswers, setEqAnswers] = useState<number[]>([]);
+  const [eqAnswers, setEqAnswers] = useState<number[]>(
+    Array(eqQuestions.length).fill(0)
+  );
   const [currentEqQuestion, setCurrentEqQuestion] = useState(0);
   const [bigFiveScores, setBigFiveScores] = useState<{
     Neuroticism: number;
@@ -620,7 +622,11 @@ const TestPage = () => {
         }
       }
     } else if (testType === "eq") {
-      setEqAnswers((prev) => [...prev, score]);
+      setEqAnswers((prev) => {
+        const newEqAnswers = [...prev];
+        newEqAnswers[currentEqQuestion] = score;
+        return newEqAnswers;
+      });
       if (currentEqQuestion < eqQuestions.length - 1) {
         setCurrentEqQuestion(currentEqQuestion + 1);
       } else {
@@ -673,13 +679,14 @@ const TestPage = () => {
   const calculateEQScore = (eq: number[]) => {
     if (!eq || eq.length !== 40) return null;
     const sum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
+    const overallScore = sum(eq);
     return {
       selfAwareness: sum(eq.slice(0, 8)),
       selfRegulation: sum(eq.slice(8, 16)),
       motivation: sum(eq.slice(16, 24)),
       empathy: sum(eq.slice(24, 32)),
       socialSkills: sum(eq.slice(32, 40)),
-      overall: sum(eq),
+      overall: Math.min(overallScore, 200),
     };
   };
 
@@ -828,8 +835,7 @@ const TestPage = () => {
         {/* Голд асуулт, сонголтууд */}
         <div className="flex flex-col items-center justify-center w-full">
           {/* Profile товчийг голд байрлуулах */}
-          <div className="w-full flex justify-center mb-2">
-          </div>
+          <div className="w-full flex justify-center mb-2"></div>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentQuestion}
