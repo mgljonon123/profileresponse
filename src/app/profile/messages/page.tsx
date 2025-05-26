@@ -147,7 +147,7 @@ export default function MessagesPage() {
         </div>
       </div>
 
-      <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-4 sm:px-6 md:px-8 shadow-sm" />
+      <div className="w-full h-16 sm:h-20 md:h-24 rounded-xl mb-6 sm:mb-8 md:mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-4 sm:px-6 md:px-8 shadow-sm" />
 
       <div className="text-center mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">

@@ -169,7 +169,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Gradient Banner */}
-      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#C7E0FF] to-[#FFF2D1] flex items-end px-8 shadow-sm" />
+      <div className="w-full h-24 rounded-xl mb-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B] flex items-end px-8 shadow-sm" />
 
       {/* Test Results Grid */}
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch w-full">
