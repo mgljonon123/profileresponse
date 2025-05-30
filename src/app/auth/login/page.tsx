@@ -82,7 +82,7 @@ const Login: React.FC = () => {
               className="w-full mb-4 px-4 py-2 border rounded-lg bg-gray-100"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••••••••••"
+              placeholder="john@example.com"
               required
             />
             <div className="flex items-center mb-6">

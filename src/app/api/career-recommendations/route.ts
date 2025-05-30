@@ -21,12 +21,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const prompt = `Based on the following test results, provide 5 specific career recommendations that would be a good fit. For each recommendation, include:
+    const prompt = `Based on the following test results, provide 5 specific career recommendations that would be a good fit for the **Mongolian job market**. For each recommendation, include:
 1. The career title
 2. A brief explanation of why it's a good fit based on the test results
 3. Required skills and qualifications
-4. Potential salary range
-5. Growth opportunities
+4. Potential salary range **in Mongolian Tugrik (MNT)**
+5. Growth opportunities **within Mongolia**
+6. **An accuracy score (as a percentage, e.g., 70%) indicating how good of a fit this career is based on the provided test results.**
 
 Test Results:
 - MBTI Type: ${mbti.E_I.E > mbti.E_I.I ? "E" : "I"}${
@@ -52,12 +53,12 @@ Please provide the recommendations in Mongolian language.`;
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          Authorization: `Bearer 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`,
           "HTTP-Referer": process.env.YOUR_SITE_URL || "http://localhost:3000",
           "X-Title": "Career Guidance Chat",
         },
         body: JSON.stringify({
-          model: "deepseek/deepseek-chat:free",
+          model: "meta-llama/llama-4-maverick:free",
           messages: [
             {
               role: "system",
@@ -76,6 +77,12 @@ Please provide the recommendations in Mongolian language.`;
     );
 
     if (!response.ok) {
+      if (response.status === 429) {
+        return NextResponse.json(
+          { error: "Too many requests. Please try again in a few moments." },
+          { status: 429 }
+        );
+      }
       throw new Error(`OpenRouter API error: ${response.status}`);
     }
 

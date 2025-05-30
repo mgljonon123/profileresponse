@@ -108,7 +108,6 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
                     strokeLinejoin="round"
                   />
                   <path
-                    
                     stroke="#fff"
                     strokeWidth="2"
                     strokeLinecap="round"
@@ -197,7 +196,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
         {/* DESKTOP: Vertical timeline with labels */}
         <div className="hidden md:flex flex-col w-full relative">
           {/* Vertical progress bar */}
-          <div className="absolute left-7.5 top-4 w-1 h-[calc(100%-40px)] bg-gray-200 rounded-full z-0 overflow-hidden">
+          <div className="absolute left-7.5 top-10 w-1 h-[calc(100%-40px)] bg-gray-200 rounded-full z-0 overflow-hidden">
             <div
               className="bg-[#B04B2F] rounded-full absolute top-0 left-0 w-full transition-all duration-300"
               style={{ height: `${progressPercent}%` }}

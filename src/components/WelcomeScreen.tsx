@@ -17,12 +17,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
       id="section4"
       className="h-screen bg-white flex flex-col items-center justify-center px-6 md:px-32 relative"
     >
-      <div
-        className="absolute top-10 left-10 w-10 h-10 border-2 border-black rounded-full flex items-center justify-center text-2xl font-semibold text-black cursor-pointer hover:bg-black hover:text-white transition"
-        onClick={scrollToTop}
-      >
-        Λ
-      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full max-w-xs sm:max-w-2xl md:max-w-6xl">
         {/* Free */}
         <div className="bg-[#1A1A1A] text-white flex flex-col items-center w-full max-w-xs sm:max-w-sm md:max-w-xs p-3 sm:p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-lg cursor-pointer transition-all duration-300 hover:scale-105 hover:bg-[#2A2A2A]">

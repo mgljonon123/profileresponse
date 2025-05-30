@@ -2,10 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Menu from "./components/Menu";
-import { FaBars } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import "./styles/buttons.css";
 import RiveRobot from "./components/RiverRobot";
 
@@ -126,28 +124,26 @@ export default function Home() {
                   мэргэжлийн замыг тодорхойлж, хүсэл мөрөөдлөө биелүүлэхэд
                   туслан.
                 </p>
+                <button
+                  className="learn-more mt-8 sm:mt-10 lg:mt-12 block lg:hidden"
+                  onClick={() => router.push("/auth/login")}
+                >
+                  <span className="circle" aria-hidden="true">
+                    <span className="icon arrow"></span>
+                  </span>
+                  <span className="button-text text-sm sm:text-base">
+                    Хариултаа олох
+                  </span>
+                </button>
               </div>
             </div>
 
             {/* Robot Container */}
-            <div className="flex justify-center items-center w-full order-2 lg:order-2">
-              <div className="relative w-full aspect-square ">
-                <RiveRobot src="/robot_bouncing.riv" />
+            <div className="flex justify-end items-center w-full order-2 lg:order-2 relative">
+              <div className="hidden lg:block absolute right-[-100px] top-[20%] transform -translate-y-1/2 w-[400px] h-[400px]">
+                <RiveRobot />
               </div>
             </div>
-
-            {/* Button - Visible only on mobile, aligned center */}
-            <button
-              className="learn-more mt-6 sm:mt-8 lg:mt-10 block lg:hidden mx-auto order-3"
-              onClick={() => router.push("/auth/login")}
-            >
-              <span className="circle" aria-hidden="true">
-                <span className="icon arrow"></span>
-              </span>
-              <span className="button-text text-sm sm:text-base">
-                Хариултаа олох
-              </span>
-            </button>
           </div>
         </section>
 

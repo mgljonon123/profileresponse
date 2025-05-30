@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import html2canvas from "html2canvas-pro";
+import jsPDF from "jspdf";
 
 type MBTIScores = {
   E_I: { E: number; I: number };
@@ -205,9 +207,39 @@ const ResultPage = () => {
     };
   };
 
+  const downloadPdf = () => {
+    const input = document.getElementById("test-results-section");
+    if (input) {
+      html2canvas(input, { scale: 2 }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF();
+        const imgWidth = 210;
+        const pageHeight = 297;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        pdf.save("test-results.pdf");
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center py-12 px-2 md:px-8">
-      <div className="w-full max-w-5xl flex flex-col gap-8">
+      <div
+        id="test-results-section"
+        className="w-full max-w-5xl flex flex-col gap-8"
+      >
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4 tracking-tight">
           Таны тестийн дүн
         </h1>
@@ -569,6 +601,12 @@ const ResultPage = () => {
             className="px-6 py-3 bg-white text-[#B04B2F] border border-[#A29B87] rounded-xl hover:bg-gray-100 transition-colors font-semibold"
           >
             Дахин тест өгөх
+          </button>
+          <button
+            onClick={downloadPdf}
+            className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold"
+          >
+            Татах PDF
           </button>
         </div>
       </div>

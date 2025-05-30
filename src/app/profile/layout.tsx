@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const icons = [
@@ -76,7 +76,15 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
+
+  const handleSignOut = () => {
+    // Clear any stored user data
+    localStorage.removeItem("user");
+    // Redirect to home page
+    router.push("/");
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -96,7 +104,7 @@ export default function ProfileLayout({
       </main>
 
       {/* Sidebar - Desktop */}
-      <aside className="hidden sm:flex fixed top-0 left-0 h-screen w-16 md:w-20 lg:w-24 bg-white border-r flex-col items-center justify-center py-4 sm:py-6 md:py-8 shadow-sm z-20">
+      <aside className="hidden sm:flex fixed top-0 left-0 h-screen w-16 md:w-20 lg:w-24 bg-white border-r flex-col items-center justify-between py-4 sm:py-6 md:py-8 shadow-sm z-20">
         <div className="flex flex-col items-center justify-center flex-1 gap-4 sm:gap-6 md:gap-8">
           {icons.map((item, idx) => {
             const isActive = pathname === item.href;
@@ -115,6 +123,26 @@ export default function ProfileLayout({
             );
           })}
         </div>
+        {/* Sign Out Button - Desktop */}
+        <button
+          onClick={handleSignOut}
+          className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl mb-4 transition text-[#B0B0B0] hover:text-red-500 hover:bg-red-50"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-10 h-10"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+            />
+          </svg>
+        </button>
       </aside>
 
       {/* Bottom Navigation - Mobile */}
@@ -135,6 +163,26 @@ export default function ProfileLayout({
             </Link>
           );
         })}
+        {/* Sign Out Button - Mobile */}
+        <button
+          onClick={handleSignOut}
+          className="flex items-center justify-center w-12 h-12 rounded-xl transition text-[#B0B0B0] hover:text-red-500 hover:bg-red-50"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-10 h-10"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+            />
+          </svg>
+        </button>
       </nav>
     </div>
   );
