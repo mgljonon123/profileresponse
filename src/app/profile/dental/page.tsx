@@ -50,7 +50,7 @@ export default function RoadmapPage() {
         method: "POST",
         headers: {
           Authorization:
-            "Bearer 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",
+            "Bearer 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",
           "HTTP-Referer": "<YOUR_SITE_URL>", // өөрийн сайт URL-ээ оруулна уу
           "X-Title": "<YOUR_SITE_NAME>", // сайт нэрээ оруулна уу
           "Content-Type": "application/json",

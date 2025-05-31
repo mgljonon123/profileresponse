@@ -53,17 +53,17 @@ Please provide the recommendations in Mongolian language.`;
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "HTTP-Referer": process.env.YOUR_SITE_URL || "http://localhost:3000",
           "X-Title": "Career Guidance Chat",
         },
         body: JSON.stringify({
-          model: "meta-llama/llama-4-maverick:free",
+          model: "mistralai/mistral-7b-instruct:free",
           messages: [
             {
               role: "system",
               content:
-                "You are a career guidance expert who provides detailed and personalized career recommendations based on personality test results.",
+                "You are a career guidance expert who provides detailed and personalized career recommendations based on personality test results. You MUST respond in Mongolian language only.",
             },
             {
               role: "user",
